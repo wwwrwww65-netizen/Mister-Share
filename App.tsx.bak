@@ -1,0 +1,35 @@
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { StatusBar } from 'react-native';
+import Home from './src/screens/Home';
+import FileBrowser from './src/screens/FileBrowser';
+import Connect from './src/screens/Connect';
+import Transfer from './src/screens/Transfer';
+import Onboarding from './src/screens/Onboarding';
+import { COLORS } from './src/theme';
+
+const Stack = createStackNavigator();
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <StatusBar barStyle="light-content" backgroundColor={COLORS.background} />
+      <Stack.Navigator
+        initialRouteName="Onboarding"
+        screenOptions={{
+          headerShown: false,
+          cardStyle: { backgroundColor: COLORS.background }
+        }}
+      >
+        <Stack.Screen name="Onboarding" component={Onboarding} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="FileBrowser" component={FileBrowser} />
+        <Stack.Screen name="Connect" component={Connect} />
+        <Stack.Screen name="Transfer" component={Transfer} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;

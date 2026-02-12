@@ -1,0 +1,2236 @@
+﻿To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:shared:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:shared:compileJava NO-SOURCE
+> Task :gradle-plugin:shared:processResources NO-SOURCE
+> Task :gradle-plugin:shared:classes UP-TO-DATE
+> Task :gradle-plugin:shared:jar UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:compileJava NO-SOURCE
+> Task :gradle-plugin:settings-plugin:pluginDescriptors UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:processResources UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:classes UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:jar UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:react-native-gradle-plugin:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:compileJava NO-SOURCE
+> Task :gradle-plugin:react-native-gradle-plugin:pluginDescriptors UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:processResources UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:classes UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:jar UP-TO-DATE
+
+> Configure project :app
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven2' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'Google' was added by plugin 'com.facebook.react'
+Build was configured to prefer settings repositories over project repositories but repository 'maven3' was added by plugin 'com.facebook.react'
+
+> Configure project :react-native-aes-crypto
+Build was configured to prefer settings repositories over project repositories but repository 'MavenLocal' was added by build file '..\node_modules\react-native-aes-crypto\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'maven4' was added by build file '..\node_modules\react-native-aes-crypto\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'maven5' was added by build file '..\node_modules\react-native-aes-crypto\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-aes-crypto\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'BintrayJCenter' was added by build file '..\node_modules\react-native-aes-crypto\android\build.gradle'
+
+> Configure project :react-native-async-storage_async-storage
+Build was configured to prefer settings repositories over project repositories but repository 'maven4' was added by build file '..\node_modules\@react-native-async-storage\async-storage\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\@react-native-async-storage\async-storage\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\@react-native-async-storage\async-storage\android\build.gradle'
+
+> Configure project :react-native-ble-plx
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-ble-plx\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-ble-plx\android\build.gradle'
+
+> Configure project :react-native-blob-util
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-blob-util\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenLocal' was added by build file '..\node_modules\react-native-blob-util\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'maven4' was added by build file '..\node_modules\react-native-blob-util\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'maven5' was added by build file '..\node_modules\react-native-blob-util\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-blob-util\android\build.gradle'
+
+> Configure project :react-native-device-info
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-device-info\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-device-info\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'maven4' was added by build file '..\node_modules\react-native-device-info\android\build.gradle'
+
+> Configure project :react-native-gesture-handler
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-gesture-handler\android\build.gradle'
+
+> Configure project :react-native-launcher-kit
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-launcher-kit\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-launcher-kit\android\build.gradle'
+
+> Configure project :react-native-linear-gradient
+Build was configured to prefer settings repositories over project repositories but repository 'MavenLocal' was added by build file '..\node_modules\react-native-linear-gradient\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-linear-gradient\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'maven4' was added by build file '..\node_modules\react-native-linear-gradient\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'maven5' was added by build file '..\node_modules\react-native-linear-gradient\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-linear-gradient\android\build.gradle'
+
+> Configure project :react-native-localize
+Build was configured to prefer settings repositories over project repositories but repository 'maven4' was added by build file '..\node_modules\react-native-localize\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-localize\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-localize\android\build.gradle'
+
+> Configure project :react-native-pager-view
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-pager-view\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-pager-view\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'React Native sources' was added by build file '..\node_modules\react-native-pager-view\android\build.gradle'
+
+> Configure project :react-native-reanimated
+Android gradle plugin: 8.8.0
+Gradle: 8.11.1
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-reanimated\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenLocal' was added by build file '..\node_modules\react-native-reanimated\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'maven4' was added by build file '..\node_modules\react-native-reanimated\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'maven5' was added by build file '..\node_modules\react-native-reanimated\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-reanimated\android\build.gradle'
+
+> Configure project :react-native-restart
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-restart\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-restart\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'React Native sources' was added by build file '..\node_modules\react-native-restart\android\build.gradle'
+
+> Configure project :react-native-safe-area-context
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-safe-area-context\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'maven4' was added by build file '..\node_modules\react-native-safe-area-context\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-safe-area-context\android\build.gradle'
+
+> Configure project :react-native-screens
+Build was configured to prefer settings repositories over project repositories but repository 'maven4' was added by build file '..\node_modules\react-native-screens\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-screens\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenLocal' was added by build file '..\node_modules\react-native-screens\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-screens\android\build.gradle'
+
+> Configure project :react-native-svg
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-svg\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenLocal' was added by build file '..\node_modules\react-native-svg\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-svg\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'maven4' was added by build file '..\node_modules\react-native-svg\android\build.gradle'
+
+> Configure project :react-native-vector-icons
+Build was configured to prefer settings repositories over project repositories but repository 'maven4' was added by build file '..\node_modules\react-native-vector-icons\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-vector-icons\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-vector-icons\android\build.gradle'
+
+> Configure project :react-native-vision-camera
+[VisionCamera] Thank you for using VisionCamera ??
+[VisionCamera] If you enjoy using VisionCamera, please consider sponsoring this project: https://github.com/sponsors/mrousavy
+[VisionCamera] node_modules found at I:\MisterShare\node_modules
+[VisionCamera] VisionCamera_enableFrameProcessors is set to false!
+[VisionCamera] react-native-worklets-core found, Frame Processors are disabled!
+[VisionCamera] VisionCamera_enableCodeScanner is set to false!
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-vision-camera\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-vision-camera\android\build.gradle'
+
+> Configure project :react-native-wifi-p2p
+Build was configured to prefer settings repositories over project repositories but repository 'MavenLocal' was added by build file '..\node_modules\react-native-wifi-p2p\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'MavenRepo2' was added by build file '..\node_modules\react-native-wifi-p2p\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'maven4' was added by build file '..\node_modules\react-native-wifi-p2p\android\build.gradle'
+Build was configured to prefer settings repositories over project repositories but repository 'Google2' was added by build file '..\node_modules\react-native-wifi-p2p\android\build.gradle'
+
+> Task :app:buildKotlinToolingMetadata UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:generateAutolinkingPackageList UP-TO-DATE
+> Task :app:generateCodegenSchemaFromJavaScript SKIPPED
+> Task :app:generateCodegenArtifactsFromSchema SKIPPED
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-aes-crypto:preBuild UP-TO-DATE
+> Task :react-native-aes-crypto:preReleaseBuild UP-TO-DATE
+> Task :react-native-aes-crypto:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-async-storage_async-storage:preBuild UP-TO-DATE
+> Task :react-native-async-storage_async-storage:preReleaseBuild UP-TO-DATE
+> Task :react-native-async-storage_async-storage:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-ble-plx:preBuild UP-TO-DATE
+> Task :react-native-ble-plx:preReleaseBuild UP-TO-DATE
+> Task :react-native-ble-plx:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-blob-util:preBuild UP-TO-DATE
+> Task :react-native-blob-util:preReleaseBuild UP-TO-DATE
+> Task :react-native-blob-util:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-device-info:preBuild UP-TO-DATE
+> Task :react-native-device-info:preReleaseBuild UP-TO-DATE
+> Task :react-native-device-info:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-fs:preBuild UP-TO-DATE
+> Task :react-native-fs:preReleaseBuild UP-TO-DATE
+> Task :react-native-fs:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-gesture-handler:preBuild UP-TO-DATE
+> Task :react-native-gesture-handler:preReleaseBuild UP-TO-DATE
+> Task :react-native-gesture-handler:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-launcher-kit:preBuild UP-TO-DATE
+> Task :react-native-launcher-kit:preReleaseBuild UP-TO-DATE
+> Task :react-native-launcher-kit:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-linear-gradient:preBuild UP-TO-DATE
+> Task :react-native-linear-gradient:preReleaseBuild UP-TO-DATE
+> Task :react-native-linear-gradient:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-localize:preBuild UP-TO-DATE
+> Task :react-native-localize:preReleaseBuild UP-TO-DATE
+> Task :react-native-localize:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-pager-view:preBuild UP-TO-DATE
+> Task :react-native-pager-view:preReleaseBuild UP-TO-DATE
+> Task :react-native-pager-view:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-randombytes:preBuild UP-TO-DATE
+> Task :react-native-randombytes:preReleaseBuild UP-TO-DATE
+> Task :react-native-randombytes:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-reanimated:assertLatestReactNativeWithNewArchitectureTask SKIPPED
+> Task :react-native-reanimated:assertMinimalReactNativeVersionTask SKIPPED
+> Task :react-native-reanimated:prepareReanimatedHeadersForPrefabs UP-TO-DATE
+> Task :react-native-reanimated:prepareWorkletsHeadersForPrefabs UP-TO-DATE
+> Task :react-native-reanimated:preBuild UP-TO-DATE
+> Task :react-native-reanimated:preReleaseBuild UP-TO-DATE
+> Task :react-native-reanimated:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-restart:preBuild UP-TO-DATE
+> Task :react-native-restart:preReleaseBuild UP-TO-DATE
+> Task :react-native-restart:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-safe-area-context:preBuild UP-TO-DATE
+> Task :react-native-safe-area-context:preReleaseBuild UP-TO-DATE
+> Task :react-native-safe-area-context:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-screens:preBuild UP-TO-DATE
+> Task :react-native-screens:preReleaseBuild UP-TO-DATE
+> Task :react-native-screens:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-svg:preBuild UP-TO-DATE
+> Task :react-native-svg:preReleaseBuild UP-TO-DATE
+> Task :react-native-svg:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-tcp-socket:preBuild UP-TO-DATE
+> Task :react-native-tcp-socket:preReleaseBuild UP-TO-DATE
+> Task :react-native-tcp-socket:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-vector-icons:preBuild UP-TO-DATE
+> Task :react-native-vector-icons:preReleaseBuild UP-TO-DATE
+> Task :react-native-vector-icons:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-vision-camera:prepareHeaders UP-TO-DATE
+> Task :react-native-vision-camera:preBuild UP-TO-DATE
+> Task :react-native-vision-camera:preReleaseBuild UP-TO-DATE
+> Task :react-native-vision-camera:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-wifi-p2p:preBuild UP-TO-DATE
+> Task :react-native-wifi-p2p:preReleaseBuild UP-TO-DATE
+> Task :react-native-wifi-p2p:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-worklets-core:prepareHeaders UP-TO-DATE
+> Task :react-native-worklets-core:preBuild UP-TO-DATE
+> Task :react-native-worklets-core:preReleaseBuild UP-TO-DATE
+> Task :react-native-worklets-core:writeReleaseAarMetadata UP-TO-DATE
+> Task :app:checkReleaseAarMetadata UP-TO-DATE
+> Task :app:createBundleReleaseJsAndAssets
+ WARN  the transform cache was reset.
+                Welcome to Metro v0.81.5
+              Fast - Scalable - Integrated
+
+
+Writing bundle output to: android\app\build\generated\assets\createBundleReleaseJsAndAssets\index.android.bundle
+Writing sourcemap output to: android\app\build\intermediates\sourcemaps\react\release\index.android.bundle.packager.map
+Done writing bundle output
+Done writing sourcemap output
+Copying 19 asset files
+Done copying assets
+.\gradlew : android\app\build\generate
+d\assets\createBundleReleaseJsAndAsset
+s\index.android.bundle:2186:23: 
+warning: the variable 
+"DebuggerInternal" was not declared 
+in function "__shouldPauseOnThrow"
+At line:1 char:28
++ ... re\android; .\gradlew 
+assembleRelease --no-daemon 
+--stacktrace 2>&1 | ...
++                 ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpec 
+   ified: (android\app\bui...ldPause  
+  OnThrow":String) [], RemoteExcept   
+ ion
+    + FullyQualifiedErrorId : NativeC 
+   ommandError
+ 
+        return typeof 
+DebuggerInternal !== 'undefined' && 
+DebuggerInternal.sh...
+                      ^~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:4705:31: warning: the 
+variable "nativeFabricUIManager" was 
+not declared in anonymous function " 
+193#"
+  var _nativeFabricUIManage = 
+nativeFabricUIManager,
+                              
+^~~~~~~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:4746:51: warning: the 
+variable "RN$enableMicrotasksInReact" 
+was not declared in anonymous 
+function " 193#"
+... "undefined" !== typeof 
+RN$enableMicrotasksInReact && 
+!!RN$enableMicrotask...
+                           
+^~~~~~~~~~~~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:4747:47: warning: the 
+variable "queueMicrotask" was not 
+declared in anonymous function " 193#"
+...otask = "function" === typeof 
+queueMicrotask ? queueMicrotask : 
+scheduleTi...
+                                 
+^~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:9168:30: warning: the 
+variable 
+"__REACT_DEVTOOLS_GLOBAL_HOOK__" was 
+not declared in anonymous function " 
+193#"
+  if ("undefined" !== typeof 
+__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+                             
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:11110:5: warning: the 
+variable "setImmediate" was not 
+declared in function "handleResolved"
+    setImmediate(function () {
+    ^~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:14860:12: warning: the 
+variable "fetch" was not declared in 
+anonymous function " 445#"
+    fetch: fetch,
+           ^~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:14861:14: warning: the 
+variable "Headers" was not declared 
+in anonymous function " 445#"
+    Headers: Headers,
+             ^~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:14862:14: warning: the 
+variable "Request" was not declared 
+in anonymous function " 445#"
+    Request: Request,
+             ^~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:14863:15: warning: the 
+variable "Response" was not declared 
+in anonymous function " 445#"
+    Response: Response
+              ^~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:15020:24: warning: the 
+variable "FileReader" was not 
+declared in function 
+"readBlobAsArrayBuffer"
+      var reader = new FileReader();
+                       ^~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:15071:36: warning: the 
+variable "Blob" was not declared in 
+anonymous function " 456#"
+        } else if (support.blob && 
+Blob.prototype.isPrototypeOf(body)) {
+                                   
+^~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:15073:40: warning: the 
+variable "FormData" was not declared 
+in anonymous function " 456#"
+        } else if (support.formData 
+&& FormData.prototype.isPrototypeOf(bo
+dy)) {
+                                      
+ ^~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:15075:44: warning: the 
+variable "URLSearchParams" was not 
+declared in anonymous function " 456#"
+...e if (support.searchParams && URLSe
+archParams.prototype.isPrototypeOf(bod
+y...
+                                 
+^~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:15194:26: warning: the 
+variable "AbortController" was not 
+declared in anonymous function " 462#"
+          var ctrl = new 
+AbortController();
+                         
+^~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:15328:23: warning: the 
+variable "XMLHttpRequest" was not 
+declared in anonymous function " 466#"
+        var xhr = new 
+XMLHttpRequest();
+                      ^~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:14873:71: warning: the 
+variable "self" was not declared in 
+anonymous function " 448#"
+...undefined' && globalThis || typeof 
+self !== 'undefined' && self ||
+                                      
+^~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:22491:26: warning: the 
+variable "navigator" was not declared 
+in anonymous function " 718#"
+  "undefined" !== typeof navigator && 
+undefined !== navigator.scheduling && 
+u...
+                         ^~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:22601:37: warning: the 
+variable "MessageChannel" was not 
+declared in anonymous function " 718#"
+  };else if ("undefined" !== typeof 
+MessageChannel) {
+                                    
+^~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:22616:34: warning: the 
+variable "nativeRuntimeScheduler" was 
+not declared in anonymous function " 
+718#"
+... = "undefined" !== typeof 
+nativeRuntimeScheduler ? 
+nativeRuntimeScheduler....
+                             
+^~~~~~~~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:50585:12: warning: the 
+variable "_WORKLET" was not declared 
+in function "_f 15#"
+      if (!_WORKLET) {
+           ^~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:51674:46: warning: the 
+variable "__reanimatedLoggerConfig" 
+was not declared in function "_f 34#"
+      registerLoggerConfig(Object.assi
+gn({}, __reanimatedLoggerConfig, {
+                                      
+       ^~~~~~~~~~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:52595:131: warning: the 
+variable "location" was not declared 
+in function "registerSensor"
+...E(_dependencyMap[4]).isWeb)() && 
+location.protocol !== 'https:' ? ' 
+Make s...
+                                    
+^~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:53053:26: warning: Direct 
+call to eval(), but lexical scope is 
+not supported.
+            workletFun = eval('(' + 
+initData.code + '\n)');
+                         
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:53076:112: warning: the 
+variable "_toString" was not declared 
+in function "_f 49#"
+...recognized by value unpacker: 
+"${_toString(objectToUnpack)}".`);
+                                    
+^~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:68561:27: warning: the 
+variable "HTMLElement" was not 
+declared in function 
+"findDescendantWithExitingAnimation"
+    if (!(node instanceof 
+HTMLElement)) {
+                          ^~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:68588:24: warning: the 
+variable "MutationObserver" was not 
+declared in function 
+"addHTMLMutationObserver"
+    var observer = new 
+MutationObserver(function 
+(mutationsList) {
+                       
+^~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:70783:41: warning: the 
+variable "getComputedStyle" was not 
+declared in function 
+"fixElementPosition"
+...entBorderTopValue = parseInt(getCom
+putedStyle(parent).borderTopWidth);
+                                
+^~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:71119:26: warning: the 
+variable "structuredClone" was not 
+declared in function 
+"createAnimationWithInitialValues"
+    var animationStyle = structuredClo
+ne(_$$_REQUIRE(_dependencyMap[6]).Anim
+a...
+                         
+^~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:75099:26: warning: the 
+variable "_getAnimationTimestamp" was 
+not declared in function "_f 361#"
+      var elapsedTime = 
+(_getAnimationTimestamp() - 
+startingTimestamp) / 1000;
+                         
+^~~~~~~~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:75511:5: warning: the 
+variable "jest" was not declared in 
+function "beforeTest"
+    jest.useFakeTimers();
+    ^~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:81069:29: warning: the 
+variable "Intl" was not declared in 
+function "formatLanguageCode"
+            formattedCode = 
+Intl.getCanonicalLocales(code)[0];
+                            ^~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:104228:9: warning: the 
+variable "REACT_NAVIGATION_DEVTOOLS" 
+was not declared in anonymous 
+function " 3886#"
+        REACT_NAVIGATION_DEVTOOLS.set(
+refContainer.current, {
+        ^~~~~~~~~~~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:119641:16: warning: the 
+variable "SharedArrayBuffer" was not 
+declared in function "from 3#"
+    if (typeof SharedArrayBuffer !== 
+'undefined' && (isInstance(value, 
+Shared...
+               ^~~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:122873:27: warning: the 
+variable "Buffer" was not declared in 
+function "B 2#"
+      return r instanceof Buffer ? f 
+= r : f = Buffer.from(r.buffer, 
+r.byteOf...
+                          ^~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:122945:13: warning: the 
+variable "URL" was not declared in 
+function "U 1#"
+        e = URL.createObjectURL(f);
+            ^~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:152493:26: warning: the 
+variable "ResizeObserver" was not 
+declared in anonymous function " 
+5447#"
+      var observer = new 
+ResizeObserver(function (entries) {
+                         
+^~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:153496:16: warning: the 
+variable "requestIdleCallback" was 
+not declared in anonymous function " 
+5482#"
+      var id = 
+requestIdleCallback(function () {
+               ^~~~~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:153500:16: warning: the 
+variable "cancelIdleCallback" was not 
+declared in anonymous function " 
+5484#"
+        return cancelIdleCallback(id);
+               ^~~~~~~~~~~~~~~~~~
+android\app\build\generated\assets\cre
+ateBundleReleaseJsAndAssets\index.andr
+oid.bundle:162288:9: warning: the 
+variable "cancelAnimationFrame" was 
+not declared in anonymous function " 
+5808#"
+        cancelAnimationFrame(animation
+HandleRef.current);
+        ^~~~~~~~~~~~~~~~~~~~
+
+> Task :app:generateReleaseResValues UP-TO-DATE
+> Task :react-native-aes-crypto:generateReleaseResValues UP-TO-DATE
+> Task :react-native-aes-crypto:generateReleaseResources UP-TO-DATE
+> Task :react-native-aes-crypto:packageReleaseResources UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateReleaseResValues UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateReleaseResources UP-TO-DATE
+> Task :react-native-async-storage_async-storage:packageReleaseResources UP-TO-DATE
+> Task :react-native-ble-plx:generateReleaseResValues UP-TO-DATE
+> Task :react-native-ble-plx:generateReleaseResources UP-TO-DATE
+> Task :react-native-ble-plx:packageReleaseResources UP-TO-DATE
+> Task :react-native-blob-util:generateReleaseResValues UP-TO-DATE
+> Task :react-native-blob-util:generateReleaseResources UP-TO-DATE
+> Task :react-native-blob-util:packageReleaseResources UP-TO-DATE
+> Task :react-native-device-info:generateReleaseResValues UP-TO-DATE
+> Task :react-native-device-info:generateReleaseResources UP-TO-DATE
+> Task :react-native-device-info:packageReleaseResources UP-TO-DATE
+> Task :react-native-fs:generateReleaseResValues UP-TO-DATE
+> Task :react-native-fs:generateReleaseResources UP-TO-DATE
+> Task :react-native-fs:packageReleaseResources UP-TO-DATE
+> Task :react-native-gesture-handler:generateReleaseResValues UP-TO-DATE
+> Task :react-native-gesture-handler:generateReleaseResources UP-TO-DATE
+> Task :react-native-gesture-handler:packageReleaseResources UP-TO-DATE
+> Task :react-native-launcher-kit:generateReleaseResValues UP-TO-DATE
+> Task :react-native-launcher-kit:generateReleaseResources UP-TO-DATE
+> Task :react-native-launcher-kit:packageReleaseResources UP-TO-DATE
+> Task :react-native-linear-gradient:generateReleaseResValues UP-TO-DATE
+> Task :react-native-linear-gradient:generateReleaseResources UP-TO-DATE
+> Task :react-native-linear-gradient:packageReleaseResources UP-TO-DATE
+> Task :react-native-localize:generateReleaseResValues UP-TO-DATE
+> Task :react-native-localize:generateReleaseResources UP-TO-DATE
+> Task :react-native-localize:packageReleaseResources UP-TO-DATE
+> Task :react-native-pager-view:generateReleaseResValues UP-TO-DATE
+> Task :react-native-pager-view:generateReleaseResources UP-TO-DATE
+> Task :react-native-pager-view:packageReleaseResources UP-TO-DATE
+> Task :react-native-randombytes:generateReleaseResValues UP-TO-DATE
+> Task :react-native-randombytes:generateReleaseResources UP-TO-DATE
+> Task :react-native-randombytes:packageReleaseResources UP-TO-DATE
+> Task :react-native-reanimated:generateReleaseResValues UP-TO-DATE
+> Task :react-native-reanimated:generateReleaseResources UP-TO-DATE
+> Task :react-native-reanimated:packageReleaseResources UP-TO-DATE
+> Task :react-native-restart:generateReleaseResValues UP-TO-DATE
+> Task :react-native-restart:generateReleaseResources UP-TO-DATE
+> Task :react-native-restart:packageReleaseResources UP-TO-DATE
+> Task :react-native-safe-area-context:generateReleaseResValues UP-TO-DATE
+> Task :react-native-safe-area-context:generateReleaseResources UP-TO-DATE
+> Task :react-native-safe-area-context:packageReleaseResources UP-TO-DATE
+> Task :react-native-screens:generateReleaseResValues UP-TO-DATE
+> Task :react-native-screens:generateReleaseResources UP-TO-DATE
+> Task :react-native-screens:packageReleaseResources UP-TO-DATE
+> Task :react-native-svg:generateReleaseResValues UP-TO-DATE
+> Task :react-native-svg:generateReleaseResources UP-TO-DATE
+> Task :react-native-svg:packageReleaseResources UP-TO-DATE
+> Task :react-native-tcp-socket:generateReleaseResValues UP-TO-DATE
+> Task :react-native-tcp-socket:generateReleaseResources UP-TO-DATE
+> Task :react-native-tcp-socket:packageReleaseResources UP-TO-DATE
+> Task :react-native-vector-icons:generateReleaseResValues UP-TO-DATE
+> Task :react-native-vector-icons:generateReleaseResources UP-TO-DATE
+> Task :react-native-vector-icons:packageReleaseResources UP-TO-DATE
+> Task :react-native-vision-camera:generateReleaseResValues UP-TO-DATE
+> Task :react-native-vision-camera:generateReleaseResources UP-TO-DATE
+> Task :react-native-vision-camera:packageReleaseResources UP-TO-DATE
+> Task :react-native-wifi-p2p:generateReleaseResValues UP-TO-DATE
+> Task :react-native-wifi-p2p:generateReleaseResources UP-TO-DATE
+> Task :react-native-wifi-p2p:packageReleaseResources UP-TO-DATE
+> Task :react-native-worklets-core:generateReleaseResValues UP-TO-DATE
+> Task :react-native-worklets-core:generateReleaseResources UP-TO-DATE
+> Task :react-native-worklets-core:packageReleaseResources UP-TO-DATE
+> Task :app:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :app:generateReleaseResources UP-TO-DATE
+> Task :app:mergeReleaseResources UP-TO-DATE
+> Task :app:packageReleaseResources UP-TO-DATE
+> Task :app:parseReleaseLocalResources UP-TO-DATE
+> Task :app:createReleaseCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-aes-crypto:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-aes-crypto:processReleaseManifest UP-TO-DATE
+> Task :react-native-async-storage_async-storage:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:processReleaseManifest UP-TO-DATE
+> Task :react-native-ble-plx:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-ble-plx:processReleaseManifest UP-TO-DATE
+> Task :react-native-blob-util:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-blob-util:processReleaseManifest UP-TO-DATE
+> Task :react-native-device-info:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-device-info:processReleaseManifest UP-TO-DATE
+> Task :react-native-fs:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-fs:processReleaseManifest UP-TO-DATE
+> Task :react-native-gesture-handler:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-gesture-handler:processReleaseManifest UP-TO-DATE
+> Task :react-native-launcher-kit:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-launcher-kit:processReleaseManifest UP-TO-DATE
+> Task :react-native-linear-gradient:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-linear-gradient:processReleaseManifest UP-TO-DATE
+> Task :react-native-localize:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-localize:processReleaseManifest UP-TO-DATE
+> Task :react-native-pager-view:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-pager-view:processReleaseManifest UP-TO-DATE
+> Task :react-native-randombytes:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-randombytes:processReleaseManifest UP-TO-DATE
+> Task :react-native-reanimated:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-reanimated:processReleaseManifest UP-TO-DATE
+> Task :react-native-restart:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-restart:processReleaseManifest UP-TO-DATE
+> Task :react-native-safe-area-context:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-safe-area-context:processReleaseManifest UP-TO-DATE
+> Task :react-native-screens:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-screens:processReleaseManifest UP-TO-DATE
+> Task :react-native-svg:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-svg:processReleaseManifest UP-TO-DATE
+> Task :react-native-tcp-socket:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-tcp-socket:processReleaseManifest UP-TO-DATE
+> Task :react-native-vector-icons:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-vector-icons:processReleaseManifest UP-TO-DATE
+> Task :react-native-vision-camera:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-vision-camera:processReleaseManifest UP-TO-DATE
+> Task :react-native-wifi-p2p:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-wifi-p2p:processReleaseManifest UP-TO-DATE
+> Task :react-native-worklets-core:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-worklets-core:processReleaseManifest UP-TO-DATE
+> Task :app:processReleaseMainManifest UP-TO-DATE
+> Task :app:processReleaseManifest UP-TO-DATE
+> Task :app:processReleaseManifestForPackage UP-TO-DATE
+> Task :react-native-aes-crypto:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-aes-crypto:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-aes-crypto:generateReleaseRFile UP-TO-DATE
+> Task :react-native-async-storage_async-storage:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-async-storage_async-storage:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateReleaseRFile UP-TO-DATE
+> Task :react-native-ble-plx:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-ble-plx:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-ble-plx:generateReleaseRFile UP-TO-DATE
+> Task :react-native-blob-util:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-blob-util:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-blob-util:generateReleaseRFile UP-TO-DATE
+> Task :react-native-device-info:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-device-info:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-device-info:generateReleaseRFile UP-TO-DATE
+> Task :react-native-fs:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-fs:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-fs:generateReleaseRFile UP-TO-DATE
+> Task :react-native-gesture-handler:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-gesture-handler:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-gesture-handler:generateReleaseRFile UP-TO-DATE
+> Task :react-native-launcher-kit:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-launcher-kit:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-launcher-kit:generateReleaseRFile UP-TO-DATE
+> Task :react-native-linear-gradient:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-linear-gradient:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-linear-gradient:generateReleaseRFile UP-TO-DATE
+> Task :react-native-localize:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-localize:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-localize:generateReleaseRFile UP-TO-DATE
+> Task :react-native-pager-view:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-pager-view:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-pager-view:generateReleaseRFile UP-TO-DATE
+> Task :react-native-randombytes:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-randombytes:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-randombytes:generateReleaseRFile UP-TO-DATE
+> Task :react-native-reanimated:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-reanimated:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-reanimated:generateReleaseRFile UP-TO-DATE
+> Task :react-native-restart:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-restart:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-restart:generateReleaseRFile UP-TO-DATE
+> Task :react-native-safe-area-context:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-safe-area-context:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-safe-area-context:generateReleaseRFile UP-TO-DATE
+> Task :react-native-screens:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-screens:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-screens:generateReleaseRFile UP-TO-DATE
+> Task :react-native-svg:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-svg:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-svg:generateReleaseRFile UP-TO-DATE
+> Task :react-native-tcp-socket:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-tcp-socket:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-tcp-socket:generateReleaseRFile UP-TO-DATE
+> Task :react-native-vector-icons:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-vector-icons:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-vector-icons:generateReleaseRFile UP-TO-DATE
+> Task :react-native-vision-camera:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-vision-camera:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-vision-camera:generateReleaseRFile UP-TO-DATE
+> Task :react-native-wifi-p2p:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-wifi-p2p:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-wifi-p2p:generateReleaseRFile UP-TO-DATE
+> Task :react-native-worklets-core:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-worklets-core:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-worklets-core:generateReleaseRFile UP-TO-DATE
+> Task :app:processReleaseResources UP-TO-DATE
+> Task :react-native-aes-crypto:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-aes-crypto:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-aes-crypto:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-aes-crypto:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-async-storage_async-storage:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-async-storage_async-storage:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-ble-plx:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-ble-plx:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-ble-plx:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-ble-plx:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-blob-util:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-blob-util:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-blob-util:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-blob-util:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-device-info:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-device-info:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-device-info:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-device-info:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-fs:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-fs:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-fs:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-fs:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-gesture-handler:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-gesture-handler:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-reanimated:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-reanimated:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-reanimated:packageNdkLibs NO-SOURCE
+> Task :react-native-reanimated:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-reanimated:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-gesture-handler:compileReleaseKotlin UP-TO-DATE
+> Task :react-native-gesture-handler:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-gesture-handler:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-gesture-handler:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-launcher-kit:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-launcher-kit:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-launcher-kit:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-launcher-kit:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-linear-gradient:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-linear-gradient:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-linear-gradient:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-linear-gradient:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-localize:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-localize:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-localize:compileReleaseKotlin UP-TO-DATE
+> Task :react-native-localize:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-localize:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-localize:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-pager-view:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-pager-view:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-pager-view:compileReleaseKotlin UP-TO-DATE
+> Task :react-native-pager-view:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-pager-view:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-pager-view:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-randombytes:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-randombytes:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-randombytes:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-randombytes:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-restart:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-restart:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-restart:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-restart:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-safe-area-context:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-safe-area-context:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-safe-area-context:compileReleaseKotlin UP-TO-DATE
+> Task :react-native-safe-area-context:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-safe-area-context:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-safe-area-context:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-screens:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-screens:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-screens:compileReleaseKotlin UP-TO-DATE
+> Task :react-native-screens:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-screens:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-screens:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-svg:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-svg:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-svg:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-svg:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-tcp-socket:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-tcp-socket:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-tcp-socket:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-tcp-socket:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-vector-icons:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-vector-icons:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-vector-icons:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-vector-icons:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-vision-camera:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-vision-camera:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-vision-camera:compileReleaseKotlin UP-TO-DATE
+> Task :react-native-vision-camera:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-vision-camera:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-vision-camera:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-wifi-p2p:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-wifi-p2p:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-wifi-p2p:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-wifi-p2p:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-worklets-core:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-worklets-core:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-worklets-core:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-worklets-core:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :app:compileReleaseKotlin UP-TO-DATE
+> Task :app:javaPreCompileRelease UP-TO-DATE
+> Task :app:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :app:copyReactNativeVectorIconFonts UP-TO-DATE
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :react-native-aes-crypto:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-aes-crypto:processReleaseJavaRes NO-SOURCE
+> Task :react-native-aes-crypto:createFullJarRelease UP-TO-DATE
+> Task :react-native-aes-crypto:extractProguardFiles UP-TO-DATE
+> Task :react-native-aes-crypto:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-aes-crypto:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-async-storage_async-storage:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:processReleaseJavaRes NO-SOURCE
+> Task :react-native-async-storage_async-storage:createFullJarRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:extractProguardFiles UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-async-storage_async-storage:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-ble-plx:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-ble-plx:processReleaseJavaRes NO-SOURCE
+> Task :react-native-ble-plx:createFullJarRelease UP-TO-DATE
+> Task :react-native-ble-plx:extractProguardFiles UP-TO-DATE
+> Task :react-native-ble-plx:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-ble-plx:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-blob-util:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-blob-util:processReleaseJavaRes NO-SOURCE
+> Task :react-native-blob-util:createFullJarRelease UP-TO-DATE
+> Task :react-native-blob-util:extractProguardFiles UP-TO-DATE
+> Task :react-native-blob-util:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-blob-util:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-device-info:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-device-info:processReleaseJavaRes NO-SOURCE
+> Task :react-native-device-info:createFullJarRelease UP-TO-DATE
+> Task :react-native-device-info:extractProguardFiles UP-TO-DATE
+> Task :react-native-device-info:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-device-info:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-fs:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-fs:processReleaseJavaRes NO-SOURCE
+> Task :react-native-fs:createFullJarRelease UP-TO-DATE
+> Task :react-native-fs:extractProguardFiles UP-TO-DATE
+> Task :react-native-fs:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-fs:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-gesture-handler:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-gesture-handler:processReleaseJavaRes UP-TO-DATE
+> Task :react-native-gesture-handler:createFullJarRelease UP-TO-DATE
+> Task :react-native-gesture-handler:extractProguardFiles UP-TO-DATE
+> Task :react-native-reanimated:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-reanimated:processReleaseJavaRes NO-SOURCE
+> Task :react-native-reanimated:createFullJarRelease UP-TO-DATE
+> Task :react-native-reanimated:extractProguardFiles UP-TO-DATE
+> Task :react-native-reanimated:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-reanimated:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-gesture-handler:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-gesture-handler:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-launcher-kit:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-launcher-kit:processReleaseJavaRes NO-SOURCE
+> Task :react-native-launcher-kit:createFullJarRelease UP-TO-DATE
+> Task :react-native-launcher-kit:extractProguardFiles UP-TO-DATE
+> Task :react-native-launcher-kit:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-launcher-kit:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-linear-gradient:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-linear-gradient:processReleaseJavaRes NO-SOURCE
+> Task :react-native-linear-gradient:createFullJarRelease UP-TO-DATE
+> Task :react-native-linear-gradient:extractProguardFiles UP-TO-DATE
+> Task :react-native-linear-gradient:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-linear-gradient:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-localize:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-localize:processReleaseJavaRes UP-TO-DATE
+> Task :react-native-localize:createFullJarRelease UP-TO-DATE
+> Task :react-native-localize:extractProguardFiles UP-TO-DATE
+> Task :react-native-localize:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-localize:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-pager-view:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-pager-view:processReleaseJavaRes UP-TO-DATE
+> Task :react-native-pager-view:createFullJarRelease UP-TO-DATE
+> Task :react-native-pager-view:extractProguardFiles UP-TO-DATE
+> Task :react-native-pager-view:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-pager-view:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-randombytes:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-randombytes:processReleaseJavaRes NO-SOURCE
+> Task :react-native-randombytes:createFullJarRelease UP-TO-DATE
+> Task :react-native-randombytes:extractProguardFiles UP-TO-DATE
+> Task :react-native-randombytes:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-randombytes:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-restart:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-restart:processReleaseJavaRes NO-SOURCE
+> Task :react-native-restart:createFullJarRelease UP-TO-DATE
+> Task :react-native-restart:extractProguardFiles UP-TO-DATE
+> Task :react-native-restart:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-restart:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-safe-area-context:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-safe-area-context:processReleaseJavaRes UP-TO-DATE
+> Task :react-native-safe-area-context:createFullJarRelease UP-TO-DATE
+> Task :react-native-safe-area-context:extractProguardFiles UP-TO-DATE
+> Task :react-native-safe-area-context:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-safe-area-context:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-screens:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-screens:processReleaseJavaRes UP-TO-DATE
+> Task :react-native-screens:createFullJarRelease UP-TO-DATE
+> Task :react-native-screens:extractProguardFiles UP-TO-DATE
+> Task :react-native-screens:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-screens:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-svg:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-svg:processReleaseJavaRes NO-SOURCE
+> Task :react-native-svg:createFullJarRelease UP-TO-DATE
+> Task :react-native-svg:extractProguardFiles UP-TO-DATE
+> Task :react-native-svg:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-svg:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-tcp-socket:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-tcp-socket:processReleaseJavaRes NO-SOURCE
+> Task :react-native-tcp-socket:createFullJarRelease UP-TO-DATE
+> Task :react-native-tcp-socket:extractProguardFiles UP-TO-DATE
+> Task :react-native-tcp-socket:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-tcp-socket:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-vector-icons:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-vector-icons:processReleaseJavaRes NO-SOURCE
+> Task :react-native-vector-icons:createFullJarRelease UP-TO-DATE
+> Task :react-native-vector-icons:extractProguardFiles UP-TO-DATE
+> Task :react-native-vector-icons:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-vector-icons:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-vision-camera:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-vision-camera:processReleaseJavaRes UP-TO-DATE
+> Task :react-native-vision-camera:createFullJarRelease UP-TO-DATE
+> Task :react-native-vision-camera:extractProguardFiles UP-TO-DATE
+> Task :react-native-vision-camera:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-vision-camera:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-wifi-p2p:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-wifi-p2p:processReleaseJavaRes NO-SOURCE
+> Task :react-native-wifi-p2p:createFullJarRelease UP-TO-DATE
+> Task :react-native-wifi-p2p:extractProguardFiles UP-TO-DATE
+> Task :react-native-wifi-p2p:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-wifi-p2p:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-worklets-core:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-worklets-core:processReleaseJavaRes NO-SOURCE
+> Task :react-native-worklets-core:createFullJarRelease UP-TO-DATE
+> Task :react-native-worklets-core:extractProguardFiles UP-TO-DATE
+> Task :react-native-worklets-core:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-worklets-core:prepareLintJarForPublish UP-TO-DATE
+> Task :app:generateReleaseLintVitalReportModel UP-TO-DATE
+> Task :react-native-gesture-handler:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-gesture-handler:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-gesture-handler:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-gesture-handler:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-gesture-handler:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-gesture-handler:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-gesture-handler:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-gesture-handler:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-gesture-handler:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-gesture-handler:compileReleaseShaders NO-SOURCE
+> Task :react-native-gesture-handler:generateReleaseAssets UP-TO-DATE
+> Task :react-native-gesture-handler:packageReleaseAssets UP-TO-DATE
+> Task :react-native-gesture-handler:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-gesture-handler:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-gesture-handler:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-gesture-handler:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-localize:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-localize:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-localize:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-localize:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-localize:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-localize:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-localize:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-localize:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-localize:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-localize:compileReleaseShaders NO-SOURCE
+> Task :react-native-localize:generateReleaseAssets UP-TO-DATE
+> Task :react-native-localize:packageReleaseAssets UP-TO-DATE
+> Task :react-native-localize:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-localize:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-localize:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-localize:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-pager-view:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-pager-view:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-pager-view:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-pager-view:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-pager-view:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-pager-view:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-pager-view:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-pager-view:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-pager-view:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-pager-view:compileReleaseShaders NO-SOURCE
+> Task :react-native-pager-view:generateReleaseAssets UP-TO-DATE
+> Task :react-native-pager-view:packageReleaseAssets UP-TO-DATE
+> Task :react-native-pager-view:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-pager-view:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-pager-view:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-pager-view:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-safe-area-context:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-safe-area-context:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-safe-area-context:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-safe-area-context:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-safe-area-context:compileReleaseShaders NO-SOURCE
+> Task :react-native-safe-area-context:generateReleaseAssets UP-TO-DATE
+> Task :react-native-safe-area-context:packageReleaseAssets UP-TO-DATE
+> Task :react-native-safe-area-context:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-safe-area-context:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-safe-area-context:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-screens:configureCMakeRelWithDebInfo[arm64-v8a]
+> Task :react-native-screens:buildCMakeRelWithDebInfo[arm64-v8a]
+> Task :react-native-screens:configureCMakeRelWithDebInfo[armeabi-v7a]
+> Task :react-native-screens:buildCMakeRelWithDebInfo[armeabi-v7a]
+> Task :react-native-screens:configureCMakeRelWithDebInfo[x86]
+> Task :react-native-screens:buildCMakeRelWithDebInfo[x86]
+> Task :react-native-screens:configureCMakeRelWithDebInfo[x86_64]
+> Task :react-native-screens:buildCMakeRelWithDebInfo[x86_64]
+> Task :react-native-screens:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-screens:mergeReleaseNativeLibs UP-TO-DATE
+> Task :react-native-screens:stripReleaseDebugSymbols UP-TO-DATE
+> Task :react-native-screens:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-screens:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-screens:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-screens:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-screens:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-screens:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-screens:compileReleaseShaders NO-SOURCE
+> Task :react-native-screens:generateReleaseAssets UP-TO-DATE
+> Task :react-native-screens:packageReleaseAssets UP-TO-DATE
+> Task :react-native-screens:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-screens:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-screens:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-screens:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-vision-camera:configureCMakeRelWithDebInfo[arm64-v8a]
+> Task :react-native-vision-camera:buildCMakeRelWithDebInfo[arm64-v8a]
+> Task :react-native-vision-camera:configureCMakeRelWithDebInfo[armeabi-v7a]
+> Task :react-native-vision-camera:buildCMakeRelWithDebInfo[armeabi-v7a]
+> Task :react-native-vision-camera:configureCMakeRelWithDebInfo[x86]
+> Task :react-native-vision-camera:buildCMakeRelWithDebInfo[x86]
+> Task :react-native-vision-camera:configureCMakeRelWithDebInfo[x86_64]
+> Task :react-native-vision-camera:buildCMakeRelWithDebInfo[x86_64]
+> Task :react-native-vision-camera:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-vision-camera:mergeReleaseNativeLibs UP-TO-DATE
+> Task :react-native-vision-camera:stripReleaseDebugSymbols UP-TO-DATE
+> Task :react-native-vision-camera:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-vision-camera:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-vision-camera:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-vision-camera:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-vision-camera:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-vision-camera:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-vision-camera:compileReleaseShaders NO-SOURCE
+> Task :react-native-vision-camera:generateReleaseAssets UP-TO-DATE
+> Task :react-native-vision-camera:packageReleaseAssets UP-TO-DATE
+> Task :react-native-vision-camera:externalNativeBuildRelease
+> Task :react-native-vision-camera:generateJsonModelRelease
+> Task :react-native-vision-camera:prefabReleaseConfigurePackage UP-TO-DATE
+> Task :react-native-vision-camera:prefabReleasePackage UP-TO-DATE
+> Task :react-native-vision-camera:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-vision-camera:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-vision-camera:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-vision-camera:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-async-storage_async-storage:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-async-storage_async-storage:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-async-storage_async-storage:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-async-storage_async-storage:compileReleaseShaders NO-SOURCE
+> Task :react-native-async-storage_async-storage:generateReleaseAssets UP-TO-DATE
+> Task :react-native-async-storage_async-storage:packageReleaseAssets UP-TO-DATE
+> Task :react-native-async-storage_async-storage:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-async-storage_async-storage:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-async-storage_async-storage:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-aes-crypto:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-aes-crypto:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-aes-crypto:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-aes-crypto:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-aes-crypto:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-aes-crypto:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-aes-crypto:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-aes-crypto:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-aes-crypto:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-aes-crypto:compileReleaseShaders NO-SOURCE
+> Task :react-native-aes-crypto:generateReleaseAssets UP-TO-DATE
+> Task :react-native-aes-crypto:packageReleaseAssets UP-TO-DATE
+> Task :react-native-aes-crypto:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-aes-crypto:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-aes-crypto:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-aes-crypto:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-ble-plx:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-ble-plx:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-ble-plx:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-ble-plx:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-ble-plx:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-ble-plx:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-ble-plx:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-ble-plx:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-ble-plx:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-ble-plx:compileReleaseShaders NO-SOURCE
+> Task :react-native-ble-plx:generateReleaseAssets UP-TO-DATE
+> Task :react-native-ble-plx:packageReleaseAssets UP-TO-DATE
+> Task :react-native-ble-plx:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-ble-plx:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-ble-plx:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-ble-plx:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-blob-util:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-blob-util:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-blob-util:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-blob-util:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-blob-util:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-blob-util:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-blob-util:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-blob-util:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-blob-util:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-blob-util:compileReleaseShaders NO-SOURCE
+> Task :react-native-blob-util:generateReleaseAssets UP-TO-DATE
+> Task :react-native-blob-util:packageReleaseAssets UP-TO-DATE
+> Task :react-native-blob-util:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-blob-util:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-blob-util:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-blob-util:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-device-info:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-device-info:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-device-info:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-device-info:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-device-info:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-device-info:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-device-info:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-device-info:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-device-info:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-device-info:compileReleaseShaders NO-SOURCE
+> Task :react-native-device-info:generateReleaseAssets UP-TO-DATE
+> Task :react-native-device-info:packageReleaseAssets UP-TO-DATE
+> Task :react-native-device-info:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-device-info:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-device-info:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-device-info:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-fs:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-fs:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-fs:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-fs:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-fs:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-fs:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-fs:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-fs:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-fs:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-fs:compileReleaseShaders NO-SOURCE
+> Task :react-native-fs:generateReleaseAssets UP-TO-DATE
+> Task :react-native-fs:packageReleaseAssets UP-TO-DATE
+> Task :react-native-fs:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-fs:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-fs:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-fs:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-launcher-kit:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-launcher-kit:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-launcher-kit:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-launcher-kit:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-launcher-kit:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-launcher-kit:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-launcher-kit:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-launcher-kit:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-launcher-kit:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-launcher-kit:compileReleaseShaders NO-SOURCE
+> Task :react-native-launcher-kit:generateReleaseAssets UP-TO-DATE
+> Task :react-native-launcher-kit:packageReleaseAssets UP-TO-DATE
+> Task :react-native-launcher-kit:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-launcher-kit:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-launcher-kit:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-launcher-kit:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-linear-gradient:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-linear-gradient:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-linear-gradient:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-linear-gradient:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-linear-gradient:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-linear-gradient:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-linear-gradient:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-linear-gradient:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-linear-gradient:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-linear-gradient:compileReleaseShaders NO-SOURCE
+> Task :react-native-linear-gradient:generateReleaseAssets UP-TO-DATE
+> Task :react-native-linear-gradient:packageReleaseAssets UP-TO-DATE
+> Task :react-native-linear-gradient:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-linear-gradient:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-linear-gradient:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-linear-gradient:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-randombytes:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-randombytes:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-randombytes:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-randombytes:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-randombytes:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-randombytes:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-randombytes:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-randombytes:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-randombytes:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-randombytes:compileReleaseShaders NO-SOURCE
+> Task :react-native-randombytes:generateReleaseAssets UP-TO-DATE
+> Task :react-native-randombytes:packageReleaseAssets UP-TO-DATE
+> Task :react-native-randombytes:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-randombytes:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-randombytes:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-randombytes:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-reanimated:configureCMakeRelWithDebInfo[arm64-v8a]
+> Task :react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a]
+> Task :react-native-reanimated:configureCMakeRelWithDebInfo[armeabi-v7a]
+> Task :react-native-reanimated:buildCMakeRelWithDebInfo[armeabi-v7a]
+> Task :react-native-reanimated:configureCMakeRelWithDebInfo[x86]
+> Task :react-native-reanimated:buildCMakeRelWithDebInfo[x86]
+> Task :react-native-reanimated:configureCMakeRelWithDebInfo[x86_64]
+> Task :react-native-reanimated:buildCMakeRelWithDebInfo[x86_64]
+> Task :react-native-reanimated:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-reanimated:mergeReleaseNativeLibs UP-TO-DATE
+> Task :react-native-reanimated:stripReleaseDebugSymbols UP-TO-DATE
+> Task :react-native-reanimated:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-reanimated:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-reanimated:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-reanimated:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-reanimated:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-reanimated:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-reanimated:compileReleaseShaders NO-SOURCE
+> Task :react-native-reanimated:generateReleaseAssets UP-TO-DATE
+> Task :react-native-reanimated:packageReleaseAssets UP-TO-DATE
+> Task :react-native-reanimated:externalNativeBuildRelease
+> Task :react-native-reanimated:generateJsonModelRelease
+> Task :react-native-reanimated:prefabReleaseConfigurePackage UP-TO-DATE
+> Task :react-native-reanimated:prefabReleasePackage UP-TO-DATE
+> Task :react-native-reanimated:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-reanimated:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-reanimated:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-reanimated:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-restart:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-restart:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-restart:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-restart:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-restart:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-restart:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-restart:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-restart:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-restart:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-restart:compileReleaseShaders NO-SOURCE
+> Task :react-native-restart:generateReleaseAssets UP-TO-DATE
+> Task :react-native-restart:packageReleaseAssets UP-TO-DATE
+> Task :react-native-restart:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-restart:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-restart:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-restart:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-svg:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-svg:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-svg:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-svg:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-svg:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-svg:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-svg:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-svg:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-svg:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-svg:compileReleaseShaders NO-SOURCE
+> Task :react-native-svg:generateReleaseAssets UP-TO-DATE
+> Task :react-native-svg:packageReleaseAssets UP-TO-DATE
+> Task :react-native-svg:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-svg:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-svg:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-svg:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-tcp-socket:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-tcp-socket:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-tcp-socket:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-tcp-socket:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-tcp-socket:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-tcp-socket:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-tcp-socket:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-tcp-socket:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-tcp-socket:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-tcp-socket:compileReleaseShaders NO-SOURCE
+> Task :react-native-tcp-socket:generateReleaseAssets UP-TO-DATE
+> Task :react-native-tcp-socket:packageReleaseAssets UP-TO-DATE
+> Task :react-native-tcp-socket:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-tcp-socket:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-tcp-socket:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-tcp-socket:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-vector-icons:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-vector-icons:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-vector-icons:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-vector-icons:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-vector-icons:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-vector-icons:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-vector-icons:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-vector-icons:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-vector-icons:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-vector-icons:compileReleaseShaders NO-SOURCE
+> Task :react-native-vector-icons:generateReleaseAssets UP-TO-DATE
+> Task :react-native-vector-icons:packageReleaseAssets UP-TO-DATE
+> Task :react-native-vector-icons:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-vector-icons:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-vector-icons:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-vector-icons:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-wifi-p2p:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-wifi-p2p:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-wifi-p2p:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-wifi-p2p:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-wifi-p2p:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-wifi-p2p:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-wifi-p2p:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-wifi-p2p:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-wifi-p2p:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-wifi-p2p:compileReleaseShaders NO-SOURCE
+> Task :react-native-wifi-p2p:generateReleaseAssets UP-TO-DATE
+> Task :react-native-wifi-p2p:packageReleaseAssets UP-TO-DATE
+> Task :react-native-wifi-p2p:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-wifi-p2p:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-wifi-p2p:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-wifi-p2p:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-worklets-core:configureCMakeRelWithDebInfo[arm64-v8a]
+> Task :react-native-worklets-core:buildCMakeRelWithDebInfo[arm64-v8a]
+> Task :react-native-worklets-core:configureCMakeRelWithDebInfo[armeabi-v7a]
+> Task :react-native-worklets-core:buildCMakeRelWithDebInfo[armeabi-v7a]
+> Task :react-native-worklets-core:configureCMakeRelWithDebInfo[x86]
+> Task :react-native-worklets-core:buildCMakeRelWithDebInfo[x86]
+> Task :react-native-worklets-core:configureCMakeRelWithDebInfo[x86_64]
+> Task :react-native-worklets-core:buildCMakeRelWithDebInfo[x86_64]
+> Task :react-native-worklets-core:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-worklets-core:mergeReleaseNativeLibs UP-TO-DATE
+> Task :react-native-worklets-core:stripReleaseDebugSymbols UP-TO-DATE
+> Task :react-native-worklets-core:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-worklets-core:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-worklets-core:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-worklets-core:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-worklets-core:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-worklets-core:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-worklets-core:compileReleaseShaders NO-SOURCE
+> Task :react-native-worklets-core:generateReleaseAssets UP-TO-DATE
+> Task :react-native-worklets-core:packageReleaseAssets UP-TO-DATE
+> Task :react-native-worklets-core:externalNativeBuildRelease
+> Task :react-native-worklets-core:generateJsonModelRelease
+> Task :react-native-worklets-core:prefabReleaseConfigurePackage
+> Task :react-native-worklets-core:prefabReleasePackage UP-TO-DATE
+> Task :react-native-worklets-core:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-worklets-core:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-worklets-core:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-worklets-core:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-aes-crypto:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-async-storage_async-storage:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-ble-plx:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-aes-crypto:lintVitalAnalyzeRelease
+> Task :react-native-blob-util:lintVitalAnalyzeRelease
+> Task :react-native-blob-util:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-ble-plx:lintVitalAnalyzeRelease
+> Task :react-native-device-info:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-fs:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-async-storage_async-storage:lintVitalAnalyzeRelease
+> Task :react-native-reanimated:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-device-info:lintVitalAnalyzeRelease
+> Task :react-native-gesture-handler:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-launcher-kit:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-fs:lintVitalAnalyzeRelease
+> Task :react-native-linear-gradient:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-launcher-kit:lintVitalAnalyzeRelease
+> Task :react-native-localize:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-linear-gradient:lintVitalAnalyzeRelease
+> Task :react-native-pager-view:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-randombytes:lintVitalAnalyzeRelease
+> Task :react-native-randombytes:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-reanimated:lintVitalAnalyzeRelease
+> Task :react-native-restart:lintVitalAnalyzeRelease
+> Task :react-native-restart:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-gesture-handler:lintVitalAnalyzeRelease
+> Task :react-native-pager-view:lintVitalAnalyzeRelease
+> Task :react-native-safe-area-context:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-localize:lintVitalAnalyzeRelease
+> Task :react-native-screens:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-safe-area-context:lintVitalAnalyzeRelease
+> Task :react-native-svg:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-tcp-socket:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-tcp-socket:lintVitalAnalyzeRelease
+> Task :react-native-vector-icons:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-vector-icons:lintVitalAnalyzeRelease
+> Task :react-native-vision-camera:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-wifi-p2p:lintVitalAnalyzeRelease
+> Task :react-native-wifi-p2p:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-worklets-core:lintVitalAnalyzeRelease
+> Task :react-native-worklets-core:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-aes-crypto:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-ble-plx:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-blob-util:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-device-info:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-fs:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-gesture-handler:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-launcher-kit:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-linear-gradient:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-localize:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-pager-view:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-randombytes:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-reanimated:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-restart:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-safe-area-context:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-screens:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-svg:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-tcp-socket:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-vector-icons:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-vision-camera:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-wifi-p2p:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-worklets-core:generateReleaseLintVitalModel UP-TO-DATE
+> Task :app:mergeReleaseJniLibFolders
+> Task :react-native-aes-crypto:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-async-storage_async-storage:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-ble-plx:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-blob-util:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-device-info:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-fs:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-gesture-handler:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-launcher-kit:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-linear-gradient:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-localize:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-pager-view:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-randombytes:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-reanimated:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-restart:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-safe-area-context:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-screens:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-svg:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-tcp-socket:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-vector-icons:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-vision-camera:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-wifi-p2p:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-worklets-core:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-svg:lintVitalAnalyzeRelease
+> Task :react-native-gesture-handler:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-screens:lintVitalAnalyzeRelease
+> Task :react-native-localize:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-pager-view:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-safe-area-context:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-screens:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-vision-camera:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-aes-crypto:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-ble-plx:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-blob-util:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-device-info:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-fs:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-vision-camera:lintVitalAnalyzeRelease
+> Task :react-native-launcher-kit:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-linear-gradient:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-randombytes:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-reanimated:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-restart:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-svg:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-tcp-socket:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-vector-icons:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-wifi-p2p:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-worklets-core:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :app:mergeReleaseNativeLibs
+> Task :app:lintVitalAnalyzeRelease FAILED
+> Task :app:checkReleaseDuplicateClasses
+[Incubating] Problems report is available at: file:///I:/MisterShare/android/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an 
+exception.
+
+* What went wrong:
+Execution failed for task 
+':app:lintVitalAnalyzeRelease'.
+> java.nio.file.FileSystemException: I
+:\MisterShare\android\app\build\interm
+ediates\lint-cache\lintVitalAnalyzeRel
+ease\migrated-jars\androidx.lifecycle.
+lint.LiveDataCoreIssueRegistry-32b654e
+6cacc2c23..jar: The process cannot 
+access the file because it is being 
+used by another process
+
+* Try:
+> Run with --info or --debug option 
+to get more log output.
+> Run with --scan to get full 
+insights.
+> Get more help at 
+https://help.gradle.org.
+
+* Exception is:
+org.gradle.api.tasks.TaskExecutionExce
+ption: Execution failed for task 
+':app:lintVitalAnalyzeRelease'.
+	at org.gradle.api.internal.tasks.exec
+ution.ExecuteActionsTaskExecuter.lambd
+a$executeIfValid$1(ExecuteActionsTaskE
+xecuter.java:130)
+	at org.gradle.internal.Try$Failure.if
+SuccessfulOrElse(Try.java:293)
+	at org.gradle.api.internal.tasks.exec
+ution.ExecuteActionsTaskExecuter.execu
+teIfValid(ExecuteActionsTaskExecuter.j
+ava:128)
+	at org.gradle.api.internal.tasks.exec
+ution.ExecuteActionsTaskExecuter.execu
+te(ExecuteActionsTaskExecuter.java:116
+)
+	at org.gradle.api.internal.tasks.exec
+ution.FinalizePropertiesTaskExecuter.e
+xecute(FinalizePropertiesTaskExecuter.
+java:46)
+	at org.gradle.api.internal.tasks.exec
+ution.ResolveTaskExecutionModeExecuter
+.execute(ResolveTaskExecutionModeExecu
+ter.java:51)
+	at org.gradle.api.internal.tasks.exec
+ution.SkipTaskWithNoActionsExecuter.ex
+ecute(SkipTaskWithNoActionsExecuter.ja
+va:57)
+	at org.gradle.api.internal.tasks.exec
+ution.SkipOnlyIfTaskExecuter.execute(S
+kipOnlyIfTaskExecuter.java:74)
+	at org.gradle.api.internal.tasks.exec
+ution.CatchExceptionTaskExecuter.execu
+te(CatchExceptionTaskExecuter.java:36)
+	at org.gradle.api.internal.tasks.exec
+ution.EventFiringTaskExecuter$1.execut
+eTask(EventFiringTaskExecuter.java:77)
+	at org.gradle.api.internal.tasks.exec
+ution.EventFiringTaskExecuter$1.call(E
+ventFiringTaskExecuter.java:55)
+	at org.gradle.api.internal.tasks.exec
+ution.EventFiringTaskExecuter$1.call(E
+ventFiringTaskExecuter.java:52)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$CallableBuild
+OperationWorker.execute(DefaultBuildOp
+erationRunner.java:209)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$CallableBuild
+OperationWorker.execute(DefaultBuildOp
+erationRunner.java:204)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$2.execute(Def
+aultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$2.execute(Def
+aultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner.execute(Defau
+ltBuildOperationRunner.java:166)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner.execute(Defau
+ltBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner.call(DefaultB
+uildOperationRunner.java:53)
+	at org.gradle.api.internal.tasks.exec
+ution.EventFiringTaskExecuter.execute(
+EventFiringTaskExecuter.java:52)
+	at org.gradle.execution.plan.LocalTas
+kNodeExecutor.execute(LocalTaskNodeExe
+cutor.java:42)
+	at org.gradle.execution.taskgraph.Def
+aultTaskExecutionGraph$InvokeNodeExecu
+torsAction.execute(DefaultTaskExecutio
+nGraph.java:331)
+	at org.gradle.execution.taskgraph.Def
+aultTaskExecutionGraph$InvokeNodeExecu
+torsAction.execute(DefaultTaskExecutio
+nGraph.java:318)
+	at org.gradle.execution.taskgraph.Def
+aultTaskExecutionGraph$BuildOperationA
+wareExecutionAction.lambda$execute$0(D
+efaultTaskExecutionGraph.java:314)
+	at org.gradle.internal.operations.Cur
+rentBuildOperationRef.with(CurrentBuil
+dOperationRef.java:85)
+	at org.gradle.execution.taskgraph.Def
+aultTaskExecutionGraph$BuildOperationA
+wareExecutionAction.execute(DefaultTas
+kExecutionGraph.java:314)
+	at org.gradle.execution.taskgraph.Def
+aultTaskExecutionGraph$BuildOperationA
+wareExecutionAction.execute(DefaultTas
+kExecutionGraph.java:303)
+	at org.gradle.execution.plan.DefaultP
+lanExecutor$ExecutorWorker.execute(Def
+aultPlanExecutor.java:459)
+	at org.gradle.execution.plan.DefaultP
+lanExecutor$ExecutorWorker.run(Default
+PlanExecutor.java:376)
+	at org.gradle.internal.concurrent.Exe
+cutorPolicy$CatchAndRecordFailures.onE
+xecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.Abs
+tractManagedExecutor$1.run(AbstractMan
+agedExecutor.java:48)
+Caused by: 
+org.gradle.api.UncheckedIOException: 
+java.nio.file.FileSystemException: I:\
+MisterShare\android\app\build\intermed
+iates\lint-cache\lintVitalAnalyzeRelea
+se\migrated-jars\androidx.lifecycle.li
+nt.LiveDataCoreIssueRegistry-32b654e6c
+acc2c23..jar: The process cannot 
+access the file because it is being 
+used by another process
+	at org.gradle.internal.UncheckedExcep
+tion.throwAsUncheckedException(Uncheck
+edException.java:63)
+	at org.gradle.internal.UncheckedExcep
+tion.throwAsUncheckedException(Uncheck
+edException.java:42)
+	at org.gradle.internal.reflect.JavaMe
+thod.invoke(JavaMethod.java:128)
+	at org.gradle.api.internal.project.ta
+skfactory.StandardTaskAction.doExecute
+(StandardTaskAction.java:58)
+	at org.gradle.api.internal.project.ta
+skfactory.StandardTaskAction.execute(S
+tandardTaskAction.java:51)
+	at org.gradle.api.internal.project.ta
+skfactory.StandardTaskAction.execute(S
+tandardTaskAction.java:29)
+	at org.gradle.api.internal.tasks.exec
+ution.TaskExecution$3.run(TaskExecutio
+n.java:244)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$1.execute(Def
+aultBuildOperationRunner.java:29)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$1.execute(Def
+aultBuildOperationRunner.java:26)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$2.execute(Def
+aultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$2.execute(Def
+aultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner.execute(Defau
+ltBuildOperationRunner.java:166)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner.execute(Defau
+ltBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner.run(DefaultBu
+ildOperationRunner.java:47)
+	at org.gradle.api.internal.tasks.exec
+ution.TaskExecution.executeAction(Task
+Execution.java:229)
+	at org.gradle.api.internal.tasks.exec
+ution.TaskExecution.executeActions(Tas
+kExecution.java:212)
+	at org.gradle.api.internal.tasks.exec
+ution.TaskExecution.executeWithPreviou
+sOutputFiles(TaskExecution.java:195)
+	at org.gradle.api.internal.tasks.exec
+ution.TaskExecution.execute(TaskExecut
+ion.java:162)
+	at org.gradle.internal.execution.step
+s.ExecuteStep.executeInternal(ExecuteS
+tep.java:105)
+	at org.gradle.internal.execution.step
+s.ExecuteStep.access$000(ExecuteStep.j
+ava:44)
+	at org.gradle.internal.execution.step
+s.ExecuteStep$1.call(ExecuteStep.java:
+59)
+	at org.gradle.internal.execution.step
+s.ExecuteStep$1.call(ExecuteStep.java:
+56)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$CallableBuild
+OperationWorker.execute(DefaultBuildOp
+erationRunner.java:209)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$CallableBuild
+OperationWorker.execute(DefaultBuildOp
+erationRunner.java:204)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$2.execute(Def
+aultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$2.execute(Def
+aultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner.execute(Defau
+ltBuildOperationRunner.java:166)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner.execute(Defau
+ltBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner.call(DefaultB
+uildOperationRunner.java:53)
+	at org.gradle.internal.execution.step
+s.ExecuteStep.execute(ExecuteStep.java
+:56)
+	at org.gradle.internal.execution.step
+s.ExecuteStep.execute(ExecuteStep.java
+:44)
+	at org.gradle.internal.execution.step
+s.CancelExecutionStep.execute(CancelEx
+ecutionStep.java:42)
+	at org.gradle.internal.execution.step
+s.TimeoutStep.executeWithoutTimeout(Ti
+meoutStep.java:75)
+	at org.gradle.internal.execution.step
+s.TimeoutStep.execute(TimeoutStep.java
+:55)
+	at org.gradle.internal.execution.step
+s.PreCreateOutputParentsStep.execute(P
+reCreateOutputParentsStep.java:50)
+	at org.gradle.internal.execution.step
+s.PreCreateOutputParentsStep.execute(P
+reCreateOutputParentsStep.java:28)
+	at org.gradle.internal.execution.step
+s.RemovePreviousOutputsStep.execute(Re
+movePreviousOutputsStep.java:67)
+	at org.gradle.internal.execution.step
+s.RemovePreviousOutputsStep.execute(Re
+movePreviousOutputsStep.java:37)
+	at org.gradle.internal.execution.step
+s.BroadcastChangingOutputsStep.execute
+(BroadcastChangingOutputsStep.java:61)
+	at org.gradle.internal.execution.step
+s.BroadcastChangingOutputsStep.execute
+(BroadcastChangingOutputsStep.java:26)
+	at org.gradle.internal.execution.step
+s.CaptureOutputsAfterExecutionStep.exe
+cute(CaptureOutputsAfterExecutionStep.
+java:69)
+	at org.gradle.internal.execution.step
+s.CaptureOutputsAfterExecutionStep.exe
+cute(CaptureOutputsAfterExecutionStep.
+java:46)
+	at org.gradle.internal.execution.step
+s.ResolveInputChangesStep.execute(Reso
+lveInputChangesStep.java:40)
+	at org.gradle.internal.execution.step
+s.ResolveInputChangesStep.execute(Reso
+lveInputChangesStep.java:29)
+	at org.gradle.internal.execution.step
+s.BuildCacheStep.executeWithoutCache(B
+uildCacheStep.java:189)
+	at org.gradle.internal.execution.step
+s.BuildCacheStep.lambda$execute$1(Buil
+dCacheStep.java:75)
+	at org.gradle.internal.Either$Right.f
+old(Either.java:175)
+	at org.gradle.internal.execution.cach
+ing.CachingState.fold(CachingState.jav
+a:62)
+	at org.gradle.internal.execution.step
+s.BuildCacheStep.execute(BuildCacheSte
+p.java:73)
+	at org.gradle.internal.execution.step
+s.BuildCacheStep.execute(BuildCacheSte
+p.java:48)
+	at org.gradle.internal.execution.step
+s.StoreExecutionStateStep.execute(Stor
+eExecutionStateStep.java:46)
+	at org.gradle.internal.execution.step
+s.StoreExecutionStateStep.execute(Stor
+eExecutionStateStep.java:35)
+	at org.gradle.internal.execution.step
+s.SkipUpToDateStep.executeBecause(Skip
+UpToDateStep.java:75)
+	at org.gradle.internal.execution.step
+s.SkipUpToDateStep.lambda$execute$2(Sk
+ipUpToDateStep.java:53)
+	at org.gradle.internal.execution.step
+s.SkipUpToDateStep.execute(SkipUpToDat
+eStep.java:53)
+	at org.gradle.internal.execution.step
+s.SkipUpToDateStep.execute(SkipUpToDat
+eStep.java:35)
+	at org.gradle.internal.execution.step
+s.legacy.MarkSnapshottingInputsFinishe
+dStep.execute(MarkSnapshottingInputsFi
+nishedStep.java:37)
+	at org.gradle.internal.execution.step
+s.legacy.MarkSnapshottingInputsFinishe
+dStep.execute(MarkSnapshottingInputsFi
+nishedStep.java:27)
+	at org.gradle.internal.execution.step
+s.ResolveIncrementalCachingStateStep.e
+xecuteDelegate(ResolveIncrementalCachi
+ngStateStep.java:49)
+	at org.gradle.internal.execution.step
+s.ResolveIncrementalCachingStateStep.e
+xecuteDelegate(ResolveIncrementalCachi
+ngStateStep.java:27)
+	at org.gradle.internal.execution.step
+s.AbstractResolveCachingStateStep.exec
+ute(AbstractResolveCachingStateStep.ja
+va:71)
+	at org.gradle.internal.execution.step
+s.AbstractResolveCachingStateStep.exec
+ute(AbstractResolveCachingStateStep.ja
+va:39)
+	at org.gradle.internal.execution.step
+s.ResolveChangesStep.execute(ResolveCh
+angesStep.java:65)
+	at org.gradle.internal.execution.step
+s.ResolveChangesStep.execute(ResolveCh
+angesStep.java:36)
+	at org.gradle.internal.execution.step
+s.ValidateStep.execute(ValidateStep.ja
+va:107)
+	at org.gradle.internal.execution.step
+s.ValidateStep.execute(ValidateStep.ja
+va:56)
+	at org.gradle.internal.execution.step
+s.AbstractCaptureStateBeforeExecutionS
+tep.execute(AbstractCaptureStateBefore
+ExecutionStep.java:64)
+	at org.gradle.internal.execution.step
+s.AbstractCaptureStateBeforeExecutionS
+tep.execute(AbstractCaptureStateBefore
+ExecutionStep.java:43)
+	at org.gradle.internal.execution.step
+s.AbstractSkipEmptyWorkStep.executeWit
+hNonEmptySources(AbstractSkipEmptyWork
+Step.java:125)
+	at org.gradle.internal.execution.step
+s.AbstractSkipEmptyWorkStep.execute(Ab
+stractSkipEmptyWorkStep.java:56)
+	at org.gradle.internal.execution.step
+s.AbstractSkipEmptyWorkStep.execute(Ab
+stractSkipEmptyWorkStep.java:36)
+	at org.gradle.internal.execution.step
+s.legacy.MarkSnapshottingInputsStarted
+Step.execute(MarkSnapshottingInputsSta
+rtedStep.java:38)
+	at org.gradle.internal.execution.step
+s.LoadPreviousExecutionStateStep.execu
+te(LoadPreviousExecutionStateStep.java
+:36)
+	at org.gradle.internal.execution.step
+s.LoadPreviousExecutionStateStep.execu
+te(LoadPreviousExecutionStateStep.java
+:23)
+	at org.gradle.internal.execution.step
+s.HandleStaleOutputsStep.execute(Handl
+eStaleOutputsStep.java:75)
+	at org.gradle.internal.execution.step
+s.HandleStaleOutputsStep.execute(Handl
+eStaleOutputsStep.java:41)
+	at org.gradle.internal.execution.step
+s.AssignMutableWorkspaceStep.lambda$ex
+ecute$0(AssignMutableWorkspaceStep.jav
+a:35)
+	at org.gradle.api.internal.tasks.exec
+ution.TaskExecution$4.withWorkspace(Ta
+skExecution.java:289)
+	at org.gradle.internal.execution.step
+s.AssignMutableWorkspaceStep.execute(A
+ssignMutableWorkspaceStep.java:31)
+	at org.gradle.internal.execution.step
+s.AssignMutableWorkspaceStep.execute(A
+ssignMutableWorkspaceStep.java:22)
+	at org.gradle.internal.execution.step
+s.ChoosePipelineStep.execute(ChoosePip
+elineStep.java:40)
+	at org.gradle.internal.execution.step
+s.ChoosePipelineStep.execute(ChoosePip
+elineStep.java:23)
+	at org.gradle.internal.execution.step
+s.ExecuteWorkBuildOperationFiringStep.
+lambda$execute$2(ExecuteWorkBuildOpera
+tionFiringStep.java:67)
+	at org.gradle.internal.execution.step
+s.ExecuteWorkBuildOperationFiringStep.
+execute(ExecuteWorkBuildOperationFirin
+gStep.java:67)
+	at org.gradle.internal.execution.step
+s.ExecuteWorkBuildOperationFiringStep.
+execute(ExecuteWorkBuildOperationFirin
+gStep.java:39)
+	at org.gradle.internal.execution.step
+s.IdentityCacheStep.execute(IdentityCa
+cheStep.java:46)
+	at org.gradle.internal.execution.step
+s.IdentityCacheStep.execute(IdentityCa
+cheStep.java:34)
+	at org.gradle.internal.execution.step
+s.IdentifyStep.execute(IdentifyStep.ja
+va:48)
+	at org.gradle.internal.execution.step
+s.IdentifyStep.execute(IdentifyStep.ja
+va:35)
+	at org.gradle.internal.execution.impl
+.DefaultExecutionEngine$1.execute(Defa
+ultExecutionEngine.java:61)
+	at org.gradle.api.internal.tasks.exec
+ution.ExecuteActionsTaskExecuter.execu
+teIfValid(ExecuteActionsTaskExecuter.j
+ava:127)
+	at org.gradle.api.internal.tasks.exec
+ution.ExecuteActionsTaskExecuter.execu
+te(ExecuteActionsTaskExecuter.java:116
+)
+	at org.gradle.api.internal.tasks.exec
+ution.FinalizePropertiesTaskExecuter.e
+xecute(FinalizePropertiesTaskExecuter.
+java:46)
+	at org.gradle.api.internal.tasks.exec
+ution.ResolveTaskExecutionModeExecuter
+.execute(ResolveTaskExecutionModeExecu
+ter.java:51)
+	at org.gradle.api.internal.tasks.exec
+ution.SkipTaskWithNoActionsExecuter.ex
+ecute(SkipTaskWithNoActionsExecuter.ja
+va:57)
+	at org.gradle.api.internal.tasks.exec
+ution.SkipOnlyIfTaskExecuter.execute(S
+kipOnlyIfTaskExecuter.java:74)
+	at org.gradle.api.internal.tasks.exec
+ution.CatchExceptionTaskExecuter.execu
+te(CatchExceptionTaskExecuter.java:36)
+	at org.gradle.api.internal.tasks.exec
+ution.EventFiringTaskExecuter$1.execut
+eTask(EventFiringTaskExecuter.java:77)
+	at org.gradle.api.internal.tasks.exec
+ution.EventFiringTaskExecuter$1.call(E
+ventFiringTaskExecuter.java:55)
+	at org.gradle.api.internal.tasks.exec
+ution.EventFiringTaskExecuter$1.call(E
+ventFiringTaskExecuter.java:52)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$CallableBuild
+OperationWorker.execute(DefaultBuildOp
+erationRunner.java:209)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$CallableBuild
+OperationWorker.execute(DefaultBuildOp
+erationRunner.java:204)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$2.execute(Def
+aultBuildOperationRunner.java:66)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner$2.execute(Def
+aultBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner.execute(Defau
+ltBuildOperationRunner.java:166)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner.execute(Defau
+ltBuildOperationRunner.java:59)
+	at org.gradle.internal.operations.Def
+aultBuildOperationRunner.call(DefaultB
+uildOperationRunner.java:53)
+	at org.gradle.api.internal.tasks.exec
+ution.EventFiringTaskExecuter.execute(
+EventFiringTaskExecuter.java:52)
+	at org.gradle.execution.plan.LocalTas
+kNodeExecutor.execute(LocalTaskNodeExe
+cutor.java:42)
+	at org.gradle.execution.taskgraph.Def
+aultTaskExecutionGraph$InvokeNodeExecu
+torsAction.execute(DefaultTaskExecutio
+nGraph.java:331)
+	at org.gradle.execution.taskgraph.Def
+aultTaskExecutionGraph$InvokeNodeExecu
+torsAction.execute(DefaultTaskExecutio
+nGraph.java:318)
+	at org.gradle.execution.taskgraph.Def
+aultTaskExecutionGraph$BuildOperationA
+wareExecutionAction.lambda$execute$0(D
+efaultTaskExecutionGraph.java:314)
+	at org.gradle.internal.operations.Cur
+rentBuildOperationRef.with(CurrentBuil
+dOperationRef.java:85)
+	at org.gradle.execution.taskgraph.Def
+aultTaskExecutionGraph$BuildOperationA
+wareExecutionAction.execute(DefaultTas
+kExecutionGraph.java:314)
+	at org.gradle.execution.taskgraph.Def
+aultTaskExecutionGraph$BuildOperationA
+wareExecutionAction.execute(DefaultTas
+kExecutionGraph.java:303)
+	at org.gradle.execution.plan.DefaultP
+lanExecutor$ExecutorWorker.execute(Def
+aultPlanExecutor.java:459)
+	at org.gradle.execution.plan.DefaultP
+lanExecutor$ExecutorWorker.run(Default
+PlanExecutor.java:376)
+	at org.gradle.internal.concurrent.Exe
+cutorPolicy$CatchAndRecordFailures.onE
+xecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.Abs
+tractManagedExecutor$1.run(AbstractMan
+agedExecutor.java:48)
+Caused by: 
+java.nio.file.FileSystemException: I:\
+MisterShare\android\app\build\intermed
+iates\lint-cache\lintVitalAnalyzeRelea
+se\migrated-jars\androidx.lifecycle.li
+nt.LiveDataCoreIssueRegistry-32b654e6c
+acc2c23..jar: The process cannot 
+access the file because it is being 
+used by another process
+	at com.android.utils.PathUtils.delete
+RecursivelyIfExists(PathUtils.java:91)
+	at com.android.utils.PathUtils.delete
+RecursivelyIfExists(PathUtils.java:65)
+	at com.android.utils.PathUtils.delete
+RecursivelyIfExists(PathUtils.java:65)
+	at com.android.build.gradle.internal.
+lint.LintTool.initializeLintCacheDir(A
+ndroidLintInputs.kt:197)
+	at com.android.build.gradle.internal.
+lint.AndroidLintAnalysisTask.generateC
+ommandLineArguments$gradle_core(Androi
+dLintAnalysisTask.kt:201)
+	at com.android.build.gradle.internal.
+lint.AndroidLintAnalysisTask.doTaskAct
+ion(AndroidLintAnalysisTask.kt:144)
+	at com.android.build.gradle.internal.
+tasks.NonIncrementalTask$taskAction$$i
+nlined$recordTaskAction$1.invoke(BaseT
+ask.kt:60)
+	at com.android.build.gradle.internal.
+tasks.Blocks.recordSpan(Blocks.java:51
+)
+	at com.android.build.gradle.internal.
+tasks.NonIncrementalTask.taskAction(No
+nIncrementalTask.kt:78)
+	at jdk.internal.reflect.GeneratedMeth
+odAccessor770.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.Del
+egatingMethodAccessorImpl.invoke(Deleg
+atingMethodAccessorImpl.java:43)
+	at org.gradle.internal.reflect.JavaMe
+thod.invoke(JavaMethod.java:125)
+	... 116 more
+
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 25m 58s
+872 actionable tasks: 63 executed, 809 up-to-date
