@@ -1,0 +1,4 @@
+# أمر واحد كامل لتشغيل المشروع
+# انسخ هذا الأمر كاملاً والصقه في PowerShell
+
+$env:ANDROID_HOME = "J:\Android\Sdk"; $env:ANDROID_SDK_ROOT = "J:\Android\Sdk"; $env:JAVA_HOME = "C:\Java\jdk-17.0.10+7"; $env:GRADLE_USER_HOME = "K:\.gradle"; $env:PATH = "J:\Android\Sdk\platform-tools;J:\Android\Sdk\emulator;J:\Android\Sdk\cmdline-tools\latest\bin;C:\Java\jdk-17.0.10+7\bin;$env:PATH"; Write-Host "تم تعيين المتغيرات" -ForegroundColor Green; cd J:\MisterShare\android; .\gradlew.bat installDebug

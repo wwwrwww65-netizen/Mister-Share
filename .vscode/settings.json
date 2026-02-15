@@ -1,0 +1,8 @@
+{
+  "terminal.integrated.env.windows": {
+    "ANDROID_HOME": "J:\\Android\\Sdk",
+    "ANDROID_SDK_ROOT": "J:\\Android\\Sdk",
+    "JAVA_HOME": "C:\\Java\\jdk-17.0.10+7",
+    "GRADLE_USER_HOME": "K:\\.gradle"
+  }
+}

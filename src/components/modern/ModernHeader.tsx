@@ -8,6 +8,7 @@ interface ModernHeaderProps {
     title: string;
     subtitle?: string;
     showBack?: boolean;
+    centerTitle?: boolean;
     rightIcon?: string;
     onRightPress?: () => void;
 }
@@ -16,6 +17,7 @@ const ModernHeader: React.FC<ModernHeaderProps> = ({
     title,
     subtitle,
     showBack = false,
+    centerTitle = false,
     rightIcon,
     onRightPress
 }) => {
@@ -23,16 +25,27 @@ const ModernHeader: React.FC<ModernHeaderProps> = ({
 
     return (
         <View style={styles.container}>
+            {/* Absolute Centered Title (Only if centerTitle is true) */}
+            {centerTitle && (
+                <View style={styles.centerContainer}>
+                    <Text style={styles.title}>{title}</Text>
+                    {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+                </View>
+            )}
+
             <View style={styles.left}>
                 {showBack && (
                     <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
                         <Icon name="arrow-back" size={24} color={COLORS.white} />
                     </TouchableOpacity>
                 )}
-                <View>
-                    <Text style={styles.title}>{title}</Text>
-                    {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
-                </View>
+                {/* Standard Title (Only if centerTitle is false) */}
+                {!centerTitle && (
+                    <View>
+                        <Text style={styles.title}>{title}</Text>
+                        {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+                    </View>
+                )}
             </View>
 
             {rightIcon && (
@@ -51,7 +64,15 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: SIZES.padding,
         paddingVertical: SIZES.padding,
-        marginTop: 10,
+        marginTop: 25,
+        minHeight: 60,
+    },
+    centerContainer: {
+        ...StyleSheet.absoluteFillObject,
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: -1, // Ensure it doesn't block buttons
+        marginTop: 25, // Match container margin
     },
     left: {
         flexDirection: 'row',

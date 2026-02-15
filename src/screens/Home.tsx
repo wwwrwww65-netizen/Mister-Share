@@ -15,12 +15,14 @@ import NeoButton from '../components/modern/NeoButton';
 import FileSystem from '../services/FileSystem';
 import { useTransferStore, type TransferHistory } from '../store/transferStore';
 import TransferMiniStatus from '../components/TransferMiniStatus';
+import mobileAds, { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
 const Home = ({ navigation }: any) => {
     const { t } = useTranslation();
     const [permissionsGranted, setPermissionsGranted] = React.useState(true);
     const [showPermissionModal, setShowPermissionModal] = React.useState(false);
     const [storage, setStorage] = React.useState({ used: 0, total: 0, percent: 0 });
+    const [isBannerLoaded, setIsBannerLoaded] = React.useState(false);
 
     // Get transfer history from store (real transfer data!)
     const { history, loadHistory } = useTransferStore();
@@ -81,6 +83,7 @@ const Home = ({ navigation }: any) => {
     return (
         <AppBackground>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, paddingTop: 50, paddingBottom: 10 }}>
+                {/* ... (Header Content) ... */}
                 <View>
                     <Text style={{ ...FONTS.h2, color: COLORS.white }}>Mister Share</Text>
                     <Text style={{ ...FONTS.body3, color: COLORS.textDim }}>{t('home.welcome')}</Text>
@@ -90,12 +93,31 @@ const Home = ({ navigation }: any) => {
                         <Icon name="qr-code-scanner" size={24} color={COLORS.secondary} />
                     </TouchableOpacity>
 
-
-
-                    <TouchableOpacity onPress={() => { }} style={{ width: 40, height: 40, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 20 }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('NotificationsScreen')} style={{ width: 40, height: 40, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 20 }}>
                         <Icon name="notifications-none" size={24} color={COLORS.white} />
                     </TouchableOpacity>
                 </View>
+            </View>
+
+            {/* Smart Banner Ad: Only takes space when loaded */}
+            <View style={{ 
+                alignItems: 'center', 
+                marginVertical: isBannerLoaded ? 10 : 0,
+                height: isBannerLoaded ? 'auto' : 0,
+                overflow: 'hidden' // Ensure hidden when 0
+            }}>
+                <BannerAd
+                    unitId={'ca-app-pub-8298073076766088/2978008663'}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    onAdLoaded={() => {
+                        console.log('Home Banner Loaded');
+                        setIsBannerLoaded(true);
+                    }}
+                    onAdFailedToLoad={(error) => {
+                        console.log('Home Banner Failed', error);
+                        setIsBannerLoaded(false);
+                    }}
+                />
             </View>
 
             <Modal
@@ -198,8 +220,6 @@ const Home = ({ navigation }: any) => {
                 <View style={{ height: 100 }} />
 
             </ScrollView>
-            {/* Transfer Mini Status Bar - Floating at top */}
-            <TransferMiniStatus />
         </AppBackground>
     );
 };

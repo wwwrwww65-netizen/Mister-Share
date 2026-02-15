@@ -222,7 +222,26 @@
         "support": "Support",
         "help_center": "Help Center",
         "notifications": "Notifications",
-        "privacy_policy": "Privacy Policy"
+        "privacy_policy": "Privacy Policy",
+        "contact_support": "Contact Support"
+    },
+    "help": {
+        "welcome": "How can we help you?",
+        "subtitle": "Find guides, features, and support below.",
+        "features": "Key Features",
+        "how_to": "How to Use",
+        "feat_speed_title": "Hyper Speed",
+        "feat_speed_desc": "Transfer files at lightning speeds without internet.",
+        "feat_secure_title": "Secure Transfer",
+        "feat_secure_desc": "Your data is encrypted and transferred directly between devices.",
+        "feat_offline_title": "No Internet Needed",
+        "feat_offline_desc": "Share anywhere, anytime, completely offline.",
+        "step1_title": "Select Files",
+        "step1_desc": "Choose apps, photos, videos, or files from the main screen.",
+        "step2_title": "Connect Device",
+        "step2_desc": "Tap 'Send' or 'Receive'. Scan the QR code on the other device.",
+        "step3_title": "Fast Transfer",
+        "step3_desc": "Watch the magic happen! Files transfer instantly."
     },
     "game_restore": {
         "title": "Game Restore",

@@ -19,6 +19,7 @@ import { useConnectionStore } from '../store/connectionStore';
 import { useFileStore } from '../store/fileStore'; // Global Store
 import { useTransferStore } from '../store/transferStore';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import mobileAds, { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads';
 
 // Modern Components
 import AppBackground from '../components/modern/AppBackground';
@@ -320,6 +321,7 @@ const FileBrowser = ({ navigation, route }: any) => {
     const insets = useSafeAreaInsets();
     const isRTL = i18n.language === 'ar' || i18n.dir() === 'rtl';
     const effectiveDirection = (I18nManager.isRTL === isRTL) ? 'row' : 'row-reverse';
+    const [isBannerLoaded, setIsBannerLoaded] = useState(false);
 
     // State to track the desired initial tab (will trigger re-render)
     const [activeTabKey, setActiveTabKey] = useState(route.params?.initialTab || 'Apps');
@@ -1370,6 +1372,21 @@ const FileBrowser = ({ navigation, route }: any) => {
                 </View>
             </View>
 
+            {/* Banner Ad Below Header/Search */}
+            <View style={{ 
+                alignItems: 'center', 
+                marginBottom: isBannerLoaded ? 10 : 0, 
+                height: isBannerLoaded ? 'auto' : 0,
+                overflow: 'hidden' 
+            }}>
+                <BannerAd
+                    unitId={'ca-app-pub-8298073076766088/2978008663'}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    onAdLoaded={() => setIsBannerLoaded(true)}
+                    onAdFailedToLoad={() => setIsBannerLoaded(false)}
+                />
+            </View>
+
             {/* Content Area */}
             <View style={styles.contentContainer}>
                 {/* 1. Global Permission Request - REMOVED, handled per tab */}
@@ -1429,7 +1446,7 @@ const FileBrowser = ({ navigation, route }: any) => {
 
             {/* Premium Selection Bar */}
             {selectedItems.length > 0 && (
-                <View style={[styles.fabContainer, { bottom: 75 + insets.bottom }]}>
+                <View style={[styles.fabContainer, { bottom: 0 }]}>
                     <View
                         key={String(isRTL)}
                         style={[
@@ -1437,47 +1454,71 @@ const FileBrowser = ({ navigation, route }: any) => {
                             { flexDirection: effectiveDirection as any }
                         ]}
                     >
-                        {/* Selection Summary (Left in LTR, Right in RTL) */}
-                        <View style={{
-                            justifyContent: 'center',
-                            alignItems: (I18nManager.isRTL === isRTL) ? 'flex-start' : 'flex-end', // Fix for System/App Lang mismatch
-                        }}>
-                            <Text style={{ ...FONTS.h3, color: COLORS.white, fontSize: 16 }}>
-                                {selectedItems.length} {t('common.selected', { defaultValue: 'selected' })}
-                            </Text>
-                            <Text style={{
-                                ...FONTS.body3,
-                                color: COLORS.secondary,
-                                fontSize: 14,
-                                textAlign: isRTL ? 'right' : 'left'
+                        {/* Selection Summary with Close Button */}
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <TouchableOpacity 
+                                onPress={() => clearSelection()}
+                                style={{ 
+                                    marginRight: 16,
+                                    backgroundColor: 'rgba(255,255,255,0.1)',
+                                    borderRadius: 20,
+                                    width: 36,
+                                    height: 36,
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <Icon name="close" size={20} color={COLORS.white} />
+                            </TouchableOpacity>
+
+                            <View style={{
+                                justifyContent: 'center',
+                                alignItems: (I18nManager.isRTL === isRTL) ? 'flex-start' : 'flex-end', // Fix for System/App Lang mismatch
                             }}>
-                                {formatSize(selectedItems.reduce((acc, item) => acc + (item.size || 0), 0))}
-                            </Text>
+                                <Text style={{ ...FONTS.h3, color: COLORS.white, fontSize: 16 }}>
+                                    {selectedItems.length} {t('common.selected', { defaultValue: 'selected' })}
+                                </Text>
+                                <Text style={{
+                                    ...FONTS.body3,
+                                    color: COLORS.secondary,
+                                    fontSize: 14,
+                                    textAlign: isRTL ? 'right' : 'left'
+                                }}>
+                                    {formatSize(selectedItems.reduce((acc, item) => acc + (item.size || 0), 0))}
+                                </Text>
+                            </View>
                         </View>
 
                         {/* Send Button (Right in LTR, Left in RTL) */}
                         <TouchableOpacity
-                            onPress={async () => {
-                                const { isConnected, isGroupOwner, peerIP, serverIP } = useConnectionStore.getState();
+                            onPress={() => {
+                                // 2024 UX FIX: Use requestAnimationFrame to ensure button press animation renders FIRST
+                                // preventing the "frozen button" feel.
+                                requestAnimationFrame(() => {
+                                    const { isConnected, isGroupOwner, peerIP, serverIP } = useConnectionStore.getState();
 
-                                // 2024 ARCHITECTURE FIX: Unified Data Handoff
-                                // ALWAYS stage files in the global store. Never pass heavy data via navigation params.
-                                // This ensures Transfer.tsx (which listens to store) picks them up reliably.
-                                useTransferStore.getState().setOutgoingFiles(selectedItems);
+                                    // 2024 ARCHITECTURE FIX: Unified Data Handoff
+                                    // ALWAYS stage files in the global store. Never pass heavy data via navigation params.
+                                    // This ensures Transfer.tsx (which listens to store) picks them up reliably.
+                                    useTransferStore.getState().setOutgoingFiles(selectedItems);
 
-                                if (isConnected) {
-                                    const targetIP = isGroupOwner && peerIP ? peerIP : serverIP;
-                                    if (isGroupOwner && !peerIP) {
-                                        showToast(t('errors.no_peer_connected', { defaultValue: 'No device connected' }), 'error');
-                                        return;
+                                    // Clear selection immediately as they are now handoff'd to the transfer queue
+                                    clearSelection();
+
+                                    if (isConnected) {
+                                        const targetIP = isGroupOwner && peerIP ? peerIP : serverIP;
+                                        if (isGroupOwner && !peerIP) {
+                                            showToast(t('errors.no_peer_connected', { defaultValue: 'No device connected' }), 'error');
+                                            return;
+                                        }
+                                        // Navigate to Transfer with Intent only, no Data
+                                        navigation.navigate('Transfer', { mode: 'send', serverIP: targetIP });
+                                    } else {
+                                        // Not connected? Go to Connect flow.
+                                        // Transfer store keeps the files staged until connection is established.
+                                        navigation.navigate('ConnectTab');
                                     }
-                                    // Navigate to Transfer with Intent only, no Data
-                                    navigation.navigate('Transfer', { mode: 'send', serverIP: targetIP });
-                                } else {
-                                    // Not connected? Go to Connect flow.
-                                    // Transfer store keeps the files staged until connection is established.
-                                    navigation.navigate('ConnectTab');
-                                }
+                                });
                             }}
                         >
                             <LinearGradient

@@ -17,6 +17,7 @@ import org.json.JSONObject
 import java.security.MessageDigest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Notification
 import android.os.Build
 import androidx.core.app.NotificationCompat
@@ -232,6 +233,15 @@ class TransferService : Service() {
                 }
             } catch (e: Exception) {
                 log("Connection error: ${e.message}")
+            } finally {
+                try {
+                    if (socket.isOpen) {
+                        socket.close()
+                        log("🔌 Connection closed cleanup")
+                    }
+                } catch (e: Exception) {
+                    log("⚠️ Error closing socket: ${e.message}")
+                }
             }
         }
     }
@@ -242,9 +252,11 @@ class TransferService : Service() {
     fun prepareReceive(fileName: String, savePath: String) {
         this.currentFileName = fileName
         this.currentFilePath = savePath
+        updateNotification("Preparing to receive", fileName, -1)
     }
 
     private fun receiveFile(socket: SocketChannel, size: Long) {
+        updateNotification("Receiving...", currentFileName, 0)
         // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
         // 2024 BEST PRACTICE: Unidirectional TCP File Transfer
         // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
@@ -364,6 +376,8 @@ class TransferService : Service() {
                             "speed" to smoothedSpeed
                         )
                     )
+                    updateNotification("Receiving...", "$currentFileName (${(bytesReceived * 100 / size).toInt()}%)", (bytesReceived * 100 / size).toInt())
+
                     nextNotify = now + 200
                 }
             }
@@ -382,12 +396,15 @@ class TransferService : Service() {
             
             // Verify integrity
             if (bytesReceived == size && finalSize == size) {
-                log("âœ… File Received Successfully: $currentFilePath ($finalSize bytes)")
+                log("✅ File Received Successfully: $currentFilePath ($finalSize bytes)")
                 updateListener?.invoke("onReceiveComplete", currentFilePath)
+                updateNotification("Transfer Complete", "Received $currentFileName", -1)
+                stopForeground(false)
             } else {
                 log("â‌Œ File incomplete: received=$bytesReceived expected=$size disk=$finalSize")
                 try { file.delete() } catch (_: Exception) {}
                 updateListener?.invoke("onError", "Incomplete transfer: $bytesReceived/$size bytes")
+                updateNotification("Transfer Failed", "Incomplete file", -1)
             }
             
         } catch (e: Exception) {
@@ -404,9 +421,12 @@ class TransferService : Service() {
             if (bytesReceived == size && finalSize == size) {
                 log("âœ… Exception but file complete: $currentFilePath")
                 updateListener?.invoke("onReceiveComplete", currentFilePath)
+                updateNotification("Transfer Complete", "Received $currentFileName", -1)
+                stopForeground(false)
             } else {
                 try { file.delete() } catch (_: Exception) {}
                 updateListener?.invoke("onError", e.message ?: "Unknown receive error")
+                updateNotification("Transfer Failed", e.message ?: "Unknown error", -1)
             }
         } finally {
             try { fileChannel?.close() } catch (_: Exception) {}
@@ -443,7 +463,8 @@ class TransferService : Service() {
     }
     
     fun connectAndSend(host: String, port: Int, filePath: String, displayName: String) {
-        log("ًں“¥ connectAndSend: host=$host, port=$port, file=$displayName")
+        log("📤 connectAndSend: host=$host, port=$port, file=$displayName")
+        updateNotification("Sending...", displayName, 0)
         
         serviceScope.launch {
             // Boost Priority for Sender Thread to prevent preemption
@@ -685,6 +706,10 @@ class TransferService : Service() {
                                 "total" to size,
                                 "speed" to smoothedSpeed
                             ))
+                            // Update Notification (Zero-Copy)
+                            updateNotification("Sending...", "$fileName (${(bytesSent * 100 / size).toInt()}%)", (bytesSent * 100 / size).toInt())
+                            nextNotify = now + 500 // Slower update for notification to avoid lag
+
                             nextNotify = now + 200
                         }
                     }
@@ -716,6 +741,10 @@ class TransferService : Service() {
                                 "total" to size,
                                 "speed" to smoothedSpeed
                             ))
+                            // Update Notification (Buffered)
+                            updateNotification("Sending...", "$fileName (${(bytesSent * 100 / size).toInt()}%)", (bytesSent * 100 / size).toInt())
+                            nextNotify = now + 500
+
                             nextNotify = now + 200 // Update every 200ms for smooth progress
                         }
                     }
@@ -775,7 +804,11 @@ class TransferService : Service() {
                 }
                 
                 log("âœ… File Sent Successfully (${if (useZeroCopy) "Zero-Copy" else "Buffered"})")
+                log("✅ File Sent Successfully (${if (useZeroCopy) "Zero-Copy" else "Buffered"})")
                 updateListener?.invoke("onSendComplete", filePath)
+                updateNotification("Sent Successfully", fileName, -1)
+                stopForeground(false)
+
 
             } catch (e: Exception) {
                 log("Send Error: ${e.message}")
@@ -1077,6 +1110,14 @@ class TransferService : Service() {
             socket.connect(InetSocketAddress(host, 12345))
             socket.configureBlocking(true)
             
+            val notificationIntent = Intent(this@TransferService, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                putExtra("initialRoute", "Transfer") // Navigate to Transfer screen
+            }
+            val pendingIntent = PendingIntent.getActivity(
+                this@TransferService, 0, notificationIntent,
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            )
             val metaJson = JSONObject().apply {
                 put("name", fileName)
                 put("size", fileSize)
@@ -1148,6 +1189,42 @@ class TransferService : Service() {
             } catch (e: Exception) {
                 log("HyperSpeed: Chunk $chunkIndex send error: ${e.message}")
             }
+        }
+    }
+
+    // --- Notification Helper ---
+    private fun updateNotification(title: String, content: String, progress: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val notificationIntent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse("mistershare://transfer")).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        val pendingIntent = PendingIntent.getActivity(
+            this, 0, notificationIntent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val builder = NotificationCompat.Builder(this, "TransferChannel")
+            .setContentTitle(title)
+            .setContentText(content)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentIntent(pendingIntent)
+            .setOnlyAlertOnce(true)
+                .setOngoing(progress >= 0 && progress < 100)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+
+            if (progress >= 0 && progress < 100) {
+                builder.setProgress(100, progress, false)
+            } else {
+                builder.setProgress(0, 0, false)
+            }
+
+            val notification = builder.build()
+            
+            // ID 1 is for the Foreground Service
+            startForeground(1, notification)
+            
+            val manager = getSystemService(NotificationManager::class.java)
+            manager.notify(1, notification)
         }
     }
 }

@@ -12,6 +12,14 @@ import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
 import com.facebook.react.soloader.OpenSourceMergedSoMapping
 
+// WorkManager Imports
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.ExistingPeriodicWorkPolicy
+import java.util.concurrent.TimeUnit
+import com.mistershare.notifications.NotificationWorker
+import com.mistershare.notifications.NotificationControlPackage
+
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
@@ -29,6 +37,7 @@ class MainApplication : Application(), ReactApplication {
                 add(NsdServicePackage())
                 add(ChecksumPackage())
                 add(SAFPackage())
+                add(NotificationControlPackage())
             }
 
         override fun getJSMainModuleName(): String = "index"
@@ -49,6 +58,20 @@ class MainApplication : Application(), ReactApplication {
     if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
       // If you opted-in for the New Architecture, we load the native entry point for this app.
       load()
+    }
+
+    // Schedule Daily Notifications using WorkManager
+    try {
+        val workRequest = PeriodicWorkRequestBuilder<NotificationWorker>(24, TimeUnit.HOURS)
+            .build()
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "DailyTips",
+            ExistingPeriodicWorkPolicy.KEEP, // Keep existing if already scheduled
+            workRequest
+        )
+    } catch (e: Exception) {
+        e.printStackTrace()
     }
   }
 }

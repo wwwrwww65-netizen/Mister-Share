@@ -1,0 +1,240 @@
+================================================================================
+                    مسارات البيئة - MisterShare
+================================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. متغيرات البيئة الأساسية
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ANDROID_HOME=I:\Android\Sdk
+ANDROID_SDK_ROOT=I:\Android\Sdk
+JAVA_HOME=C:\Java\jdk-17.0.10+7
+GRADLE_USER_HOME=J:\.gradle
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. مسارات PATH المطلوبة
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+I:\Android\Sdk\platform-tools
+I:\Android\Sdk\emulator
+I:\Android\Sdk\cmdline-tools\latest\bin
+I:\Android\Sdk\build-tools\35.0.0
+C:\Java\jdk-17.0.10+7\bin
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. Android SDK - المسارات الرئيسية
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SDK Root:
+I:\Android\Sdk
+
+Platform Tools:
+I:\Android\Sdk\platform-tools\adb.exe
+I:\Android\Sdk\platform-tools\fastboot.exe
+
+Build Tools (35.0.0):
+I:\Android\Sdk\build-tools\35.0.0\aapt2.exe
+I:\Android\Sdk\build-tools\35.0.0\apksigner.bat
+I:\Android\Sdk\build-tools\35.0.0\zipalign.exe
+I:\Android\Sdk\build-tools\35.0.0\d8.bat
+
+Platforms:
+I:\Android\Sdk\platforms\android-35
+
+NDK (26.1.10909125):
+I:\Android\Sdk\ndk\26.1.10909125
+
+Emulator:
+I:\Android\Sdk\emulator\emulator.exe
+
+Command Line Tools:
+I:\Android\Sdk\cmdline-tools\latest\bin\sdkmanager.bat
+I:\Android\Sdk\cmdline-tools\latest\bin\avdmanager.bat
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. Java JDK - المسارات
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+JDK Root:
+C:\Java\jdk-17.0.10+7
+
+Binaries:
+C:\Java\jdk-17.0.10+7\bin\java.exe
+C:\Java\jdk-17.0.10+7\bin\javac.exe
+C:\Java\jdk-17.0.10+7\bin\jar.exe
+C:\Java\jdk-17.0.10+7\bin\jarsigner.exe
+C:\Java\jdk-17.0.10+7\bin\keytool.exe
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. مسارات المشروع
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Project Root:
+I:\MisterShare
+
+Android Folder:
+I:\MisterShare\android
+
+Gradle Wrapper:
+I:\MisterShare\android\gradlew.bat
+
+Build Files:
+I:\MisterShare\android\build.gradle
+I:\MisterShare\android\app\build.gradle
+I:\MisterShare\android\gradle.properties
+I:\MisterShare\android\local.properties
+
+Manifest:
+I:\MisterShare\android\app\src\main\AndroidManifest.xml
+
+Keystore (Release):
+I:\MisterShare\android\app\mister-share-release-key.keystore
+
+Source Code:
+I:\MisterShare\src
+I:\MisterShare\android\app\src\main\java\com\mistershare\filetransfer
+
+Output Folders:
+I:\MisterShare\android\app\build\outputs\apk\debug
+I:\MisterShare\android\app\build\outputs\apk\release
+I:\MisterShare\android\app\build\outputs\bundle\release
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. أوامر التشغيل على المحاكي
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# تشغيل Metro Bundler
+cd I:\MisterShare
+npm start
+
+# تشغيل على المحاكي (في نافذة أخرى)
+cd I:\MisterShare
+npm run android
+
+# أو باستخدام Gradle
+cd I:\MisterShare\android
+.\gradlew.bat installDebug
+
+# عرض الأجهزة المتصلة
+I:\Android\Sdk\platform-tools\adb.exe devices
+
+# تشغيل التطبيق
+I:\Android\Sdk\platform-tools\adb.exe shell am start -n com.mistershare.filetransfer/.MainActivity
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. أوامر بناء APK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Debug APK
+cd I:\MisterShare\android
+.\gradlew.bat assembleDebug
+
+→ الناتج: I:\MisterShare\android\app\build\outputs\apk\debug\app-debug.apk
+
+# Release APK
+cd I:\MisterShare\android
+.\gradlew.bat assembleRelease
+
+→ الناتج: I:\MisterShare\android\app\build\outputs\apk\release\app-release.apk
+
+# تنظيف ثم بناء
+cd I:\MisterShare\android
+.\gradlew.bat clean
+.\gradlew.bat assembleRelease
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. أوامر بناء AAB
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Release AAB (للنشر على Google Play)
+cd I:\MisterShare\android
+.\gradlew.bat bundleRelease
+
+→ الناتج: I:\MisterShare\android\app\build\outputs\bundle\release\app-release.aab
+
+# تنظيف ثم بناء AAB
+cd I:\MisterShare\android
+.\gradlew.bat clean
+.\gradlew.bat bundleRelease
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. معلومات الإصدارات
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Node.js: v20.16.0
+NPM: 10.8.1
+Java: OpenJDK 17.0.10 (Temurin)
+Gradle: 8.11.1
+Kotlin: 1.9.25
+React Native: 0.77.1
+Android Gradle Plugin: 8.8.0
+ADB: 1.0.41 (36.0.0)
+
+Build Configuration:
+- Min SDK: 24 (Android 7.0)
+- Target SDK: 35 (Android 15)
+- Compile SDK: 35
+- Build Tools: 35.0.0
+- NDK: 26.1.10909125
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. معلومات Keystore
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Release Keystore:
+Path: I:\MisterShare\android\app\mister-share-release-key.keystore
+Store Password: MisterShare@2026
+Key Alias: mistershare_key
+Key Password: MisterShare@2026
+
+Debug Keystore:
+Path: I:\MisterShare\android\app\debug.keystore
+Store Password: android
+Key Alias: androiddebugkey
+Key Password: android
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+11. ملف local.properties
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Path: I:\MisterShare\android\local.properties
+
+Content:
+sdk.dir=I\\:\\\\Android\\\\Sdk
+java.home=C\\:\\\\Java\\\\jdk-17.0.10+7
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+12. أوامر مساعدة
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# عرض قائمة المحاكيات
+I:\Android\Sdk\emulator\emulator.exe -list-avds
+
+# تشغيل محاكي
+I:\Android\Sdk\emulator\emulator.exe -avd [AVD_NAME]
+
+# عرض Logs
+I:\Android\Sdk\platform-tools\adb.exe logcat
+
+# إلغاء تثبيت التطبيق
+I:\Android\Sdk\platform-tools\adb.exe uninstall com.mistershare.filetransfer
+
+# مسح بيانات التطبيق
+I:\Android\Sdk\platform-tools\adb.exe shell pm clear com.mistershare.filetransfer
+
+# تثبيت APK
+I:\Android\Sdk\platform-tools\adb.exe install -r [PATH_TO_APK]
+
+# إعادة تشغيل ADB
+I:\Android\Sdk\platform-tools\adb.exe kill-server
+I:\Android\Sdk\platform-tools\adb.exe start-server
+
+# عرض معلومات APK
+I:\Android\Sdk\build-tools\35.0.0\aapt.exe dump badging [PATH_TO_APK]
+
+# التحقق من توقيع APK
+C:\Java\jdk-17.0.10+7\bin\jarsigner.exe -verify -verbose -certs [PATH_TO_APK]
+
+================================================================================
+                            نهاية الملف
+================================================================================
