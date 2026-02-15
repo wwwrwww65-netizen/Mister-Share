@@ -20,12 +20,16 @@ echo [2/4] التحقق من المحاكي...
 "%ANDROID_HOME%\platform-tools\adb.exe" devices
 echo.
 
-echo [3/4] الانتقال لمجلد Android...
-cd /d "%~dp0android"
+echo [3/4] تهيئة الاتصال بالمحاكي (Reverse Port)...
+"%ANDROID_HOME%\platform-tools\adb.exe" reverse tcp:8081 tcp:8081
+
+echo [4/4] تشغيل خادوم Metro (في نافذة جديدة)...
+start "MisterShare Metro" cmd /k "npm start"
+timeout /t 5 >nul
 echo.
 
-echo [4/4] بناء وتثبيت التطبيق...
-call gradlew.bat installDebug
+echo [5/5] بناء وتثبيت التطبيق...
+npx react-native run-android
 
 echo.
 echo ========================================
