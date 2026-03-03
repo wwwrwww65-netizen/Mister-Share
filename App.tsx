@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFileStore } from './src/store/fileStore';
 import './src/i18n'; // Initialize i18n
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { StatusBar, View, StyleSheet, TouchableOpacity, InteractionManager } from 'react-native';
+import { StatusBar, View, StyleSheet, TouchableOpacity, InteractionManager, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import LinearGradient from 'react-native-linear-gradient'; // Added LinearGradient
+import LinearGradient from 'react-native-linear-gradient';
 import { ToastManager } from './src/services/ToastManager';
-import { COLORS, SHADOWS } from './src/theme'; // Updated imports
+import { COLORS, SHADOWS } from './src/theme';
 
 
 // Screens
+import SplashScreen from './src/screens/SplashScreen';
 import Onboarding from './src/screens/Onboarding';
 import Home from './src/screens/Home';
 import Connect from './src/screens/Connect';
@@ -23,6 +25,8 @@ import ScanScreen from './src/screens/ScanScreen';
 import FileBrowser from './src/screens/FileBrowser';
 import Settings from './src/screens/Settings';
 import History from './src/screens/History';
+import NotificationsScreen from './src/screens/NotificationsScreen';
+import HelpCenterScreen from './src/screens/HelpCenterScreen';
 import { useTranslation } from 'react-i18next';
 import ConnectionStatusBar from './src/components/modern/ConnectionStatusBar';
 import { useConnectionStore } from './src/store/connectionStore';
@@ -221,6 +225,9 @@ const styles = StyleSheet.create({
 
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true);
+  const splashOpacity = useRef(new Animated.Value(1)).current;
+
   useEffect(() => {
     const appStartTime = Date.now();
     console.log('[APP] ⏱️ App useEffect START at', new Date().toISOString());
@@ -243,7 +250,6 @@ function App() {
       console.log('[APP] ⏱️ Permission state set, UI should be visible now');
 
       // 3. DEFER ALL DATA FETCHING - Let UI render first!
-      // Using setTimeout(0) to push to next event loop tick
       setTimeout(() => {
         console.log('[APP] ⏱️ Deferred fetch starting at +' + (Date.now() - appStartTime) + 'ms');
         if (status === 'granted') {
@@ -256,12 +262,20 @@ function App() {
 
     initApp();
 
-
+    // Splash Screen: fade out after 2.5 seconds
+    const splashTimer = setTimeout(() => {
+      Animated.timing(splashOpacity, {
+        toValue: 0,
+        duration: 600,
+        useNativeDriver: true,
+      }).start(() => setShowSplash(false));
+    }, 2500);
 
     console.log('[APP] ⏱️ initApp() returned (async) at +' + (Date.now() - appStartTime) + 'ms');
+    return () => clearTimeout(splashTimer);
   }, []);
 
-  return (
+  const renderApp = () => (
     <ToastManager>
       <SafeAreaProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
@@ -284,13 +298,26 @@ function App() {
               <Stack.Screen name="JoinScreen" component={JoinScreen} />
               <Stack.Screen name="ScanScreen" component={ScanScreen} />
               <Stack.Screen name="FileBrowser" component={FileBrowser} />
-              {/* Add TransferTab here as a full screen modal/stack item */}
+              <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} />
+              <Stack.Screen name="HelpCenter" component={HelpCenterScreen} />
+              {/* Full screen modal/stack */}
               <Stack.Screen name="Transfer" component={Transfer} options={{ gestureEnabled: false }} />
             </Stack.Navigator>
           </NavigationContainer>
         </GestureHandlerRootView>
       </SafeAreaProvider>
     </ToastManager>
+  );
+
+  return (
+    <View style={{ flex: 1 }}>
+      {renderApp()}
+      {showSplash && (
+        <Animated.View style={[StyleSheet.absoluteFill, { opacity: splashOpacity, zIndex: 9999 }]}>
+          <SplashScreen />
+        </Animated.View>
+      )}
+    </View>
   );
 }
 

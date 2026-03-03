@@ -14,7 +14,7 @@
  */
 
 import { NativeModules, DeviceEventEmitter, EmitterSubscription, Platform, PermissionsAndroid } from 'react-native';
-import * as RNFS from 'react-native-fs';
+import * as RNFS from '@dr.pogodin/react-native-fs';
 
 const { SAFModule } = NativeModules;
 
@@ -139,7 +139,7 @@ class SAFServiceClass {
      * SIMPLIFIED: On Android 10 and below, just check if folder exists
      */
     async hasPermission(packageName: string, folderType: 'data' | 'obb'): Promise<boolean> {
-        const RNFS = require('react-native-fs');
+        const RNFS = require('@dr.pogodin/react-native-fs');
         const { Platform } = require('react-native');
 
         // Legacy Mode: Just check if folder exists (READ_EXTERNAL_STORAGE is enough)
@@ -436,7 +436,7 @@ class SAFServiceClass {
      */
     async findGameFiles(packageName: string): Promise<Array<{ name: string, uri: string, size: number, type: 'obb' | 'data' }>> {
         const allFiles: Array<{ name: string, uri: string, size: number, type: 'obb' | 'data' }> = [];
-        const RNFS = require('react-native-fs');
+        const RNFS = require('@dr.pogodin/react-native-fs');
         const { Platform } = require('react-native');
 
         console.log(`[SAFService.findGameFiles] ═══════════════════════════════════════`);

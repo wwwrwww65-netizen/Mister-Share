@@ -444,4 +444,3 @@ export interface WifiNetwork {
 }
 
 export default new WiFiDirectAdvancedService();
-

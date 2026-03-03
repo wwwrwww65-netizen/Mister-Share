@@ -10,6 +10,7 @@ import { showToast } from '../services/ToastManager';
 import { useTransferStore, fileToTransferItem, type TransferHistory } from '../store/transferStore';
 import { useConnectionStore } from '../store/connectionStore'; // Added missing import
 import SoundService from '../services/SoundService';
+import { AdService } from '../services/AdService'; // Added AdService import
 
 // Modern Components
 import AppBackground from '../components/modern/AppBackground';
@@ -255,6 +256,12 @@ const Transfer = ({ navigation, route }: any) => {
             // Mark initialization as complete
             isInitialized.current = true;
             console.log('[Transfer] Initialization complete');
+
+            // Show Interstitial Ad if in SEND mode (User Request)
+            if (mode === 'send') {
+                console.log('[Transfer] 📺 Showing Interstitial Ad for Sender...');
+                AdService.showInterstitial();
+            }
         };
         init();
     }, []);

@@ -79,7 +79,10 @@
         "nearby_devices": "أجهزة قريبة",
         "no_devices": "اضغط فحص للعثور على مستلمين",
         "hybrid_mode": "هجين (سريع)",
-        "wifi_mode": "واي فاي فقط"
+        "wifi_mode": "واي فاي فقط",
+        "no_internet": "لا يحتاج إنترنت",
+        "fast_speed": "سرعة فائقة",
+        "secure": "آمن ومشفر"
     },
     "connect_ui": {
         "sharing_with_friend": "المشاركة مع صديق",
@@ -222,7 +225,26 @@
         "support": "الدعم",
         "help_center": "مركز المساعدة",
         "notifications": "الإشعارات",
-        "privacy_policy": "سياسة الخصوصية"
+        "privacy_policy": "سياسة الخصوصية",
+        "contact_support": "تواصل مع الدعم"
+    },
+    "help": {
+        "welcome": "كيف يمكننا مساعدتك؟",
+        "subtitle": "إليك أدلة الاستخدام، المزايا، والدعم الفني.",
+        "features": "أهم المزايا",
+        "how_to": "طريقة الاستخدام",
+        "feat_speed_title": "سرعة خيالية",
+        "feat_speed_desc": "انقل الملفات بسرعة فائقة دون الحاجة للإنترنت.",
+        "feat_secure_title": "نقل آمن",
+        "feat_secure_desc": "بياناتك مشفرة بالكامل أثناء النقل المباشر.",
+        "feat_offline_title": "بدون إنترنت",
+        "feat_offline_desc": "شارك ملفاتك في أي وقت ومكان دون اتصال.",
+        "step1_title": "اختر الملفات",
+        "step1_desc": "حدد التطبيقات، الصور، أو الفيديوهات المراد إرسالها.",
+        "step2_title": "اتصل بالجهاز",
+        "step2_desc": "اضغط إرسال او استلام، وامسح رمز QR.",
+        "step3_title": "نقل فوري",
+        "step3_desc": "استمتع بنقل ملفاتك بسرعة البرق."
     },
     "game_restore": {
         "title": "استعادة اللعبة",

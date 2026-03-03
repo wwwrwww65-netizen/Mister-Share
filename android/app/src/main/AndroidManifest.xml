@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     
     <!-- Foreground Service for transfers and hotspot (Android 9+) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -70,6 +71,12 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="mistershare" />
+        </intent-filter>
       </activity>
       <service android:name=".TransferService" android:enabled="true" android:exported="false" />
       
@@ -96,6 +103,7 @@
       <!-- Google AdMob App ID -->
       <meta-data
           android:name="com.google.android.gms.ads.APPLICATION_ID"
-          android:value="ca-app-pub-8298073076766088~5368166654"/>
+          android:value="ca-app-pub-8298073076766088~5368166654"
+          tools:replace="android:value"/>
     </application>
 </manifest>

@@ -1,6 +1,6 @@
 import { Platform, PermissionsAndroid, NativeModules } from 'react-native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
-import RNFS from 'react-native-fs';
+import * as RNFS from '@dr.pogodin/react-native-fs';
 
 const { MediaStore } = NativeModules;
 

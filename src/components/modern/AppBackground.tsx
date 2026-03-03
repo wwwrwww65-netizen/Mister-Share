@@ -3,6 +3,8 @@ import { StyleSheet, View, ImageBackground, StatusBar, ViewStyle } from 'react-n
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS } from '../../theme';
 
+import { useThemeStore } from '../../store/themeStore';
+
 interface AppBackgroundProps {
     children: React.ReactNode;
     style?: ViewStyle;
@@ -12,13 +14,12 @@ interface AppBackgroundProps {
 const AppBackground: React.FC<AppBackgroundProps> = ({ children, style, hideStatusBar = false }) => {
     return (
         <View style={[styles.container, style]}>
-            {!hideStatusBar && (
-                <StatusBar
-                    barStyle="light-content"
-                    backgroundColor="transparent"
-                    translucent={true}
-                />
-            )}
+            <StatusBar
+                barStyle="light-content"
+                backgroundColor="transparent"
+                translucent={true}
+                hidden={hideStatusBar}
+            />
 
             {/* Base Background Layer */}
             <LinearGradient

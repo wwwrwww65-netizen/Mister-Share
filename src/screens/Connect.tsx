@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -7,10 +7,12 @@ import { COLORS, FONTS } from '../theme';
 import PermissionsManager from '../services/PermissionsManager';
 
 import PermissionCheckModal from '../components/modern/PermissionCheckModal';
+import AppBackground from '../components/modern/AppBackground';
 
 const { width } = Dimensions.get('window');
 
 const Connect = ({ navigation, route }: any) => {
+    // ... (rest of the component logic remains unchanged)
     const { t } = useTranslation();
     const [showPermissionModal, setShowPermissionModal] = React.useState(false);
     const [targetScreen, setTargetScreen] = React.useState<string | null>(null);
@@ -41,62 +43,50 @@ const Connect = ({ navigation, route }: any) => {
         }
     };
 
-    // Secondary Actions Grid
-    const actions = [
-        { id: 'clone', label: 'connect_ui.phone_clone', icon: 'phonelink-setup' },
-        { id: 'qr', label: 'connect_ui.share_via_qr', icon: 'qr-code' },
-        { id: 'shake', label: 'connect_ui.shake_to_connect', icon: 'vibration' },
-        { id: 'invite', label: 'connect_ui.invite_friends', icon: 'share' },
-        { id: 'wifi', label: 'connect_ui.wifi_settings', icon: 'wifi' },
-        { id: 'help', label: 'connect_ui.help', icon: 'help-outline' },
-    ];
-
     return (
-        <LinearGradient
-            colors={['#05103A', '#0A1E5E']}
-            style={styles.container}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 1 }}
-        >
+        <AppBackground style={styles.container}>
             {/* Header */}
             <View style={styles.header}>
                 <View style={{ width: 40 }} />
                 <Text style={styles.headerTitle}>{t('connect_ui.sharing_with_friend', { defaultValue: 'Sharing with a friend' })}</Text>
-                <View style={styles.headerIcons}>
-                    <TouchableOpacity><Icon name="cloud-queue" size={28} color="#FFF" style={styles.headerIcon} /></TouchableOpacity>
-                    <TouchableOpacity><Icon name="history" size={28} color="#FFF" /></TouchableOpacity>
+                
+                {/* History Button (Restored & Functional) */}
+                <View style={{ width: 40, alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('HistoryTab')}>
+                        <Icon name="history" size={28} color="#FFF" />
+                    </TouchableOpacity>
                 </View>
             </View>
 
             <View style={styles.mainContent}>
-                {/* Main Action Buttons */}
+                {/* Main Action Buttons - Centered and Focused */}
                 <View style={styles.heroRow}>
                     {/* Create Group (Send) */}
                     <TouchableOpacity style={styles.heroBtnContainer} onPress={() => handleActionPress('ReceiveScreen')}>
-                        <View style={styles.heroBubble}>
+                        <View style={[styles.heroBubble, { borderColor: '#4DACFF' }]}>
                             <LinearGradient
-                                colors={['rgba(80, 100, 255, 0.3)', 'rgba(80, 100, 255, 0.1)']}
+                                colors={['rgba(77, 172, 255, 0.2)', 'rgba(77, 172, 255, 0.05)']}
                                 style={styles.heroGradient}
                             >
-                                <Icon name="group-add" size={50} color="#4DACFF" />
-                                <View style={styles.badge}><Icon name="check" size={12} color="#FFF" /></View>
+                                <Icon name="group-add" size={60} color="#4DACFF" />
                             </LinearGradient>
                         </View>
                         <Text style={styles.heroLabel}>{t('connect_ui.create_group')}</Text>
+                        <Text style={styles.heroSubLabel}>{t('connect_ui.send_files', { defaultValue: 'Send Files' })}</Text>
                     </TouchableOpacity>
 
                     {/* Join Group (Receive) */}
                     <TouchableOpacity style={styles.heroBtnContainer} onPress={() => handleActionPress('JoinScreen')}>
-                        <View style={styles.heroBubble}>
+                        <View style={[styles.heroBubble, { borderColor: '#00E676' }]}>
                             <LinearGradient
-                                colors={['rgba(80, 100, 255, 0.3)', 'rgba(80, 100, 255, 0.1)']}
+                                colors={['rgba(0, 230, 118, 0.2)', 'rgba(0, 230, 118, 0.05)']}
                                 style={styles.heroGradient}
                             >
-                                <Icon name="person-add" size={50} color="#4DACFF" />
-                                <View style={styles.badge}><Icon name="add" size={12} color="#FFF" /></View>
+                                <Icon name="person-add" size={60} color="#00E676" />
                             </LinearGradient>
                         </View>
                         <Text style={styles.heroLabel}>{t('connect_ui.join_group')}</Text>
+                        <Text style={styles.heroSubLabel}>{t('connect_ui.receive_files', { defaultValue: 'Receive Files' })}</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -106,21 +96,11 @@ const Connect = ({ navigation, route }: any) => {
                     onAllGranted={handlePermissionsGranted}
                 />
 
-                {/* Toggle (Visual) */}
-                <View style={styles.toggleContainer}>
-                    <TouchableOpacity style={styles.toggleBtn}>
-                        <Icon name="sync-alt" size={24} color="#FF7F50" />
-                    </TouchableOpacity>
-                </View>
-
-                {/* Grid Actions */}
-                <View style={styles.gridContainer}>
-                    {actions.map((action) => (
-                        <TouchableOpacity key={action.id} style={styles.gridItem}>
-                            <Icon name={action.icon} size={28} color="#FFF" style={{ marginBottom: 8 }} />
-                            <Text style={styles.gridLabel}>{t(action.label)}</Text>
-                        </TouchableOpacity>
-                    ))}
+                {/* App Features / Instructions */}
+                <View style={styles.featuresContainer}>
+                    <FeatureItem icon="wifi-off" text={t('connect.no_internet', { defaultValue: 'No Internet Required' })} />
+                    <FeatureItem icon="speed" text={t('connect.fast_speed', { defaultValue: 'Ultra Fast Speed' })} />
+                    <FeatureItem icon="security" text={t('connect.secure', { defaultValue: 'End-to-End Secure' })} />
                 </View>
             </View>
 
@@ -129,9 +109,19 @@ const Connect = ({ navigation, route }: any) => {
                 <Icon name="close" size={24} color="#FFF" />
             </TouchableOpacity>
 
-        </LinearGradient>
+        </AppBackground>
     );
 };
+
+// Helper Component for Features
+const FeatureItem = ({ icon, text }: { icon: string, text: string }) => (
+    <View style={styles.featureItem}>
+        <View style={styles.featureIconBubble}>
+            <Icon name={icon} size={20} color={COLORS.secondary} />
+        </View>
+        <Text style={styles.featureText}>{text}</Text>
+    </View>
+);
 
 const styles = StyleSheet.create({
     container: {
@@ -143,7 +133,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 20,
-        marginBottom: 40,
+        marginBottom: 60, // Increased spacing
     },
     headerTitle: {
         ...FONTS.h3,
@@ -158,80 +148,72 @@ const styles = StyleSheet.create({
     mainContent: {
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'flex-start', // Align to top
+        paddingTop: 60, // Shift up slightly from center
     },
     heroRow: {
         flexDirection: 'row',
         justifyContent: 'center',
         gap: 40,
-        marginBottom: 30,
+        marginBottom: 50, // More space below buttons
     },
     heroBtnContainer: {
         alignItems: 'center',
     },
     heroBubble: {
-        width: 120,
-        height: 120,
-        borderRadius: 60,
+        width: 140, // Larger
+        height: 140,
+        borderRadius: 70,
         backgroundColor: 'rgba(255,255,255,0.05)',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 15,
-        borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.1)',
+        marginBottom: 20,
+        borderWidth: 2, // Thicker border
+        // borderColor set dynamically
     },
     heroGradient: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
+        width: 120,
+        height: 120,
+        borderRadius: 60,
         alignItems: 'center',
         justifyContent: 'center',
     },
     heroLabel: {
         ...FONTS.h3,
         color: '#FFF',
-        fontSize: 16,
+        fontSize: 18, // Larger
+        marginBottom: 5,
     },
-    badge: {
-        position: 'absolute',
-        bottom: 20,
-        right: 20,
-        width: 20,
-        height: 20,
-        borderRadius: 10,
-        backgroundColor: 'rgba(255,255,255,0.2)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 1,
-        borderColor: '#FFF',
-    },
-    toggleContainer: {
-        alignItems: 'center',
-        marginBottom: 40,
-    },
-    toggleBtn: {
-        width: 60,
-        height: 30,
-        borderRadius: 15,
-        backgroundColor: 'rgba(255,255,255,0.1)',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    gridContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        width: width * 0.9,
-        justifyContent: 'space-between',
-    },
-    gridItem: {
-        width: '33%', // 3 columns
-        alignItems: 'center',
-        marginBottom: 30,
-    },
-    gridLabel: {
-        ...FONTS.body2,
+    heroSubLabel: { // Added style
+        ...FONTS.body3,
         color: COLORS.textDim,
-        fontSize: 12,
+        fontSize: 14,
+    },
+    // New Feature Styles
+    featuresContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        gap: 20,
+        marginTop: 20,
+    },
+    featureItem: {
+        alignItems: 'center',
+        width: 100,
+    },
+    featureIconBubble: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: 'rgba(255,255,255,0.05)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 8,
+    },
+    featureText: {
+        ...FONTS.caption,
+        color: COLORS.textDim,
         textAlign: 'center',
+        opacity: 0.8,
     },
     closeBtn: {
         position: 'absolute',
