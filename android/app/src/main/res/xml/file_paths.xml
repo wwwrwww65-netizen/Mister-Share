@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- FileProvider paths configuration (2024 Android Best Practice) -->
+<!-- Allows secure access to protected app files for transfer -->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Cache directory - for temporary APK copies if needed -->
+    <cache-path name="cache" path="." />
+    <cache-path name="apk_transfer" path="apk_transfer/" />
+    
+    <!-- External storage - for received files -->
+    <external-path name="external" path="." />
+    <external-path name="downloads" path="Download/" />
+    <external-path name="mistershare" path="Download/MisterShare/" />
+    
+    <!-- External cache - for temporary files -->
+    <external-cache-path name="external_cache" path="." />
+    
+    <!-- App data directory - allows access to installed APKs -->
+    <!-- This is the key path that enables zero-copy APK sharing -->
+    <root-path name="root" path="/" />
+    
+</paths>
