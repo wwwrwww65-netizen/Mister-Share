@@ -331,10 +331,10 @@ class TcpHandshakeModule(private val reactContext: ReactApplicationContext) :
      */
     @ReactMethod
     fun performHandshake(hostIp: String, myDeviceName: String, myDeviceId: String, promise: Promise) {
-        // REMOVED: isHandshaking check to allow retries if previous attempt is stuck
-        // if (isHandshaking) { ... } 
-        // We trust the JS layer to manage timeout/retries.
-
+        if (isHandshaking) {
+            promise.reject("BUSY", "Handshake already in progress")
+            return
+        }
         isHandshaking = true
 
         scope.launch(Dispatchers.IO) {
@@ -347,7 +347,6 @@ class TcpHandshakeModule(private val reactContext: ReactApplicationContext) :
                 if (boundNetwork != null) {
                     try {
                         socket = boundNetwork.socketFactory.createSocket()
-                        Log.d(TAG, "✅ Using bound network socket")
                     } catch (e: Exception) {
                         Log.w(TAG, "⚠️ Bound network socket failed: ${e.message}")
                     }
@@ -358,26 +357,19 @@ class TcpHandshakeModule(private val reactContext: ReactApplicationContext) :
                     socket = Socket()
                     try {
                         val localIp = getHotspotInterfaceIp()
-                        // 2026 FIX: Only bind if we are REALLY sure, otherwise let OS decide.
-                        // Binding often fails on Android 12+ due to network restrictions.
                         if (localIp != "0.0.0.0" && !localIp.startsWith("127")) {
-                            // socket.bind(InetSocketAddress(localIp, 0)) 
-                            // DISABLED BINDING: It causes more harm than good on modern Android.
-                            // The OS routing table usually knows best where to send packets 
-                            // for 192.168.49.1 (P2P) or 192.168.x.x (Hotspot).
-                            Log.d(TAG, "ℹ️ Skipping explicit bind to $localIp (Letting OS route)")
+                            socket.bind(InetSocketAddress(localIp, 0))
                         }
                     } catch (e: Exception) {
-                       Log.w(TAG, "⚠️ Bind logic error: ${e.message}")
+                       Log.w(TAG, "⚠️ Bind failed: ${e.message}")
                     }
                 }
 
                 withContext(Dispatchers.IO) {
-                    // Increased connection timeout for older devices
-                    socket?.connect(InetSocketAddress(hostIp, HANDSHAKE_PORT), 7000)
+                    socket?.connect(InetSocketAddress(hostIp, HANDSHAKE_PORT), 5000)
                 }
 
-                socket?.soTimeout = 10000 // 10s read timeout
+                socket?.soTimeout = 10000
                 val writer = PrintWriter(socket!!.outputStream, true)
                 val reader = BufferedReader(InputStreamReader(socket.inputStream))
 
@@ -412,7 +404,7 @@ class TcpHandshakeModule(private val reactContext: ReactApplicationContext) :
                 }
             } finally {
                 try { socket?.close() } catch (ignored: Exception) {}
-                // isHandshaking = false
+                isHandshaking = false
             }
         }
     }

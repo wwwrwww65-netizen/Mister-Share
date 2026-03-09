@@ -11,7 +11,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { ToastManager } from './src/services/ToastManager';
 import { COLORS, SHADOWS } from './src/theme';
-
+import mobileAds from 'react-native-google-mobile-ads';
+import { AdService } from './src/services/AdService';
 
 // Screens
 import SplashScreen from './src/screens/SplashScreen';
@@ -261,6 +262,16 @@ function App() {
     };
 
     initApp();
+
+    // Initialize AdMob cautiously
+    setTimeout(() => {
+      mobileAds().initialize().then(() => {
+        console.log('📱 AdMob Initialized');
+        AdService.loadInterstitial();
+      }).catch(err => {
+        console.log('📱 AdMob failed to initialize:', err);
+      });
+    }, 1000);
 
     // Splash Screen: fade out after 2.5 seconds
     const splashTimer = setTimeout(() => {

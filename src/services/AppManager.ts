@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import * as RNFS from '@dr.pogodin/react-native-fs';
+import RNFS from 'react-native-fs';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import ScopedStorageService from './ScopedStorage';
 import Filesystem from './FileSystem';

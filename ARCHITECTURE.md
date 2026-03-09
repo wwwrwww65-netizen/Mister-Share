@@ -660,4 +660,152 @@ if (existing) { /* استخدام الموجودة */ } else { createGroupWithFa
 
 ---
 
+## 13. نظام الإعلانات - Google AdMob Integration
+
+> **المبدأ الأساسي:** الإعلانات لا تُعرَض أبداً أثناء الاتصال أو نقل الملفات.
+
+### الملفات المُضافة / المُعدَّلة
+
+| الملف | التغيير |
+|-------|---------|
+| `src/services/AdService.ts` | ✅ ملف جديد — محرك الإعلانات الآمن |
+| `App.tsx` | ✅ تهيئة AdMob مؤجلة بـ 1 ثانية |
+| `app.json` | ✅ إضافة `android_app_id` لـ AdMob |
+| `android/app/src/main/AndroidManifest.xml` | ✅ إضافة AdMob `APPLICATION_ID` meta-data |
+| `package.json` | ✅ إضافة `react-native-google-mobile-ads@14.7.2` |
+
+### AdService.ts — الضمانات الثلاثة
+
+```typescript
+// src/services/AdService.ts
+
+export const AdService = {
+    loadInterstitial: async () => {
+
+        // ── ضمان 1: لا إنترنت = لا إعلان ──────────────────────────
+        const netState = await NetInfo.fetch();
+        if (!netState.isConnected || !netState.isInternetReachable) {
+            return; // لا نُحمِّل الإعلان — نحمي شبكة P2P المحلية
+        }
+
+        // ── ضمان 2: اتصال P2P نشط = لا إعلان ──────────────────────
+        const { isConnected, isGroupOwner, isConnecting } = useConnectionStore.getState();
+        if (isConnected || isGroupOwner || isConnecting) {
+            return; // جهازان متصلان الآن — لا نتدخل أبداً
+        }
+
+        // ... تحميل الإعلان
+    },
+
+    showInterstitial: () => {
+
+        // ── ضمان 3: لا نعرض الإعلان أثناء النقل ──────────────────
+        const { isConnected, isGroupOwner } = useConnectionStore.getState();
+        if (isConnected || isGroupOwner) {
+            return; // حماية عمليات الإرسال والاستقبال الجارية
+        }
+
+        // كذلك: فترة راحة 60 ثانية بين إعلان وآخر
+        if (timeSinceLastAd < AD_COOLDOWN_MS) return;
+
+        // ... عرض الإعلان
+    }
+};
+```
+
+### تهيئة AdMob في App.tsx
+
+```typescript
+// App.tsx — داخل useEffect
+// تأجيل 1 ثانية لضمان تحميل واجهة التطبيق أولاً
+setTimeout(() => {
+    mobileAds().initialize().then(() => {
+        AdService.loadInterstitial(); // يُحمَّل فقط إذا لا يوجد P2P
+    });
+}, 1000);
+```
+
+### إعدادات AndroidManifest.xml
+
+```xml
+<!-- AdMob App ID -->
+<meta-data
+    android:name="com.google.android.gms.ads.APPLICATION_ID"
+    android:value="ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX"
+    tools:replace="android:value"/>
+```
+
+### إعدادات app.json
+
+```json
+{
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX"
+  }
+}
+```
+
+### وحدات الإعلان المستخدمة
+
+| الوحدة | النوع | ملاحظة |
+|--------|-------|---------|
+| `Interstitial` | إعلان كامل الشاشة | يظهر في لحظات الانتظار فقط |
+
+### قاعدتا الأمان الجوهريتان
+
+```
+┌──────────────────────────────────────────────────────────┐
+│  وقت الاتصال النشط (isConnected / isGroupOwner = true)  │
+│  ══════════════════════════════════════════════════════  │
+│  ❌ لا تحميل إعلان                                      │
+│  ❌ لا عرض إعلان                                        │
+│  ❌ لا استدعاء AdMob SDK                                 │
+│                                                          │
+│  الإعلانات تعمل فقط حين:                                │
+│  ✅ لا يوجد اتصال P2P                                   │
+│  ✅ يوجد اتصال إنترنت فعلي                              │
+│  ✅ مرّت 60 ثانية على آخر إعلان                         │
+└──────────────────────────────────────────────────────────┘
+```
+
+### سبب التغيير من الإصدار القديم
+
+كان الإصدار السابق `react-native-google-mobile-ads@16.2.1` يتعارض مع
+نظام Codegen في React Native 0.77 بسبب `NativeAppModuleSpec`. تم الرجوع إلى
+الإصدار `14.7.2` المستقر والمتوافق.
+
+---
+
+## 📌 ملاحظات تقنية مهمة — تحديث مارس 2026
+
+### 5. إصلاح مشكلة عدم ظهور نافذة القبول (host لا يستقبل الاتصال)
+**السبب:** كان التحديث الجديد للتصاميم يحتوي على تعطيل لسطر `socket.bind()` في
+`TcpHandshakeModule.kt`، مما تسبب في إرسال بيانات الـ HELLO عبر شبكة الإنترنت
+بدلاً من شبكة P2P المحلية.
+
+**الحل:** استعادة النسخة الأصلية من `TcpHandshakeModule.kt` من الـ commit
+`"النسخه الجاهزه والاتصال الجاهز"` الذي كان فيه الاتصال يعمل بشكل مثالي.
+
+```kotlin
+// TcpHandshakeModule.kt — الكود الصحيح (مُستعاد)
+if (localIp != "0.0.0.0" && !localIp.startsWith("127")) {
+    socket.bind(InetSocketAddress(localIp, 0)) // ✅ يجبر الأندرويد على P2P
+}
+// وكذلك:
+isHandshaking = false // ✅ في finally — يسمح بإعادة المحاولة
+```
+
+### 6. إصلاح مكتبة RNFS
+**السبب:** حزمة `@dr.pogodin/react-native-fs` غير متوافقة مع TurboModules في
+React Native 0.77 وتفشل في Codegen.
+
+**الحل:** الرجوع لـ `react-native-fs` الأصلية في جميع الملفات:
+- `src/services/AppManager.ts`
+- `src/services/FileSystem.ts`
+- `src/services/SAFService.ts`
+- `src/store/transferStore.ts`
+
+---
+
 *آخر تحديث: مارس 2026 — المشروع: MisterShare v2.0*
+*الفرع: admob-integration — دمج إعلانات AdMob بأمان كامل*

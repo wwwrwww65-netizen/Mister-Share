@@ -1,4 +1,8 @@
 {
   "name": "MisterShare",
-  "displayName": "Mister Share"
+  "displayName": "Mister Share",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-8298073076766088~5368166654",
+    "ios_app_id": "ca-app-pub-8298073076766088~5368166654"
+  }
 }

@@ -364,7 +364,7 @@ export const useTransferStore = create<TransferState>((set, get) => ({
         get().setSendStatus('running');
         TransferEngine.setDestination(serverIP);
 
-        const RNFS = require('@dr.pogodin/react-native-fs');
+        const RNFS = require('react-native-fs');
         const SAFService = require('../services/SAFService').default;
 
         const zipPromisesByItemId = new Map<string, Promise<void>>();
@@ -566,7 +566,7 @@ export const useTransferStore = create<TransferState>((set, get) => ({
                 // Cleanup: Delete temp APK file if it was copied to cache
                 if (item.path && item.path.includes('/apk_transfer/')) {
                     try {
-                        const RNFS = require('@dr.pogodin/react-native-fs');
+                        const RNFS = require('react-native-fs');
                         await RNFS.unlink(item.path);
                         console.log('[TransferStore] 🗑️ Cleaned up temp APK:', item.path);
                     } catch (cleanupError) {
@@ -812,7 +812,7 @@ export async function processFilesForQueue(files: any[], sessionId?: string): Pr
             } else if (isApk) {
                 // Fallback: Original RNFS copy method (if FileProvider not available)
                 try {
-                    const RNFS = require('@dr.pogodin/react-native-fs');
+                    const RNFS = require('react-native-fs');
                     const apkPath = fileWithSession.apkPath || fileWithSession.path;
                     const appLabel = fileWithSession.label || fileWithSession.appLabel || fileWithSession.appName || fileWithSession.name || 'unknown';
                     const safeName = appLabel.replace(/[^a-zA-Z0-9\u0600-\u06FF\s._-]/g, '_');
