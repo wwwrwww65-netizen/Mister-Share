@@ -1,92 +1,139 @@
 import {
     InterstitialAd,
-    AdEventType
+    AdEventType,
+    BannerAd,
+    BannerAdSize,
+    TestIds,
 } from 'react-native-google-mobile-ads';
-import NetInfo from '@react-native-community/netinfo';
-import { useConnectionStore } from '../store/connectionStore';
 
-// USE TEST IDS FOR DEVELOPMENT TO AVOID POLICY VIOLATIONS
-// Replace these with your real Ad Unit IDs from AdMob Dashboard for Production
+// ─────────────────────────────────────────────
+// Ad Unit IDs
+// ─────────────────────────────────────────────
+export const BANNER_AD_UNIT_ID = __DEV__
+    ? TestIds.BANNER                             // Test Banner ID
+    : 'ca-app-pub-8298073076766088/XXXXXXXXXX';  // ← ضع ID البانر الحقيقي هنا
+
 const INTERSTITIAL_ID = __DEV__
-    ? 'ca-app-pub-3940256099942544/1033173712' // Test ID
-    : 'ca-app-pub-8298073076766088/4851063770'; // Production Interstitial ID
+    ? TestIds.INTERSTITIAL                       // Test Interstitial ID
+    : 'ca-app-pub-8298073076766088/4851063770';  // Production Interstitial ID
 
+// ─────────────────────────────────────────────
+// State
+// ─────────────────────────────────────────────
 let interstitial: InterstitialAd | null = null;
+let isAdLoaded = false;
+let isAdLoading = false;
 let lastAdTime = 0;
-const AD_COOLDOWN_MS = 60 * 1000; // 60 Seconds Cooldown
+const AD_COOLDOWN_MS = 60 * 1000; // 60 ثانية — وفق توصية AdMob الرسمية (مثل SHAREit وXender)
 
+// ─────────────────────────────────────────────
+// AdService
+// ─────────────────────────────────────────────
 export const AdService = {
-    loadInterstitial: async () => {
-        // --- SAFEGUARD 1: Check Internet ---
-        const netState = await NetInfo.fetch();
-        if (!netState.isConnected || !netState.isInternetReachable) {
-            console.log('🔇 AdService: No internet. Skipping ad load to protect local P2P network.');
+
+    /**
+     * يُحمَّل الإعلان مسبقاً في الخلفية —
+     * يُستدعى عند بدء التطبيق فقط، لا علاقة له بـ P2P
+     * الإعلان يُخزَّن جاهزاً حتى بدون إنترنت لاحقاً
+     */
+    preloadInterstitial: () => {
+        if (isAdLoaded || isAdLoading) {
+            console.log('[AdService] Already loaded/loading, skipping.');
             return;
         }
 
-        // --- SAFEGUARD 2: Protect P2P Connections ---
-        const { isConnected, isGroupOwner, isConnecting } = useConnectionStore.getState();
-        if (isConnected || isGroupOwner || isConnecting) {
-            console.log('🔇 AdService: P2P Connection active. Skipping ad load to prevent socket disruption.');
-            return;
-        }
+        console.log('[AdService] 📡 Pre-loading Interstitial Ad...');
+        isAdLoading = true;
 
-        if (interstitial) return; // Already loaded or loading
-
-        console.log('📡 AdService: Loading Interstitial Ad...');
         interstitial = InterstitialAd.createForAdRequest(INTERSTITIAL_ID, {
             requestNonPersonalizedAdsOnly: true,
         });
 
         interstitial.addAdEventListener(AdEventType.LOADED, () => {
-            console.log('✅ Interstitial Ad Loaded');
+            console.log('[AdService] ✅ Interstitial Ad pre-loaded and ready');
+            isAdLoaded = true;
+            isAdLoading = false;
         });
 
         interstitial.addAdEventListener(AdEventType.CLOSED, () => {
-            console.log('❌ Interstitial Ad Closed');
+            console.log('[AdService] Ad closed by user');
+            isAdLoaded = false;
+            isAdLoading = false;
             interstitial = null;
             lastAdTime = Date.now();
 
-            // Wait briefly before reloading to let the UI settle
+            // أعد التحميل تلقائياً بعد إغلاق الإعلان (جاهز للمرة القادمة)
             setTimeout(() => {
-                AdService.loadInterstitial();
-            }, 2000);
+                AdService.preloadInterstitial();
+            }, 3000);
         });
 
         interstitial.addAdEventListener(AdEventType.ERROR, (error) => {
-            console.log('⚠️ Interstitial Ad Error:', error);
+            console.log('[AdService] ⚠️ Ad load error:', error?.message || error);
+            isAdLoaded = false;
+            isAdLoading = false;
             interstitial = null;
+
+            // أعد المحاولة بعد 30 ثانية عند فشل التحميل
+            setTimeout(() => {
+                AdService.preloadInterstitial();
+            }, 30000);
         });
 
         try {
             interstitial.load();
         } catch (e) {
-            console.error('Failed to load ad', e);
+            console.error('[AdService] Failed to call load():', e);
+            isAdLoading = false;
         }
     },
 
-    showInterstitial: (force = false) => {
-        const { isConnected, isGroupOwner } = useConnectionStore.getState();
-
-        // --- SAFEGUARD 3: Never interrupt active transfers ---
-        if (isConnected || isGroupOwner) {
-            console.log('🔇 AdService: Skipping Ad Show. P2P is Active.');
-            return;
-        }
-
+    /**
+     * يعرض الإعلان بعد اكتمال النقل (للمرسل والمستقبل)
+     * - لا يعرض إذا لم يكن محملاً
+     * - لا يعرض إذا كان الكولداون نشطاً
+     */
+    showAfterTransfer: () => {
         const now = Date.now();
         const timeSinceLastAd = now - lastAdTime;
 
-        if (!force && timeSinceLastAd < AD_COOLDOWN_MS) {
-            console.log(`⏳ Ad Cooldown active. Try again in ${Math.ceil((AD_COOLDOWN_MS - timeSinceLastAd) / 1000)}s`);
+        if (timeSinceLastAd < AD_COOLDOWN_MS && lastAdTime !== 0) {
+            const remainingSec = Math.ceil((AD_COOLDOWN_MS - timeSinceLastAd) / 1000);
+            console.log(`[AdService] ⏳ Cooldown active. ${remainingSec}s remaining.`);
             return;
         }
 
-        if (interstitial && interstitial.loaded) {
+        if (!interstitial || !isAdLoaded) {
+            console.log('[AdService] ⚠️ Ad not ready yet. Loading for next time...');
+            AdService.preloadInterstitial();
+            return;
+        }
+
+        console.log('[AdService] 📺 Showing Interstitial Ad after transfer completion');
+        try {
             interstitial.show();
-        } else {
-            console.log('⚠️ Interstitial not ready yet');
-            AdService.loadInterstitial();
+        } catch (e) {
+            console.error('[AdService] Failed to show ad:', e);
         }
     },
+
+    /**
+     * للاستخدام الاختياري — يُعيد تحميل الإعلان يدوياً
+     */
+    reload: () => {
+        isAdLoaded = false;
+        isAdLoading = false;
+        interstitial = null;
+        AdService.preloadInterstitial();
+    },
+
+    /**
+     * للتحقق من حالة الإعلان (debugging)
+     */
+    isReady: () => isAdLoaded,
 };
+
+// ─────────────────────────────────────────────
+// Export BannerAdSize for use in components
+// ─────────────────────────────────────────────
+export { BannerAd, BannerAdSize };

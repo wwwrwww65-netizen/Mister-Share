@@ -611,6 +611,29 @@ mistershare/
 └── docs/                    # Documentation
 ```
 
+### 🔌 Connection & File Transfer Flow (Core Networking)
+
+MisterShare uses a robust 3-stage networking architecture to manage offline P2P connections, specifically implemented in three core native Kotlin modules:
+
+#### 1. Network Establishment (`WiFiDirectAdvancedModule.kt`)
+**Goal:** Create a physical or logical WiFi connection between two devices.
+- **Host (Receiver):** Creates a local network (LocalOnlyHotspot, WiFi Direct Group, or Legacy Hotspot depending on Android version).
+- **Client (Sender):** Scans the QR code and connects to the Host's broadcasted network. This module manages Android-specific network routing, ensuring that sockets are bound to the correct network interface (`cm.activeNetwork` or specific WiFi network) rather than cellular data.
+
+#### 2. Device Identity & Trust (`TcpHandshakeModule.kt`)
+**Goal:** Verify devices and establish a communication channel.
+- Once the WiFi connection is established, the Client must prove who it is before sending files.
+- The Host starts a lightweight ServerSocket listening for a specific "Handshake".
+- The Client sends a `HELLO|DeviceName|DeviceID` string over TCP.
+- If accepted, the Host replies with `WELCOME`, approving the connection. This prevents random devices on the network from sending unsolicited files.
+
+#### 3. High-Speed Data Transfer (`TransferService.kt`)
+**Goal:** Move heavy files as fast as possible.
+- After a successful Handshake, the actual file transfer begins.
+- **Zero-Copy Architecture:** The service uses Java NIO `FileChannel.transferTo()` which directly leverages the Linux `sendfile()` syscall. This copies data directly from the storage drive to the network socket within the kernel space, bypassing RAM completely.
+- **Fallback:** For streams that do not support Zero-Copy (like some `content://` URIs), it uses an optimized `BufferedOutputStream` with a 256KB chunk size.
+- The module also handles file reconstruction, MD5 checksum calculations, and updating the UI accurately by sending progress events back to React Native.
+
 ---
 
 ## 🧪 Testing

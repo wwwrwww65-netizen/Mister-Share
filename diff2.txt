@@ -1,0 +1,50 @@
+diff --git a/android/app/src/main/java/com/mistershare/filetransfer/TcpHandshakeModule.kt b/android/app/src/main/java/com/mistershare/filetransfer/TcpHandshakeModule.kt
+index 837c7d2..671f5a6 100644
+--- a/android/app/src/main/java/com/mistershare/filetransfer/TcpHandshakeModule.kt
++++ b/android/app/src/main/java/com/mistershare/filetransfer/TcpHandshakeModule.kt
+@@ -32,6 +32,7 @@ class TcpHandshakeModule(private val reactContext: ReactApplicationContext) :
+     private var isServerRunning = false
+     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+     private val pendingApprovals = mutableMapOf<String, Socket>()
++    private val pendingNames = mutableMapOf<String, String>() // clientId ??? clientName
+     private var hostDeviceName = "MisterShare"
+     private var isHandshaking = false
+     private var prefs: SharedPreferences? = null
+@@ -221,8 +222,18 @@ class TcpHandshakeModule(private val reactContext: ReactApplicationContext) :
+                         socket.close()
+                     } else {
+                         // FIRST TIME: Request approval from host user
+-                        Log.d(TAG, "?????? Requesting approval for new device: $clientName")
++                        Log.d(TAG, "??? Requesting approval for new device: $clientName")
++
++                        // FIX: If same device reconnects, close the stale old socket first
++                        // This prevents sockets from piling up and blocking future connections
++                        val staleSocket = pendingApprovals[clientId]
++                        if (staleSocket != null && !staleSocket.isClosed) {
++                            Log.w(TAG, "?????? Closing stale pending socket for device: $clientId")
++                            try { staleSocket.close() } catch (ignored: Exception) {}
++                        }
++
+                         pendingApprovals[clientId] = socket
++                        pendingNames[clientId] = clientName
+ 
+                         val params = Arguments.createMap().apply {
+                             putString("clientName", clientName)
+@@ -279,7 +290,8 @@ class TcpHandshakeModule(private val reactContext: ReactApplicationContext) :
+                 // Emit peer connected event
+                 val params = Arguments.createMap().apply {
+                     putString("ip", clientIp)
+-                    putString("name", clientId) // We don't have name stored, use ID
++                    // FIX: Use stored name instead of ID
++                    putString("name", pendingNames.remove(clientId) ?: clientId)
+                     putString("id", clientId)
+                     putBoolean("autoApproved", false)
+                 }
+@@ -423,6 +435,7 @@ class TcpHandshakeModule(private val reactContext: ReactApplicationContext) :
+                     try { socket.close() } catch (ignored: Exception) {}
+                 }
+                 pendingApprovals.clear()
++                pendingNames.clear()
+ 
+                 // Close server socket
+                 handshakeServer?.close()

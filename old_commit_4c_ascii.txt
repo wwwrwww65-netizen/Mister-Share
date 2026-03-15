@@ -1,0 +1,110 @@
+                val boundNetwork = NetworkHolder.boundNetwork
+                if (boundNetwork != null) {
+                    Log.d(TAG, "???? Bound network available: $boundNetwork")
+                }
+                
+                handshakeServer = ServerSocket().apply {
+                    reuseAddress = true
+                    // 2024 FIX: Bind to 0.0.0.0 (Wildcard) to listen on ALL interfaces.
+                    // Binding to a specific IP (getHotspotInterfaceIp) can fail on Android 13+
+                    // due to security restrictions or incorrect interface detection.
+                    bind(InetSocketAddress(HANDSHAKE_PORT))
+                    Log.d(TAG, "?? Handshake server started on PORT $HANDSHAKE_PORT (Listening on ALL interfaces)")
+                }
+                isServerRunning = true
+                Log.d(TAG, "???? Handshake server started on port $HANDSHAKE_PORT")
+                
+                withContext(Dispatchers.Main) {
+                    promise.resolve(true)
+                }
+
+                // Accept connections loop
+                while (isServerRunning && !handshakeServer!!.isClosed) {
+                    try {
+                        val clientSocket = handshakeServer?.accept() ?: break
+                        Log.d(TAG, "???? Client connected: ${clientSocket.inetAddress.hostAddress}")
+                        handleHandshakeClient(clientSocket)
+                    } catch (e: SocketException) {
+                        if (isServerRunning) {
+                            Log.e(TAG, "Socket error: ${e.message}")
+                        }
+                        break
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "??? Failed to start handshake server: ${e.message}")
+                withContext(Dispatchers.Main) {
+                    promise.reject("ERROR", "Failed to start handshake server: ${e.message}")
+                }
+            }
+        }
+    }
+
+    /**
+     * Handle incoming handshake request from client
+     */
+    private fun handleHandshakeClient(socket: Socket) {
+        scope.launch {
+            try {
+                socket.soTimeout = 30000 // 30 second timeout
+                val reader = BufferedReader(InputStreamReader(socket.inputStream))
+                val writer = PrintWriter(socket.outputStream, true)
+
+                // Read handshake request: "HELLO|ClientName|ClientID"
+                val request = reader.readLine()
+                Log.d(TAG, "???? Received: $request")
+
+                if (request?.startsWith("HELLO|") == true) {
+                    val parts = request.split("|")
+                    val clientName = parts.getOrNull(1) ?: "Unknown"
+                    val clientId = parts.getOrNull(2) ?: java.util.UUID.randomUUID().toString()
+                    val clientIp = socket.inetAddress.hostAddress ?: "0.0.0.0"
+
+                    Log.d(TAG, "???? Handshake request from: $clientName ($clientId) @ $clientIp")
+
+                    if (isDeviceTrusted(clientId)) {
+                        // AUTO-APPROVE: Device is trusted
+                        Log.d(TAG, "??? Auto-approving trusted device: $clientName")
+                        writer.println("WELCOME|$hostDeviceName|12345")
+
+                        // Emit peer connected event
+                        val params = Arguments.createMap().apply {
+                            putString("ip", clientIp)
+                            putString("name", clientName)
+                            putString("id", clientId)
+                            putBoolean("autoApproved", true)
+                        }
+                        withContext(Dispatchers.Main) {
+                            sendEvent("onPeerConnected", params)
+                        }
+
+                        socket.close()
+                    } else {
+                        // FIRST TIME: Request approval from host user
+                        Log.d(TAG, "??? Requesting approval for new device: $clientName")
+                        pendingApprovals[clientId] = socket
+
+                        val params = Arguments.createMap().apply {
+                            putString("clientName", clientName)
+                            putString("clientId", clientId)
+                            putString("clientIp", clientIp)
+                        }
+                        withContext(Dispatchers.Main) {
+                            sendEvent("onApprovalRequest", params)
+                        }
+
+                        // Don't close socket yet - wait for approval response
+                    }
+                } else {
+                    Log.w(TAG, "?????? Invalid handshake request: $request")
+                    writer.println("ERROR|Invalid request")
+                    socket.close()
+                }
+            } catch (e: SocketTimeoutException) {
+                Log.w(TAG, "??? Handshake timeout")
+                socket.close()
+            } catch (e: Exception) {
+                Log.e(TAG, "??? Error handling handshake: ${e.message}")
+                try { socket.close() } catch (ignored: Exception) {}
+            }
+        }

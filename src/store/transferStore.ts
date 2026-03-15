@@ -147,7 +147,10 @@ export const useTransferStore = create<TransferState>((set, get) => ({
     },
 
     clearQueue: () => {
-        set({ queue: [], currentIndex: 0, status: 'idle' });
+        // ✅ FIX: Also reset sendStatus/receiveStatus so second transfer starts fresh
+        set({ queue: [], currentIndex: 0, status: 'idle', sendStatus: 'idle', receiveStatus: 'idle' });
+        // Reset progress throttle timer so second transfer's first update isn't skipped
+        lastProgressUpdate = 0;
     },
 
     reorderQueue: (fromIndex, toIndex) => {
@@ -261,6 +264,10 @@ export const useTransferStore = create<TransferState>((set, get) => ({
             currentIndex: 0,
             status: 'idle'
         });
+
+        // ✅ FIX: Reset progress throttle on new session
+        // Prevents first updates of second transfer from being skipped
+        lastProgressUpdate = 0;
 
         return sessionId;
     },
@@ -654,15 +661,18 @@ export const useTransferStore = create<TransferState>((set, get) => ({
                 console.log('[TransferStore] Queue updated, total items:', newIndex + 1);
             },
             (p, speed, timeLeft) => {
-                const { queue, currentIndex } = get();
-                const item = queue[currentIndex];
-                if (item) {
-                    get().updateProgress(item.id, p, speed, timeLeft);
+                // ✅ FIX: Find the actively transferring receive item by status
+                // NOT by currentIndex which can be stale from previous session
+                const { queue } = get();
+                const activeItem = queue.find(i => i.direction === 'receive' && i.status === 'transferring');
+                if (activeItem) {
+                    get().updateProgress(activeItem.id, p, speed, timeLeft);
                 }
             },
             (path, meta) => {
-                const { queue, currentIndex } = get();
-                const item = queue[currentIndex];
+                // ✅ FIX: Find receive item by status, not stale currentIndex
+                const { queue } = get();
+                const item = queue.find(i => i.direction === 'receive' && i.status === 'transferring');
                 if (item) {
                     set(s => ({
                         queue: s.queue.map(i => i.id === item.id ? { ...i, status: 'completed', progress: 1, path: path } : i),

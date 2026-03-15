@@ -57,8 +57,8 @@ const Settings = ({ navigation }: any) => {
         return (
             <TouchableOpacity onPress={() => changeLanguage(lang)} style={[styles.langOption, isSelected && styles.langOptionSelected]}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
-                     <Text style={{ fontSize: 24 }}>{flag}</Text>
-                     <Text style={[styles.langLabel, isSelected && { color: COLORS.primary, fontWeight: 'bold' }]}>{label}</Text>
+                    <Text style={{ fontSize: 24 }}>{flag}</Text>
+                    <Text style={[styles.langLabel, isSelected && { color: COLORS.primary, fontWeight: 'bold' }]}>{label}</Text>
                 </View>
                 {isSelected && <Icon name="check-circle" size={24} color={COLORS.primary} />}
             </TouchableOpacity>
@@ -98,18 +98,18 @@ const Settings = ({ navigation }: any) => {
                         }}
                     />
                     <View style={styles.divider} />
-                    <SettingRow 
-                        icon="help" 
-                        label={t('settings.help_center', { defaultValue: 'Help Center' })} 
-                        onPress={() => navigation.navigate('HelpCenterScreen')} 
+                    <SettingRow
+                        icon="help"
+                        label={t('settings.help_center', { defaultValue: 'Help Center' })}
+                        onPress={() => navigation.navigate('HelpCenter')}
                     />
                     <View style={styles.divider} />
-                    <SettingRow 
-                        icon="support-agent" 
-                        label={t('settings.contact_support', { defaultValue: 'Contact Support' })} 
-                        onPress={() => { 
+                    <SettingRow
+                        icon="support-agent"
+                        label={t('settings.contact_support', { defaultValue: 'Contact Support' })}
+                        onPress={() => {
                             Linking.openURL('mailto:wwerooe@gmail.com?subject=Mister Share Support').catch(err => console.error("Couldn't open email", err));
-                        }} 
+                        }}
                     />
                     <View style={styles.divider} />
                     <SettingRow icon="info" label={t('common.about')} right={<Text style={{ color: COLORS.textDim }}>v1.0.0</Text>} />
@@ -125,13 +125,13 @@ const Settings = ({ navigation }: any) => {
                     <TouchableOpacity style={styles.modalBackdrop} activeOpacity={1} onPress={() => setShowLanguageModal(false)} />
                     <GlassCard style={styles.modalContent} variant="heavy">
                         <Text style={styles.modalTitle}>{t('common.language')}</Text>
-                        
+
                         <View style={styles.langList}>
                             <LanguageOption lang="en" label="English" flag="🇺🇸" />
                             <View style={styles.divider} />
                             <LanguageOption lang="ar" label="العربية" flag="🇸🇦" />
                         </View>
-                        
+
                         <TouchableOpacity onPress={() => setShowLanguageModal(false)} style={styles.cancelButton}>
                             <Text style={styles.cancelText}>{t('common.cancel')}</Text>
                         </TouchableOpacity>

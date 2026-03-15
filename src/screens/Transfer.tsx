@@ -257,11 +257,11 @@ const Transfer = ({ navigation, route }: any) => {
             isInitialized.current = true;
             console.log('[Transfer] Initialization complete');
 
-            // Show Interstitial Ad if in SEND mode (User Request)
-            if (mode === 'send') {
-                console.log('[Transfer] 📺 Showing Interstitial Ad for Sender...');
-                AdService.showInterstitial();
-            }
+            // ✅ إعلان بملء الشاشة عند دخول شاشة Transfer
+            // يظهر للمرسل والمستقبل معاً بعد ثانية واحدة
+            setTimeout(() => {
+                AdService.showAfterTransfer();
+            }, 1000);
         };
         init();
     }, []);
@@ -300,11 +300,17 @@ const Transfer = ({ navigation, route }: any) => {
         if (transferStatus === 'completed' && allItemsDone && !showResult && !hasPendingItems && !hasTransferringItems) {
             console.log('[Transfer] ✅ ALL CONDITIONS MET - Showing success overlay');
             setShowResult('success');
-            SoundService.transferComplete(); // Use proper API method instead of generic play()
+            SoundService.transferComplete();
             Animated.parallel([
                 Animated.spring(successScale, { toValue: 1, friction: 6, useNativeDriver: true }),
                 Animated.timing(successOpacity, { toValue: 1, duration: 400, useNativeDriver: true })
             ]).start();
+
+            // ✅ عرض الإعلان بعد اكتمال النقل — للمرسل والمستقبل معاً
+            // يظهر الإعلان بعد انتهاء النقل مباشرة (كان محملاً مسبقاً في الخلفية)
+            setTimeout(() => {
+                AdService.showAfterTransfer();
+            }, 1500); // تأخير 1.5 ثانية حتى تظهر شاشة النجاح أولاً
         }
     }, [transferStatus, filteredQueue, showResult]);
 

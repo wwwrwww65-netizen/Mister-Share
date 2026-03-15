@@ -263,11 +263,11 @@ function App() {
 
     initApp();
 
-    // Initialize AdMob cautiously
+    // Initialize AdMob cautiously — preload ad in background so it's ready after transfer
     setTimeout(() => {
       mobileAds().initialize().then(() => {
         console.log('📱 AdMob Initialized');
-        AdService.loadInterstitial();
+        AdService.preloadInterstitial(); // ✅ يُحمَّل مسبقاً جاهزاً لبعد النقل
       }).catch(err => {
         console.log('📱 AdMob failed to initialize:', err);
       });
