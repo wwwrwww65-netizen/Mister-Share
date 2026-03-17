@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Animated, Easing, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Animated, Easing, Dimensions, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -54,9 +54,18 @@ const ConnectionStatusBar: React.FC<ConnectionStatusBarProps> = ({ onPress }) =>
         (isConnected && connectedPeers.length > 0 ? connectedPeers[0].deviceName : 'Device');
 
     const handleDisconnect = () => {
-        // Confirm first? Or just disconnect? Zapya usually just disconnects or asks.
-        // For sticky bar, a direct press might be too easy to hit, but the X is specific.
-        disconnect();
+        Alert.alert(
+            t('common.disconnect', { defaultValue: 'Disconnect' }),
+            t('connect_ui.disconnect_confirm', { defaultValue: 'Are you sure you want to disconnect?' }),
+            [
+                { text: t('common.cancel', { defaultValue: 'Cancel' }), style: 'cancel' },
+                { 
+                    text: t('common.ok', { defaultValue: 'OK' }), 
+                    onPress: () => disconnect(),
+                    style: 'destructive'
+                }
+            ]
+        );
     };
 
     // Default Avatar Emojis

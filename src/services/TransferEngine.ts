@@ -18,11 +18,14 @@ interface FileMetadata {
 
 class TransferEngine {
     private onReceiveStart: ((meta: FileMetadata) => void) | null = null;
-    private onProgress: ((progress: number, speed: number, timeLeft: number) => void) | null = null;
-    private onComplete: ((path: string, meta: FileMetadata) => void) | null = null;
+    private onReceiveProgress: ((progress: number, speed: number, timeLeft: number) => void) | null = null;
+    private onSendProgress: ((progress: number, speed: number, timeLeft: number) => void) | null = null;
+    private onReceiveComplete: ((path: string, meta: FileMetadata) => void) | null = null;
+    private onSendCompleteCb: ((path: string, meta: FileMetadata) => void) | null = null;
     private onError: ((error: string) => void) | null = null;
 
-    private currentMeta: FileMetadata | null = null;
+    private currentReceiveMeta: FileMetadata | null = null;
+    private currentSendMeta: FileMetadata | null = null;
     private serverAddress: string = '';
 
     constructor() {
@@ -36,7 +39,7 @@ class TransferEngine {
             try {
                 const meta = JSON.parse(metaJson) as any;
                 // Map to our interface
-                this.currentMeta = {
+                this.currentReceiveMeta = {
                     filename: meta.name,
                     size: meta.size,
                     type: meta.name.toLowerCase().endsWith('.apk') ? 'APK' : 'FILE',
@@ -44,8 +47,8 @@ class TransferEngine {
                     relativePath: ''
                 };
 
-                if (this.onReceiveStart && this.currentMeta) {
-                    this.onReceiveStart(this.currentMeta);
+                if (this.onReceiveStart && this.currentReceiveMeta) {
+                    this.onReceiveStart(this.currentReceiveMeta);
                 }
 
                 // Check for HyperSpeed parallel mode
@@ -72,12 +75,19 @@ class TransferEngine {
             }
         });
 
-        DeviceEventEmitter.addListener('onProgress', (data: any) => {
-            // data: { bytes, total, speed }
-            if (this.onProgress && this.currentMeta) {
+        DeviceEventEmitter.addListener('onReceiveProgress', (data: any) => {
+            if (this.onReceiveProgress && this.currentReceiveMeta) {
                 const progress = data.bytes / data.total;
                 const timeLeft = (data.total - data.bytes) / (data.speed || 1); // Avoid div by zero
-                this.onProgress(progress, data.speed, timeLeft);
+                this.onReceiveProgress(progress, data.speed, timeLeft);
+            }
+        });
+
+        DeviceEventEmitter.addListener('onSendProgress', (data: any) => {
+            if (this.onSendProgress && this.currentSendMeta) {
+                const progress = data.bytes / data.total;
+                const timeLeft = (data.total - data.bytes) / (data.speed || 1); // Avoid div by zero
+                this.onSendProgress(progress, data.speed, timeLeft);
             }
         });
 
@@ -89,7 +99,7 @@ class TransferEngine {
                 confirmedStartTime = Date.now();
             }
 
-            if (this.onProgress && this.currentMeta) {
+            if (this.onSendProgress && this.currentSendMeta) {
                 const progress = data.bytes / data.total;
 
                 // Calculate speed based on confirmed bytes over elapsed time
@@ -105,7 +115,7 @@ class TransferEngine {
                     'Speed:', Math.round(confirmedSpeed / 1024 / 1024 * 10) / 10, 'MB/s');
 
                 // Update sender's display with receiver's confirmed progress
-                this.onProgress(progress, confirmedSpeed, timeLeft);
+                this.onSendProgress(progress, confirmedSpeed, timeLeft);
             }
 
             // Reset start time when transfer is complete
@@ -117,11 +127,8 @@ class TransferEngine {
         DeviceEventEmitter.addListener('onReceiveComplete', async (event: any) => {
             const path = event.data || event;
             console.log('[TransferEngine] Native RECEIVE complete:', path);
-            if (this.onComplete && this.currentMeta) {
-                // File is already saved to public Downloads/MisterShare by native code.
-                // No need to call MediaStore.saveToMediaStore() as that was for copying
-                // from app-private to public, which is no longer necessary.
-                this.onComplete(path, this.currentMeta);
+            if (this.onReceiveComplete && this.currentReceiveMeta) {
+                this.onReceiveComplete(path, this.currentReceiveMeta);
             }
         });
 
@@ -134,8 +141,8 @@ class TransferEngine {
             this._resolveSend(path);
 
             // Also call onComplete callback if set
-            if (this.onComplete && this.currentMeta) {
-                this.onComplete(path, this.currentMeta);
+            if (this.onSendCompleteCb && this.currentSendMeta) {
+                this.onSendCompleteCb(path, this.currentSendMeta);
             }
         });
 
@@ -214,13 +221,13 @@ class TransferEngine {
 
     startServer(
         onReceiveStart: (meta: FileMetadata) => void,
-        onProgress: (progress: number, speed: number, timeLeft: number) => void,
-        onComplete: (path: string, meta: FileMetadata) => void,
+        onReceiveProgress: (progress: number, speed: number, timeLeft: number) => void,
+        onReceiveComplete: (path: string, meta: FileMetadata) => void,
         onError?: (error: string) => void
     ) {
         this.onReceiveStart = onReceiveStart;
-        this.onProgress = onProgress;
-        this.onComplete = onComplete;
+        this.onReceiveProgress = onReceiveProgress;
+        this.onReceiveComplete = onReceiveComplete;
         this.onError = onError || null;
 
         TransferSocketModule.startServer(12345);
@@ -237,11 +244,11 @@ class TransferEngine {
         filePath: string,
         size: number,
         filename: string,
-        onProgress: (progress: number, speed: number, timeLeft: number) => void,
+        onSendProgress: (progress: number, speed: number, timeLeft: number) => void,
         isGroupOwner: boolean = false // 2024 Best Practice: Explicit role for proper socket binding
     ): Promise<string> {
-        this.currentMeta = { filename, size, type: 'FILE', checksum: '' };
-        this.onProgress = onProgress;
+        this.currentSendMeta = { filename, size, type: 'FILE', checksum: '' };
+        this.onSendProgress = onSendProgress;
 
         // Return a Promise that will be resolved by the onSendComplete event
         // This is necessary because the native connectAndSend() returns immediately
@@ -302,10 +309,10 @@ class TransferEngine {
         filePath: string,
         size: number,
         filename: string,
-        onProgress: (progress: number, speed: number, timeLeft: number) => void
+        onSendProgress: (progress: number, speed: number, timeLeft: number) => void
     ): Promise<string> {
-        this.currentMeta = { filename, size, type: 'FILE', checksum: '' };
-        this.onProgress = onProgress;
+        this.currentSendMeta = { filename, size, type: 'FILE', checksum: '' };
+        this.onSendProgress = onSendProgress;
 
         const useHyperSpeed = size > TransferEngine.HYPERSPEED_THRESHOLD;
 

@@ -57,7 +57,16 @@
         "today": "اليوم",
         "yesterday": "أمس",
         "storage_devices": "أجهزة التخزين",
-        "selected": "محدد"
+        "selected": "محدد",
+        "exit_app": "الخروج من التطبيق",
+        "exit_app_desc": "هل تريد الخروج من التطبيق؟",
+        "disconnect": "قطع الاتصال",
+        "resend": "إعادة الإرسال",
+        "speed": "السرعة",
+        "send_summary_title": "تأكيد الإرسال",
+        "send_summary_desc": "على وشك إرسال {{count}} ملف بحجم {{size}}",
+        "confirm_send": "إرسال الآن",
+        "connected_to": "تم الاتصال بـ {{name}} ✓"
     },
     "home": {
         "welcome": "جاهز للنقل",
@@ -133,7 +142,10 @@
         "connection_request": "طلب اتصال",
         "device_wants_connect": "{{name}} يريد الاتصال",
         "approve": "موافق",
-        "reject": "رفض"
+        "reject": "رفض",
+        "disconnect_confirm": "هل أنت متأكد من قطع الاتصال؟",
+        "send_files": "إرسال ملفات",
+        "receive_files": "استلام ملفات"
     },
     "permissions": {
         "full_access_title": "مطلوب صلاحية الوصول الكامل للملفات",

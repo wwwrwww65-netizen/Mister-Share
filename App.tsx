@@ -19,7 +19,6 @@ import SplashScreen from './src/screens/SplashScreen';
 import Onboarding from './src/screens/Onboarding';
 import Home from './src/screens/Home';
 import Connect from './src/screens/Connect';
-import Transfer from './src/screens/Transfer';
 import ReceiveScreen from './src/screens/ReceiveScreen';
 import JoinScreen from './src/screens/JoinScreen';
 import ScanScreen from './src/screens/ScanScreen';
@@ -28,6 +27,7 @@ import Settings from './src/screens/Settings';
 import History from './src/screens/History';
 import NotificationsScreen from './src/screens/NotificationsScreen';
 import HelpCenterScreen from './src/screens/HelpCenterScreen';
+import Transfer from './src/screens/Transfer';
 import { useTranslation } from 'react-i18next';
 import ConnectionStatusBar from './src/components/modern/ConnectionStatusBar';
 import { useConnectionStore } from './src/store/connectionStore';
@@ -55,10 +55,6 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
         const isFocused = state.index === index;
 
         const onPress = () => {
-          // ⏱️ PERFORMANCE: Log navigation timing
-          const navStartTime = Date.now();
-          console.log(`[NAVIGATION] ▶️ Navigating to "${route.name}" at ${new Date().toISOString()}`);
-
           const event = navigation.emit({
             type: 'tabPress',
             target: route.key,
@@ -67,10 +63,6 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
 
           if (!isFocused && !event.defaultPrevented) {
             navigation.navigate(route.name);
-            // Log after navigation call
-            requestAnimationFrame(() => {
-              console.log(`[NAVIGATION] ✅ "${route.name}" completed in ${Date.now() - navStartTime}ms`);
-            });
           }
         };
 
@@ -309,10 +301,9 @@ function App() {
               <Stack.Screen name="JoinScreen" component={JoinScreen} />
               <Stack.Screen name="ScanScreen" component={ScanScreen} />
               <Stack.Screen name="FileBrowser" component={FileBrowser} />
+              <Stack.Screen name="Transfer" component={Transfer} />
               <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} />
               <Stack.Screen name="HelpCenter" component={HelpCenterScreen} />
-              {/* Full screen modal/stack */}
-              <Stack.Screen name="Transfer" component={Transfer} options={{ gestureEnabled: false }} />
             </Stack.Navigator>
           </NavigationContainer>
         </GestureHandlerRootView>

@@ -61,7 +61,7 @@ const TransferMiniStatus = () => {
         <Animated.View style={[styles.container, { transform: [{ scale }] }]} pointerEvents="box-none">
             <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => navigation.navigate('Transfer')}
+                onPress={() => navigation.navigate('HistoryTab')}
                 style={styles.fab}
             >
                 {/* Background Ring to show progress could be added here later */}

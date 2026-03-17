@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, SectionList, ActivityIndicator, Image, TextInput, ScrollView, Dimensions, Alert, BackHandler, Linking, AppState, InteractionManager, Platform, I18nManager, Animated } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 // LegendList: Pure JS High Performance List
 import { LegendList as LegendListOriginal } from '@legendapp/list';
 const LegendList = LegendListOriginal as unknown as React.FC<any>;
@@ -703,33 +704,39 @@ const FileBrowser = ({ navigation, route }: any) => {
     // Instead we do it in the handlers
 
     // EFFECT: Back Handler
-    useEffect(() => {
-        const backAction = () => {
-            if (filterMode) {
-                setFilterMode(null);
-                setFilteredFileItems([]);
-                clearSelection();
-                return true;
-            }
-            if (isBrowsingFolders) {
-                if (history.length > 0) {
-                    navigateUp();
-                } else {
-                    setIsBrowsingFolders(false);
+    useFocusEffect(
+        React.useCallback(() => {
+            const backAction = () => {
+                if (filterMode) {
+                    setFilterMode(null);
+                    setFilteredFileItems([]);
                     clearSelection();
+                    return true;
                 }
+                if (isBrowsingFolders) {
+                    if (history.length > 0) {
+                        navigateUp();
+                    } else {
+                        setIsBrowsingFolders(false);
+                        clearSelection();
+                    }
+                    return true;
+                }
+                
+                // If we are at the root of FileBrowser, navigate to HomeTab
+                // instead of exiting the app or going back to an intermediate screen
+                navigation.navigate('HomeTab');
                 return true;
-            }
-            return false;
-        };
+            };
 
-        const backHandler = BackHandler.addEventListener(
-            'hardwareBackPress',
-            backAction
-        );
+            const backHandler = BackHandler.addEventListener(
+                'hardwareBackPress',
+                backAction
+            );
 
-        return () => backHandler.remove();
-    }, [isBrowsingFolders, history, filterMode, clearSelection]);
+            return () => backHandler.remove();
+        }, [isBrowsingFolders, history, filterMode, clearSelection])
+    );
 
 
     const handleResourceConfirm = (files: any[]) => {
@@ -1492,33 +1499,29 @@ const FileBrowser = ({ navigation, route }: any) => {
                         {/* Send Button (Right in LTR, Left in RTL) */}
                         <TouchableOpacity
                             onPress={() => {
-                                // 2024 UX FIX: Use requestAnimationFrame to ensure button press animation renders FIRST
-                                // preventing the "frozen button" feel.
-                                requestAnimationFrame(() => {
-                                    const { isConnected, isGroupOwner, peerIP, serverIP } = useConnectionStore.getState();
+                                const { isConnected, isGroupOwner, peerIP } = useConnectionStore.getState();
 
-                                    // 2024 ARCHITECTURE FIX: Unified Data Handoff
-                                    // ALWAYS stage files in the global store. Never pass heavy data via navigation params.
-                                    // This ensures Transfer.tsx (which listens to store) picks them up reliably.
-                                    useTransferStore.getState().setOutgoingFiles(selectedItems);
+                                if (isConnected && isGroupOwner && !peerIP) {
+                                    showToast(t('errors.no_peer_connected', { defaultValue: 'No device connected' }), 'error');
+                                    return;
+                                }
 
-                                    // Clear selection immediately as they are now handoff'd to the transfer queue
-                                    clearSelection();
+                                // Snapshot selected items immediately before clearing selection
+                                const filesToSend = [...selectedItems];
+                                clearSelection();
 
-                                    if (isConnected) {
-                                        const targetIP = isGroupOwner && peerIP ? peerIP : serverIP;
-                                        if (isGroupOwner && !peerIP) {
-                                            showToast(t('errors.no_peer_connected', { defaultValue: 'No device connected' }), 'error');
-                                            return;
-                                        }
-                                        // Navigate to Transfer with Intent only, no Data
-                                        navigation.navigate('Transfer', { mode: 'send', serverIP: targetIP });
-                                    } else {
-                                        // Not connected? Go to Connect flow.
-                                        // Transfer store keeps the files staged until connection is established.
-                                        navigation.navigate('ConnectTab');
-                                    }
-                                });
+                                // Navigate INSTANTLY — no delay for the user
+                                if (isConnected) {
+                                    navigation.navigate('HistoryTab');
+                                } else {
+                                    navigation.navigate('ConnectTab');
+                                }
+
+                                // Process files AFTER navigation animation completes (no UI jank)
+                                // We use setTimeout instead of InteractionManager because continuous animations (like WarpCore) block InteractionManager
+                                setTimeout(() => {
+                                    useTransferStore.getState().setOutgoingFiles(filesToSend);
+                                }, 300);
                             }}
                         >
                             <LinearGradient

@@ -8,6 +8,8 @@ import PermissionsManager from '../services/PermissionsManager';
 
 import PermissionCheckModal from '../components/modern/PermissionCheckModal';
 import AppBackground from '../components/modern/AppBackground';
+import { useFocusEffect } from '@react-navigation/native';
+import { BackHandler } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -19,6 +21,21 @@ const Connect = ({ navigation, route }: any) => {
 
     // Get files if passed from FileBrowser
     const filesToTransfer = route.params?.files;
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const onBackPress = () => {
+                navigation.navigate('HomeTab');
+                return true;
+            };
+
+            const subscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+            return () => {
+                subscription.remove();
+            };
+        }, [])
+    );
 
     const handleActionPress = async (screen: string) => {
         setTargetScreen(screen);
@@ -105,7 +122,7 @@ const Connect = ({ navigation, route }: any) => {
             </View>
 
             {/* Bottom Close */}
-            <TouchableOpacity style={styles.closeBtn} onPress={() => navigation.goBack()}>
+            <TouchableOpacity style={styles.closeBtn} onPress={() => navigation.navigate('HomeTab')}>
                 <Icon name="close" size={24} color="#FFF" />
             </TouchableOpacity>
 

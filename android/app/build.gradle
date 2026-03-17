@@ -168,6 +168,18 @@ android {
             shrinkResources enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
+        // ═══════════════════════════════════════════════════════════
+        // FAST RELEASE: For development testing (skips ProGuard/R8)
+        // Usage: .\gradlew assembleFastRelease
+        // Build time: ~1-2 min vs ~10+ min for full release
+        // ═══════════════════════════════════════════════════════════
+        fastRelease {
+            initWith release
+            signingConfig signingConfigs.release
+            minifyEnabled false       // Skip R8 = saves 3-4 minutes
+            shrinkResources false     // Skip resource shrinking
+            matchingFallbacks = ['release']
+        }
     }
 }
 

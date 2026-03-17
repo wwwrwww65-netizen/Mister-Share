@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, Modal } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, Modal, BackHandler } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { COLORS, FONTS, SIZES, SHADOWS } from '../theme';
 import PermissionsManager from '../services/PermissionsManager';
+import { useFocusEffect } from '@react-navigation/native';
 
 // Modern Components
 import AppBackground from '../components/modern/AppBackground';
@@ -11,6 +12,7 @@ import ModernHeader from '../components/modern/ModernHeader';
 import GlassCard from '../components/modern/GlassCard';
 import CategoryGrid from '../components/modern/CategoryGrid';
 import NeoButton from '../components/modern/NeoButton';
+import ExitModal from '../components/common/ExitModal';
 
 import FileSystem from '../services/FileSystem';
 import { useTransferStore, type TransferHistory } from '../store/transferStore';
@@ -21,6 +23,7 @@ const Home = ({ navigation }: any) => {
     const { t } = useTranslation();
     const [permissionsGranted, setPermissionsGranted] = React.useState(true);
     const [showPermissionModal, setShowPermissionModal] = React.useState(false);
+    const [showExitModal, setShowExitModal] = React.useState(false);
     const [storage, setStorage] = React.useState({ used: 0, total: 0, percent: 0 });
     const [isBannerLoaded, setIsBannerLoaded] = React.useState(false);
 
@@ -33,6 +36,21 @@ const Home = ({ navigation }: any) => {
         loadHomeData();
         loadHistory(); // Load transfer history
     }, []);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const onBackPress = () => {
+                setShowExitModal(true);
+                return true; // prevent default behavior (exit app)
+            };
+
+            const subscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+            return () => {
+                subscription.remove();
+            };
+        }, [])
+    );
 
     const loadHomeData = async () => {
         // 1. Storage
@@ -152,6 +170,15 @@ const Home = ({ navigation }: any) => {
                     </GlassCard>
                 </View>
             </Modal>
+
+            <ExitModal 
+                visible={showExitModal} 
+                onClose={() => setShowExitModal(false)}
+                onConfirm={() => {
+                    setShowExitModal(false);
+                    BackHandler.exitApp();
+                }}
+            />
 
             <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
 

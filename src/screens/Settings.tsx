@@ -10,6 +10,8 @@ import ModernHeader from '../components/modern/ModernHeader';
 import GlassCard from '../components/modern/GlassCard';
 import NeoButton from '../components/modern/NeoButton';
 import { AdService } from '../services/AdService';
+import { useFocusEffect } from '@react-navigation/native';
+import { BackHandler } from 'react-native';
 
 import { useThemeStore } from '../store/themeStore';
 
@@ -28,6 +30,21 @@ const Settings = ({ navigation }: any) => {
                 .catch((err: any) => console.log('Error loading notification pref', err));
         }
     }, []);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const onBackPress = () => {
+                navigation.navigate('HomeTab');
+                return true;
+            };
+
+            const subscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+            return () => {
+                subscription.remove();
+            };
+        }, [])
+    );
 
     const toggleNotifications = () => {
         const newValue = !notificationsEnabled;

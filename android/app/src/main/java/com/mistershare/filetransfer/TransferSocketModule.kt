@@ -1,4 +1,4 @@
-﻿package com.mistershare.filetransfer
+package com.mistershare.filetransfer
 
 import android.content.ComponentName
 import android.content.Context
@@ -86,25 +86,49 @@ class TransferSocketModule(reactContext: ReactApplicationContext) : ReactContext
                 val network = NetworkHolder.boundNetwork
                 
                 if (network != null) {
-                    android.util.Log.d("TransferSocket", "ًں“¶ Client mode: Using NetworkHolder bound network âœ…")
+                    android.util.Log.d("TransferSocket", "📶 Client mode: Using NetworkHolder bound network ✅")
                     transferService?.setBoundNetwork(network)
                 } else {
-                    android.util.Log.w("TransferSocket", "âڑ ï¸ڈ Client mode but no bound network, trying fallback...")
+                    android.util.Log.w("TransferSocket", "⚠️ Client mode but no bound network, trying smart fallback...")
                     
-                    // Fallback: Try to get active WiFi network
+                    // ════════════════════════════════════════════════════════════
+                    // ANDROID 9 SMART FALLBACK:
+                    // activeNetwork on Android 9 with mobile data = CELLULAR, not WiFi!
+                    // We must iterate ALL networks to find the hotspot WiFi.
+                    // Priority: WiFi without internet (= hotspot) > WiFi with internet
+                    // ════════════════════════════════════════════════════════════
                     try {
                         val connectivityManager = reactApplicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE) as android.net.ConnectivityManager
-                        val activeNetwork = connectivityManager.activeNetwork
-                        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
                         
-                        if (capabilities?.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI) == true) {
-                            android.util.Log.d("TransferSocket", "ًں“¶ Found active WiFi network as fallback")
-                            transferService?.setBoundNetwork(activeNetwork)
+                        var hotspotNetwork: android.net.Network? = null  // WiFi without internet (best)
+                        var wifiNetwork: android.net.Network? = null     // Any WiFi (fallback)
+                        
+                        // Iterate ALL networks — not just activeNetwork
+                        for (net in connectivityManager.allNetworks) {
+                            val caps = connectivityManager.getNetworkCapabilities(net) ?: continue
+                            if (caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI)) {
+                                wifiNetwork = net
+                                // Hotspot = WiFi without internet capability
+                                if (!caps.hasCapability(android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+                                    hotspotNetwork = net
+                                    android.util.Log.d("TransferSocket", "📶 Found hotspot network (no internet): $net ✅")
+                                    break
+                                }
+                            }
+                        }
+                        
+                        val targetNetwork = hotspotNetwork ?: wifiNetwork
+                        if (targetNetwork != null) {
+                            android.util.Log.d("TransferSocket", "📶 Android 9 fallback: using ${if (hotspotNetwork != null) "hotspot" else "wifi"} network: $targetNetwork")
+                            transferService?.setBoundNetwork(targetNetwork)
+                            // Also bind process as extra safety measure
+                            connectivityManager.bindProcessToNetwork(targetNetwork)
                         } else {
-                            android.util.Log.e("TransferSocket", "â‌Œ No WiFi network available!")
+                            android.util.Log.e("TransferSocket", "❌ No WiFi network found at all! Transfer may fail.")
+                            // Last resort: let bindProcessToNetwork handle it if already set
                         }
                     } catch (e: Exception) {
-                        android.util.Log.e("TransferSocket", "â‌Œ Error in fallback: ${e.message}")
+                        android.util.Log.e("TransferSocket", "❌ Error in smart fallback: ${e.message}")
                     }
                 }
                 transferService?.setIsGroupOwner(false)

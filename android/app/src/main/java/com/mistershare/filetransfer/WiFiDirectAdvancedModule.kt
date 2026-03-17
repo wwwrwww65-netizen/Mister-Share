@@ -1,4 +1,4 @@
-﻿package com.mistershare.filetransfer
+package com.mistershare.filetransfer
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -296,7 +296,15 @@ class WiFiDirectAdvancedModule(reactContext: ReactApplicationContext) :
 
     /**
      * Legacy WiFi connection for Android 9 and below
-     * FIXED: Now properly waits for connection completion using BroadcastReceiver
+     * FIXED (Android 9 / API 28): Use requestNetwork with TRANSPORT_WIFI (no INTERNET)
+     * to bind the socket to the hotspot network — identical concept to WifiNetworkSpecifier
+     * but using the NetworkRequest API which IS available on Android 9.
+     *
+     * On API < 29 (Android 9), WifiNetworkSpecifier is NOT available, but
+     * ConnectivityManager.requestNetwork() with a plain TRANSPORT_WIFI request IS.
+     * After connecting via legacy WifiConfiguration, we call requestNetwork to
+     * obtain the Network object, then store it in NetworkHolder so sockets route
+     * correctly through the hotspot and NOT through cellular/default.
      */
     @SuppressLint("MissingPermission")
     private fun connectToNetworkLegacy(ssid: String, password: String, promise: Promise) {
@@ -315,71 +323,118 @@ class WiFiDirectAdvancedModule(reactContext: ReactApplicationContext) :
                 return
             }
 
-            // Register BroadcastReceiver to wait for actual connection
             val connectTimeoutMs = 15000L
             var isResolved = false
-            
+
+            // ═══════════════════════════════════════════════════════════════
+            // ANDROID 9 FIX: Use requestNetwork to capture the WiFi Network object
+            // This is the KEY fix: without binding the socket to the correct Network,
+            // Android 9 routes transfer sockets through cellular instead of hotspot.
+            // ═══════════════════════════════════════════════════════════════
+            val cm = reactApplicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            var networkRequestCallback: ConnectivityManager.NetworkCallback? = null
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                val networkRequest = NetworkRequest.Builder()
+                    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                    // ════════════════════════════════════════════════════════════
+                    // ANDROID 9 CRITICAL FIX: removeCapability(NET_CAPABILITY_INTERNET)
+                    // ════════════════════════════════════════════════════════════
+                    // NetworkRequest.Builder() adds NET_CAPABILITY_INTERNET by default!
+                    // Hotspot/LocalOnlyHotspot has NO internet, so if INTERNET capability
+                    // is present in the request, onAvailable() NEVER fires for hotspot.
+                    // RESULT: NetworkHolder.boundNetwork stays null → sockets route through
+                    // cellular data → cannot reach host IP → TRANSFER FAILS on Android 9!
+                    // FIX: Explicitly remove INTERNET so request matches hotspot network.
+                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    .build()
+
+                networkRequestCallback = object : ConnectivityManager.NetworkCallback() {
+                    override fun onAvailable(network: Network) {
+                        super.onAvailable(network)
+                        val currentSsid = wifiManager.connectionInfo?.ssid?.replace("\"", "")
+                        Log.d("WiFiDirect", "📡 [Android9Fix] requestNetwork onAvailable: network=$network, connectedSSID=$currentSsid, targetSSID=$ssid")
+
+                        // Verify this is indeed our target hotspot network
+                        if (currentSsid == ssid || currentSsid?.contains(ssid.take(20)) == true) {
+                            // Store in NetworkHolder for per-socket binding in TransferService
+                            NetworkHolder.setBoundNetwork(network)
+                            // ALSO bind process-level routing (affects ALL sockets)
+                            // This is the Android 9 recommended approach
+                            cm.bindProcessToNetwork(network)
+                            Log.d("WiFiDirect", "✅ [Android9Fix] NetworkHolder + bindProcessToNetwork → hotspot: $network")
+                        } else {
+                            Log.w("WiFiDirect", "⚠️ [Android9Fix] SSID mismatch: $currentSsid != $ssid, ignoring network")
+                        }
+                    }
+
+                    override fun onLost(network: Network) {
+                        super.onLost(network)
+                        Log.w("WiFiDirect", "⚠️ [Android9Fix] WiFi network lost")
+                        NetworkHolder.clear()
+                        cm.bindProcessToNetwork(null) // Restore default routing
+                    }
+                }
+
+                // Register BEFORE connecting — don't miss the callback!
+                cm.requestNetwork(networkRequest, networkRequestCallback)
+                Log.d("WiFiDirect", "📡 [Android9Fix] requestNetwork registered (no INTERNET cap), now connecting...")
+            }
+
+            // BroadcastReceiver to know when WiFi connection is established
             val connectionReceiver = object : BroadcastReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
                     if (isResolved) return
                     
+                    @Suppress("DEPRECATION")
                     val networkInfo = intent.getParcelableExtra<android.net.NetworkInfo>(WifiManager.EXTRA_NETWORK_INFO)
                     if (networkInfo?.isConnected == true) {
                         val connectedSsid = wifiManager.connectionInfo?.ssid?.replace("\"", "")
-                        Log.d("WiFiDirect", "Legacy WiFi connected to: $connectedSsid")
+                        Log.d("WiFiDirect", "[Android9Fix] BroadcastReceiver: connected to SSID=$connectedSsid")
                         
                         if (connectedSsid == ssid || connectedSsid?.contains(ssid.take(20)) == true) {
                             isResolved = true
-                            try {
-                                reactApplicationContext.unregisterReceiver(this)
-                            } catch (e: Exception) { }
-                            
-                            // CRITICAL: Bind process to WiFi network for socket routing
-                            // On Android 8+, activeNetwork may return Mobile Data instead of WiFi
-                            // because LocalOnlyHotspot has no internet. We must explicitly find WiFi.
-                            try {
-                                val cm = reactApplicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                            try { reactApplicationContext.unregisterReceiver(this) } catch (e: Exception) { }
+
+                            // ════════════════════════════════════════════════════════════
+                            // ANDROID 9 FALLBACK: If requestNetwork hasn't fired yet
+                            // (which can happen if SSID validation delayed the callback),
+                            // do a smart manual WiFi network search.
+                            // KEY FIX: Find a WiFi network WITHOUT internet (= hotspot)
+                            // to avoid binding to home WiFi instead of hotspot!
+                            // ════════════════════════════════════════════════════════════
+                            if (!NetworkHolder.hasNetwork()) {
+                                Log.w("WiFiDirect", "⚠️ [Android9Fix] requestNetwork not fired yet, doing smart manual search...")
                                 
-                                // Find WiFi network explicitly (not relying on activeNetwork)
-                                var wifiNetwork: Network? = null
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                    for (network in cm.allNetworks) {
-                                        val caps = cm.getNetworkCapabilities(network)
-                                        if (caps?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true) {
-                                            wifiNetwork = network
-                                            Log.d("WiFiDirect", "Legacy WiFi: Found WiFi network: $network")
+                                // Search for WiFi network matching our hotspot
+                                // Priority 1: WiFi network WITHOUT internet (= hotspot)
+                                // Priority 2: Any WiFi network (last resort)
+                                var hotspotNetwork: Network? = null
+                                var anyWifiNetwork: Network? = null
+                                
+                                for (network in cm.allNetworks) {
+                                    val caps = cm.getNetworkCapabilities(network)
+                                    if (caps?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true) {
+                                        anyWifiNetwork = network
+                                        // Prefer non-internet WiFi (= hotspot/LocalOnlyHotspot)
+                                        if (caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == false) {
+                                            hotspotNetwork = network
+                                            Log.d("WiFiDirect", "[Android9Fix] Found hotspot network (no internet): $network")
                                             break
                                         }
                                     }
                                 }
                                 
-                                // Fallback to activeNetwork if WiFi not found
-                                val networkToBind = wifiNetwork ?: cm.activeNetwork
-                                
-                                if (networkToBind != null) {
-                                    // 2024 FIX: REMOVE bindProcessToNetwork
-                                    // Binding the whole process to a no-internet network on Android 8 causes issues.
-                                    // use NetworkHolder to route specific sockets instead.
-                                    // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    //     cm.bindProcessToNetwork(networkToBind)
-                                    // }
-                                    
-                                    NetworkHolder.setBoundNetwork(networkToBind)
-                                    
-                                    val caps = cm.getNetworkCapabilities(networkToBind)
-                                    val isWifi = caps?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true
-                                    Log.d("WiFiDirect", "Legacy WiFi: Network bound for routing: $networkToBind (Is WiFi: $isWifi)")
-                                    
-                                    if (!isWifi) {
-                                        Log.w("WiFiDirect", "⚠️ WARNING: Bound network is NOT WiFi! Socket routing may fail.")
-                                    }
+                                val targetNetwork = hotspotNetwork ?: anyWifiNetwork
+                                if (targetNetwork != null) {
+                                    NetworkHolder.setBoundNetwork(targetNetwork)
+                                    cm.bindProcessToNetwork(targetNetwork)
+                                    Log.d("WiFiDirect", "✅ [Android9Fix] Manual bind success: $targetNetwork")
                                 } else {
-                                    Log.w("WiFiDirect", "Legacy WiFi: No network found to bind! activeNetwork was null.")
+                                    Log.e("WiFiDirect", "❌ [Android9Fix] No WiFi network found in manual search!")
                                 }
-                            } catch (e: Exception) {
-                                Log.w("WiFiDirect", "Legacy WiFi: Could not bind network: ${e.message}")
                             }
-                            
+
                             promise.resolve(mapOf(
                                 "success" to true,
                                 "message" to "Connected to $ssid (legacy method)"
@@ -392,7 +447,7 @@ class WiFiDirectAdvancedModule(reactContext: ReactApplicationContext) :
             val filter = IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION)
             reactApplicationContext.registerReceiver(connectionReceiver, filter)
             
-            // Start connection
+            // Initiate connection
             wifiManager.disconnect()
             wifiManager.enableNetwork(netId, true)
             wifiManager.reconnect()
@@ -402,11 +457,8 @@ class WiFiDirectAdvancedModule(reactContext: ReactApplicationContext) :
             android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
                 if (!isResolved) {
                     isResolved = true
-                    try {
-                        reactApplicationContext.unregisterReceiver(connectionReceiver)
-                    } catch (e: Exception) { }
+                    try { reactApplicationContext.unregisterReceiver(connectionReceiver) } catch (e: Exception) { }
                     
-                    // Check if connected anyway
                     val currentSsid = wifiManager.connectionInfo?.ssid?.replace("\"", "")
                     if (currentSsid == ssid || currentSsid?.contains(ssid.take(20)) == true) {
                         promise.resolve(mapOf(
@@ -414,6 +466,8 @@ class WiFiDirectAdvancedModule(reactContext: ReactApplicationContext) :
                             "message" to "Connected to $ssid (legacy method - timeout but connected)"
                         ).toWritableMap())
                     } else {
+                        // Unregister network callback on failure
+                        networkRequestCallback?.let { try { cm.unregisterNetworkCallback(it) } catch (e: Exception) { } }
                         promise.reject("TIMEOUT", "WiFi connection timeout after ${connectTimeoutMs}ms")
                     }
                 }

@@ -1,4 +1,4 @@
-﻿package com.mistershare.filetransfer
+package com.mistershare.filetransfer
 
 import android.app.Service
 import android.content.Intent
@@ -484,9 +484,19 @@ class TransferService : Service() {
                 // We MUST open a Channel first, then bind it.
                 log("🚀 Initializing NIO SocketChannel for Zero-Copy...")
                 
-                val channel = java.nio.channels.SocketChannel.open()
-                channel.configureBlocking(true)
-                socket = channel.socket()
+                if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.P) {
+                    log("⚠️ Android 9 or below detected: Using standard Java Socket to fix outbound routing!")
+                    // NIO SocketChannel has a critical routing bug on Android 9 when Mobile Data is ON.
+                    if (!isGroupOwner && boundNetwork != null) {
+                        socket = boundNetwork!!.socketFactory.createSocket()
+                    } else {
+                        socket = java.net.Socket()
+                    }
+                } else {
+                    val channel = java.nio.channels.SocketChannel.open()
+                    channel.configureBlocking(true)
+                    socket = channel.socket()
+                }
                 
                 if (isGroupOwner) {
                     // HOST MODE: We created the hotspot, bind socket to hotspot interface

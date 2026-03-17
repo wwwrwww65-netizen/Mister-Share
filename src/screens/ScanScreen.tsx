@@ -184,7 +184,7 @@ const ScanScreen = ({ navigation }: any) => {
                         [{
                             text: 'OK',
                             onPress: () => {
-                                navigation.replace('FileBrowser', {
+                                navigation.replace('Transfer', {
                                     mode: 'send',
                                     serverIP: hostIP  // ← NSD-discovered IP
                                 });

@@ -31,7 +31,148 @@ Mister Share is a modern, high-performance file transfer application for Android
 
 ---
 
-## 🆕 Latest Updates (v2.0.0) - SHAREit-Grade Transfer System (2024 Best Practices)
+## 🆕 Latest Fixes (v2.1.0) - Android 9 & Navigation Bug Fixes (2026-03-18)
+
+### 🧭 Fix 1 — Transfer Screen Missing from Stack Navigator (`App.tsx`)
+
+**Problem:** The receiving device (Host/Organizer) was navigating to a screen that looked like the file browser but had no bottom tab bar and no functional back button. The sending device (Joiner) navigated correctly.
+
+**Root Cause:** `Transfer` screen was not registered in the main `Stack.Navigator` in `App.tsx`. When `ReceiveScreen` called `navigation.navigate('Transfer', ...)`, React Navigation fell back to an unrelated screen (FileBrowser) since Transfer had no registered route.
+
+**Fix:**
+```tsx
+// App.tsx — Added missing Transfer screen to Stack.Navigator
+import Transfer from './src/screens/Transfer';
+// ...
+<Stack.Screen name="Transfer" component={Transfer} />
+```
+
+---
+
+### 🔗 Fix 2 — ScanScreen Navigating to Wrong Screen After QR Connection (`ScanScreen.tsx`)
+
+**Problem:** After scanning a QR code and connecting to the host hotspot, the joiner was navigated to `FileBrowser` as a standalone Stack screen (no bottom tabs, no back button).
+
+**Root Cause:** `navigation.replace('FileBrowser', ...)` was used, which opens FileBrowser outside the Tab navigator context.
+
+**Fix:**
+```tsx
+// ScanScreen.tsx — Navigate to Transfer instead of FileBrowser
+navigation.replace('Transfer', {
+    mode: 'send',
+    serverIP: hostIP
+});
+```
+
+---
+
+### 🤖 Fix 3 — Android 9 Joiner Cannot Send Files (Critical Bug)
+
+**Problem:** When Android 9 (API 28) was the **Joiner** (connected to someone else's hotspot), it could not send files to the Host. The reverse (Android 9 as Host) worked fine.
+
+**Root Cause (Confirmed):** A critical bug in `connectToNetworkLegacy()` in `WiFiDirectAdvancedModule.kt`:
+
+```kotlin
+// ❌ WRONG — Before fix
+val networkRequest = NetworkRequest.Builder()
+    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+    // Comment said "don't add INTERNET" but Builder() adds it BY DEFAULT!
+    .build()  // ← NET_CAPABILITY_INTERNET was always present!
+```
+
+`NetworkRequest.Builder()` automatically adds `NET_CAPABILITY_INTERNET`. Since the hotspot/LocalOnlyHotspot has **no internet**, the `onAvailable()` callback **never fired** for the hotspot network. This left `NetworkHolder.boundNetwork = null`, causing all transfer sockets to route through cellular data instead of the hotspot WiFi — resulting in connection failure.
+
+**Fix Applied to `WiFiDirectAdvancedModule.kt`:**
+```kotlin
+// ✅ CORRECT — After fix
+val networkRequest = NetworkRequest.Builder()
+    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) // ← KEY FIX!
+    .build()
+// Now onAvailable() fires for hotspot → NetworkHolder gets bound → transfer works!
+```
+
+**Additional improvements:**
+- Removed `Thread.sleep(500)` from BroadcastReceiver thread (unsafe)
+- Smart manual fallback: prefers WiFi-without-internet (hotspot) over WiFi-with-internet (home router)
+- Added `cm.bindProcessToNetwork(null)` on `onLost` to restore default routing
+
+---
+
+### 🔌 Fix 4 — Smart Network Fallback for Android 9 (`TransferSocketModule.kt`)
+
+**Problem:** When `NetworkHolder.boundNetwork` was null (e.g., due to timing), the fallback only checked `activeNetwork`. On Android 9 with mobile data active, `activeNetwork` is the **cellular** network (not WiFi), so the fallback was rejected silently.
+
+**Fix:**
+```kotlin
+// ❌ Before: Only checked activeNetwork (fails if cellular is active!)
+val activeNetwork = connectivityManager.activeNetwork
+val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
+if (capabilities?.hasTransport(TRANSPORT_WIFI) == true) { ... }
+
+// ✅ After: Iterate ALL networks, prefer hotspot (WiFi without internet)
+for (net in connectivityManager.allNetworks) {
+    val caps = connectivityManager.getNetworkCapabilities(net) ?: continue
+    if (caps.hasTransport(TRANSPORT_WIFI)) {
+        if (!caps.hasCapability(NET_CAPABILITY_INTERNET)) {
+            hotspotNetwork = net  // ← Hotspot found!
+            break
+        }
+    }
+}
+```
+
+---
+
+### ⚡ Fix 5 — Build Performance Improvements (`gradle.properties` & `build.gradle`)
+
+**Problem:** Every build took 7-10+ minutes even when only changing a few lines of Kotlin/TypeScript code.
+
+**Root Cause:** `assembleRelease` always runs R8/ProGuard (3-5 min), Hermes JS compilation (1-2 min), resource shrinking (1 min), and builds for 4 ABI architectures.
+
+**Fixes:**
+```properties
+# gradle.properties — Added:
+org.gradle.caching=true        # Reuse cached task outputs between builds
+kotlin.incremental=true        # Kotlin-only recompiles changed files
+kotlin.daemon.jvm.options=-Xmx2048m  # Dedicated Kotlin compiler JVM
+```
+
+```groovy
+// build.gradle — New build type for fast development testing:
+fastRelease {
+    initWith release
+    signingConfig signingConfigs.release
+    minifyEnabled false    // Skip R8 = saves 3-4 minutes
+    shrinkResources false  // Skip resource shrinking
+}
+```
+
+**Build time comparison:**
+
+| Command | Time | Use Case |
+|---------|------|----------|
+| `.\gradlew assembleFastRelease` | **~1-2 min** | Development & Testing |
+| `.\gradlew assembleRelease` | 7-10 min | Production (Play Store) |
+| `.\gradlew assembleDebug` | ~30 sec | Hot reload dev |
+
+---
+
+### 📊 Summary of Files Changed in v2.1.0
+
+| File | Change |
+|------|--------|
+| `App.tsx` | Added `Transfer` screen to `Stack.Navigator` |
+| `src/screens/ScanScreen.tsx` | Navigate to `Transfer` instead of `FileBrowser` after QR |
+| `android/.../WiFiDirectAdvancedModule.kt` | `removeCapability(INTERNET)` in `requestNetwork` + smart fallback |
+| `android/.../TransferSocketModule.kt` | Iterate all networks to find hotspot WiFi on Android 9 |
+| `android/gradle.properties` | Added caching + Kotlin incremental flags |
+| `android/app/build.gradle` | Added `fastRelease` build type for fast development builds |
+
+---
+
+## 🆕 Previous Updates (v2.0.0) - SHAREit-Grade Transfer System (2024 Best Practices)
+
 
 ### ⚡ **Zero-Copy File Transfer (sendfile syscall)**
 - **True Zero-Copy**: Uses `FileChannel.transferTo()` which internally calls `sendfile()` syscall
