@@ -31,7 +31,130 @@ Mister Share is a modern, high-performance file transfer application for Android
 
 ---
 
-## 🆕 Latest Fixes (v2.1.0) - Android 9 & Navigation Bug Fixes (2026-03-18)
+## 🆕 Latest Fixes (v2.2.0) - UI Screens, Transfer Counter & Disconnect (2026-03-18)
+
+### 📊 Fix 1 — Transfer Counter Not Moving (Critical Native Bug) (`TransferService.kt`)
+
+**Problem:** The transfer progress counter (WarpCore animation, speed, percentage) was completely frozen on both sender and receiver devices. The counter appeared but never moved.
+
+**Root Cause:** The native Android `TransferService.kt` was broadcasting progress events with **wrong event names** that `TransferEngine.ts` never listened to:
+
+| Location | Wrong Name | Correct Name |
+|---|---|---|
+| Receiver (receive loop) | `"onProgress"` | `"onReceiveProgress"` |
+| Sender (Zero-Copy path) | `"onProgress"` | `"onSendProgress"` |
+| Sender (Buffered path) | `"onProgress"` | `"onSendProgress"` |
+
+**Fix Applied:**
+```kotlin
+// ❌ BEFORE — TransferService.kt (all 3 places)
+updateListener?.invoke("onProgress", mapOf(...))
+
+// ✅ AFTER — Receiver
+updateListener?.invoke("onReceiveProgress", mapOf(...))
+
+// ✅ AFTER — Sender (both Zero-Copy and Buffered paths)
+updateListener?.invoke("onSendProgress", mapOf(...))
+```
+
+**Also:** Reduced `nextNotify` interval from `200ms` → `100ms` for smoother real-time updates.
+
+---
+
+### 🧭 Fix 2 — Wrong Navigation After Connection
+
+**Problem:** After a successful connection, both devices were sent to the standalone `Transfer` screen (no bottom tabs, no back button) instead of the proper app screens.
+
+**Fix — Post-connection navigation now goes to `FilesTab`:**
+
+```tsx
+// ❌ BEFORE — All connection screens (JoinScreen, ScanScreen, ReceiveScreen)
+navigation.navigate('Transfer', { mode: 'send', serverIP: hostIP });
+
+// ✅ AFTER — Navigate to FileBrowser with full tab bar
+navigation.navigate('Main', { screen: 'FilesTab' });
+```
+
+**Files changed:** `JoinScreen.tsx` (3 locations), `ScanScreen.tsx`, `ReceiveScreen.tsx`
+
+---
+
+### 📦 Fix 3 — Send Button Goes to Wrong Screen (`FileBrowser.tsx`)
+
+**Problem:** Pressing the Send button navigated to the standalone `Transfer` screen (without tabs) instead of the merged History+Transfer tab.
+
+**Root Cause:** `navigation.navigate('Transfer', {...})` was being called instead of navigating to `HistoryTab`.
+
+**Fix:**
+```tsx
+// ❌ BEFORE
+navigation.navigate('Transfer', { mode: 'send', serverIP: targetIP });
+
+// ✅ AFTER — HistoryTab shows active transfers + history in one merged view
+useTransferStore.getState().setOutgoingFiles(filesToSend);
+navigation.navigate('Main', { screen: 'HistoryTab' });
+```
+
+---
+
+### 🔄 Fix 4 — ReceiveScreen Hijacking Send Navigation (`ReceiveScreen.tsx`)
+
+**Problem:** When the user pressed Send in `FileBrowser`, the app navigated to `HistoryTab` correctly, but then immediately jumped to the standalone `Transfer` screen.
+
+**Root Cause:** `ReceiveScreen` is always mounted as a tab and watches `transferQueueLength`. When send files were added to the queue, `transferQueueLength > 0` triggered `navigation.navigate('Transfer')` erroneously.
+
+**Fix:** Added direction check — only navigate if there's an **active receive item** (not send items):
+```tsx
+// ✅ AFTER — Only navigate for real incoming files
+const hasActiveReceive = queue.some(
+    item => item.direction === 'receive' && item.status === 'transferring'
+);
+if (hasActiveReceive) {
+    navigation.navigate('Main', { screen: 'HistoryTab' }); // merged view
+}
+```
+
+---
+
+### 🔌 Fix 5 — Disconnect Button Not Working (`ConnectionStatusBar.tsx`)
+
+**Problem:**
+- **Host (Creator):** Pressing ✕ did nothing — hotspot kept running, banner stayed visible
+- **Joiner (Organizer):** Banner disappeared but WiFi connection remained active until app restart
+
+**Root Cause:** The disconnect handler only called `disconnect()` from Zustand store (UI state only), without calling any native WiFi/hotspot API.
+
+**Fix:**
+```tsx
+// ✅ AFTER — Full native disconnect before updating store
+if (isGroupOwner) {
+    // HOST: Stop hotspot AND remove P2P group
+    await WiFiDirectAdvanced.stopLocalHotspot().catch(() => {});
+    await WiFiDirectAdvanced.removeGroup().catch(() => {});
+} else {
+    // JOINER: Remove P2P group (disconnects from hotspot)
+    await WiFiDirectAdvanced.removeGroup().catch(() => {});
+}
+// Always update store regardless of native result
+disconnect();
+```
+
+---
+
+### 🗂️ Fix 6 — HistoryTab is the Merged Transfer+History Screen
+
+**Clarification:** `History.tsx` (the `HistoryTab`) **already contains** the full transfer UI:
+- **WarpCore** animation with real-time speed and progress
+- **Active Queue** list with per-file progress bars and cancel buttons
+- **Transfer stats** (speed, MB transferred)
+- **History list** below active transfers
+
+No separate `Transfer` screen is needed for the tab flow. The standalone `Transfer` stack screen is kept only for legacy compatibility.
+
+---
+
+## 🆕 Previous Fixes (v2.1.0) - Android 9 & Navigation Bug Fixes (2026-03-18)
+
 
 ### 🧭 Fix 1 — Transfer Screen Missing from Stack Navigator (`App.tsx`)
 

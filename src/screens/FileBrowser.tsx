@@ -1510,18 +1510,19 @@ const FileBrowser = ({ navigation, route }: any) => {
                                 const filesToSend = [...selectedItems];
                                 clearSelection();
 
-                                // Navigate INSTANTLY — no delay for the user
                                 if (isConnected) {
-                                    navigation.navigate('HistoryTab');
-                                } else {
-                                    navigation.navigate('ConnectTab');
-                                }
-
-                                // Process files AFTER navigation animation completes (no UI jank)
-                                // We use setTimeout instead of InteractionManager because continuous animations (like WarpCore) block InteractionManager
-                                setTimeout(() => {
+                                    // Stage files first, then navigate to HistoryTab
+                                    // HistoryTab (History.tsx) handles transfer + history in one merged view
                                     useTransferStore.getState().setOutgoingFiles(filesToSend);
-                                }, 300);
+                                    navigation.navigate('Main', { screen: 'HistoryTab' });
+                                } else {
+                                    // Not connected: go to Connect screen first
+                                    navigation.navigate('ConnectTab');
+                                    // Stage files so they're ready after connection
+                                    setTimeout(() => {
+                                        useTransferStore.getState().setOutgoingFiles(filesToSend);
+                                    }, 300);
+                                }
                             }}
                         >
                             <LinearGradient

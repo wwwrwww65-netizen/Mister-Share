@@ -184,10 +184,8 @@ const ScanScreen = ({ navigation }: any) => {
                         [{
                             text: 'OK',
                             onPress: () => {
-                                navigation.replace('Transfer', {
-                                    mode: 'send',
-                                    serverIP: hostIP  // ← NSD-discovered IP
-                                });
+                                // Navigate to FilesTab so user can select files to send
+                                navigation.replace('Main', { screen: 'FilesTab' });
                             }
                         }]
                     );

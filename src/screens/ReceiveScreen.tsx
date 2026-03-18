@@ -168,11 +168,20 @@ const ReceiveScreen = ({ navigation, route }: any) => {
 
     useEffect(() => {
         if (transferQueueLength > 0 && !hasNavigated.current) {
-            console.log('[ReceiveScreen] Detected incoming file, navigating...');
-            hasNavigated.current = true;
-            navigation.navigate('Transfer', {
-                mode: 'receive'
-            });
+            // Only navigate if there's an ACTIVE RECEIVE item
+            // (not just send items being added to queue by the user)
+            const { useTransferStore } = require('../store/transferStore');
+            const queue = useTransferStore.getState().queue;
+            const hasActiveReceive = queue.some(
+                (item: any) => item.direction === 'receive' && item.status === 'transferring'
+            );
+
+            if (hasActiveReceive) {
+                console.log('[ReceiveScreen] Detected INCOMING file, navigating to HistoryTab...');
+                hasNavigated.current = true;
+                // Navigate to HistoryTab which has the merged Transfer+History view
+                navigation.navigate('Main', { screen: 'HistoryTab' });
+            }
         }
         if (transferQueueLength === 0) {
             hasNavigated.current = false;
@@ -370,14 +379,11 @@ const ReceiveScreen = ({ navigation, route }: any) => {
                         store.setPeerIP(peer.ip);
                         console.log('[ReceiveScreen] ✅ Peer IP set for bidirectional transfer:', peer.ip);
 
-                        // Navigate to Transfer Screen
+                        // Navigate to FilesTab (Main) so user can select files to send
+                        // Transfer screen will open automatically when they press send
                         if (!hasNavigated.current) {
                             hasNavigated.current = true;
-                            navigation.navigate('Transfer', {
-                                mode: filesToTransfer ? 'send' : 'receive',
-                                serverIP: peer.ip,
-                                files: filesToTransfer
-                            });
+                            navigation.navigate('Main', { screen: 'FilesTab' });
                         }
                     });
 

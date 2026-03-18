@@ -357,14 +357,16 @@ class TransferService : Service() {
                     
                     log("Zero-Copy Receive: $bytesReceived/$size (${(bytesReceived * 100 / size).toInt()}%) Speed: ${(smoothedSpeed / 1024 / 1024).toInt()} MB/s")
                     updateListener?.invoke(
-                        "onProgress",
+                        // CRITICAL FIX: Must match TransferEngine.ts listener name!
+                        // TransferEngine.ts listens to 'onReceiveProgress', not 'onProgress'
+                        "onReceiveProgress",
                         mapOf(
                             "bytes" to bytesReceived,
                             "total" to size,
                             "speed" to smoothedSpeed
                         )
                     )
-                    nextNotify = now + 200
+                    nextNotify = now + 100 // 100ms = ~10 updates/sec for smooth UI
                 }
             }
             
@@ -690,12 +692,13 @@ class TransferService : Service() {
                             smoothedSpeed = 0.3 * instantSpeed + 0.7 * smoothedSpeed
                             
                             log("Zero-Copy Progress: ${bytesSent}/${size} (${(bytesSent * 100 / size).toInt()}%) Speed: ${(smoothedSpeed / 1024 / 1024).toInt()} MB/s")
-                            updateListener?.invoke("onProgress", mapOf(
+                            // CRITICAL FIX: Use 'onSendProgress' to match TransferEngine.ts listener!
+                            updateListener?.invoke("onSendProgress", mapOf(
                                 "bytes" to bytesSent,
                                 "total" to size,
                                 "speed" to smoothedSpeed
                             ))
-                            nextNotify = now + 200
+                            nextNotify = now + 100 // 100ms for smooth UI
                         }
                     }
                 } else {
@@ -721,12 +724,13 @@ class TransferService : Service() {
 
                             val progressMsg = "Sending Progress: ${bytesSent}/${size} (${(bytesSent * 100 / size).toInt()}%) Speed: ${(smoothedSpeed / 1024 / 1024).toInt()} MB/s"
                             log(progressMsg)
-                            updateListener?.invoke("onProgress", mapOf(
+                            // CRITICAL FIX: Use 'onSendProgress' to match TransferEngine.ts listener!
+                            updateListener?.invoke("onSendProgress", mapOf(
                                 "bytes" to bytesSent,
                                 "total" to size,
                                 "speed" to smoothedSpeed
                             ))
-                            nextNotify = now + 200 // Update every 200ms for smooth progress
+                            nextNotify = now + 100 // 100ms for smooth UI
                         }
                     }
                 }

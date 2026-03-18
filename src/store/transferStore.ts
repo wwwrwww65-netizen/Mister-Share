@@ -121,7 +121,7 @@ const MAX_HISTORY_ITEMS = 100;
 
 // Throttle helper for progress updates (prevents UI jank)
 let lastProgressUpdate = 0;
-const PROGRESS_THROTTLE_MS = 200; // Max 5 updates per second
+const PROGRESS_THROTTLE_MS = 80; // Max ~12 updates per second — fast enough for smooth UI
 
 export const useTransferStore = create<TransferState>((set, get) => ({
     queue: [],
@@ -179,11 +179,14 @@ export const useTransferStore = create<TransferState>((set, get) => ({
     },
 
     updateProgress: (id, progress, speed, timeLeft) => {
-        // THROTTLED UPDATES (2024 Best Practice)
-        // Prevents excessive re-renders that can cause UI jank
         const now = Date.now();
-        if (now - lastProgressUpdate < PROGRESS_THROTTLE_MS && progress < 1) {
-            return; // Skip this update, too soon
+        // ALWAYS allow: first update (lastProgressUpdate=0), 100% complete, or throttle passed
+        const isFirstUpdate = lastProgressUpdate === 0;
+        const isComplete = progress >= 1;
+        const throttlePassed = (now - lastProgressUpdate) >= PROGRESS_THROTTLE_MS;
+
+        if (!isFirstUpdate && !isComplete && !throttlePassed) {
+            return; // Skip — too soon
         }
         lastProgressUpdate = now;
 
@@ -618,10 +621,19 @@ export const useTransferStore = create<TransferState>((set, get) => ({
             return;
         }
 
-        // 2024 BEST PRACTICE: Start a new receive session
-        // This ensures clean separation between receive operations
-        const sessionId = get().startNewSession('receive');
-        console.log('[TransferStore] Started receive session:', sessionId);
+        // ════════════════════════════════════════════════════════════
+        // FIX: Do NOT call startNewSession('receive') here!
+        // startNewSession clears the send queue which would remove
+        // files the user just staged for sending — causing blank queue.
+        // Instead, just set a receive-specific session ID without
+        // touching the existing send items in the queue.
+        // ════════════════════════════════════════════════════════════
+        const sessionId = `session_${Date.now()}_receive`;
+        // Only update sessionId if there isn't one already (don't overwrite send session)
+        if (!get().currentSessionId) {
+            set({ currentSessionId: sessionId });
+        }
+        console.log('[TransferStore] Started receive session (non-destructive):', sessionId);
 
         // Mark server as running BEFORE starting (prevents race condition)
         set({ isServerRunning: true });

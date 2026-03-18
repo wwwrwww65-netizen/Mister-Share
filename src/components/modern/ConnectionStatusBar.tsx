@@ -59,10 +59,30 @@ const ConnectionStatusBar: React.FC<ConnectionStatusBarProps> = ({ onPress }) =>
             t('connect_ui.disconnect_confirm', { defaultValue: 'Are you sure you want to disconnect?' }),
             [
                 { text: t('common.cancel', { defaultValue: 'Cancel' }), style: 'cancel' },
-                { 
-                    text: t('common.ok', { defaultValue: 'OK' }), 
-                    onPress: () => disconnect(),
-                    style: 'destructive'
+                {
+                    text: t('common.ok', { defaultValue: 'OK' }),
+                    style: 'destructive',
+                    onPress: async () => {
+                        try {
+                            const WiFiDirectAdvanced = require('../../services/WiFiDirectAdvanced').default;
+
+                            if (isGroupOwner) {
+                                // HOST: Stop hotspot and remove P2P group
+                                console.log('[Disconnect] Host: Stopping hotspot and removing group...');
+                                await WiFiDirectAdvanced.stopLocalHotspot().catch(() => {});
+                                await WiFiDirectAdvanced.removeGroup().catch(() => {});
+                            } else {
+                                // JOINER: Remove P2P group (disconnects from hotspot)
+                                console.log('[Disconnect] Joiner: Removing P2P group...');
+                                await WiFiDirectAdvanced.removeGroup().catch(() => {});
+                            }
+                        } catch (e) {
+                            console.warn('[Disconnect] Native disconnect error:', e);
+                        } finally {
+                            // Always update store state regardless of native result
+                            disconnect();
+                        }
+                    }
                 }
             ]
         );

@@ -165,56 +165,63 @@ const Transfer = ({ navigation, route }: any) => {
     const zipProgressStr = `${(zipBytes / (1024 * 1024)).toFixed(1)} MB`;
     const progressStr = isZippingData ? zipProgressStr : baseProgressStr;
 
-    // 2024 FIX: Separate effect for processing files to handle dynamic updates
-    // This ensures files are processed even if the screen is already mounted
+    // 2024 FIX: Process staged files and start transfer IMMEDIATELY
     useEffect(() => {
         const processStagedFiles = async () => {
             if (stagedFiles.length === 0) return;
 
             console.log('[Transfer] ⚡ Detected', stagedFiles.length, 'staged files to send');
 
-            // 2024 BEST PRACTICE: Start a new session to cleanly isolate this transfer
+            // Start a new session for this send operation
             const newSessionId = useTransferStore.getState().startNewSession('send');
             console.log('[Transfer] Starting new SEND session:', newSessionId);
 
-            // Also ensure we are in sending capability
-            if (route.params?.serverIP) {
-                TransferEngine.setDestination(route.params.serverIP);
-            }
-            // Ensure receiver is listening for bidirectional support
-            if (!useTransferStore.getState().isReceiving()) {
-                startReceiverListening();
+            // Set destination IP immediately
+            const targetIP = route.params?.serverIP || useConnectionStore.getState().serverIP;
+            if (targetIP) {
+                TransferEngine.setDestination(targetIP);
             }
 
-            const { processFilesForQueue } = require('../store/transferStore');
+            // ════════════════════════════════════════════════════════════
+            // INSTANT QUEUE: Add files to queue immediately (before processing)
+            // so the user sees them RIGHT AWAY without waiting for APK copy etc.
+            // ════════════════════════════════════════════════════════════
+            const { fileToTransferItem } = require('../store/transferStore');
+            const instantItems = stagedFiles
+                .filter(f => !f.isDirectory) // Folders need expansion (async)
+                .map((f: any) => fileToTransferItem({ ...f, sessionId: newSessionId }));
 
+            if (instantItems.length > 0) {
+                addToQueue(instantItems);
+                console.log('[Transfer] ⚡ Instantly added', instantItems.length, 'items to queue');
+            }
+
+            // Clear staged files early so UI doesn't re-trigger
+            useTransferStore.getState().clearOutgoingFiles();
+
+            // Start queue processing immediately with the instant items
+            if (targetIP && instantItems.length > 0) {
+                console.log('[Transfer] ⚡ Starting queue processing immediately to:', targetIP);
+                startQueueProcessing(targetIP);
+            }
+
+            // Process files fully in background (handles APK copy, folder expansion etc)
+            // This may update the queue items with correct paths if needed
             try {
-                // Process files asynchronously
-                const items = await processFilesForQueue(stagedFiles, newSessionId);
-                console.log('[Transfer] Adding', items.length, 'files to queue');
+                const { processFilesForQueue } = require('../store/transferStore');
+                const processedItems = await processFilesForQueue(stagedFiles, newSessionId);
 
-                addToQueue(items);
-
-                // IMPORTANT: Clear staged files ONLY after successfully adding to queue
-                useTransferStore.getState().clearOutgoingFiles();
-
-                // Start processing if we have a destination
-                // If we are already connected (which we likely are if we are here),
-                // we should have a serverIP either from params or the store?
-                // ConnectionStore might have it.
-
-                const { serverIP: storeServerIP, isConnected } = useConnectionStore.getState();
-                const targetIP = route.params?.serverIP || storeServerIP;
-
-                if (targetIP) {
-                    console.log('[Transfer] Auto-starting queue processing to:', targetIP);
-                    startQueueProcessing(targetIP);
-                } else {
-                    console.warn('[Transfer] No server IP found, queue ready but waiting for connection');
+                // Only add items that weren't already added (folders, APKs that needed copying)
+                const needsAdding = processedItems.filter((pi: any) =>
+                    !instantItems.some((ii: any) => ii.name === pi.name)
+                );
+                if (needsAdding.length > 0) {
+                    addToQueue(needsAdding);
+                    console.log('[Transfer] Added', needsAdding.length, 'additional processed items');
+                    if (targetIP) startQueueProcessing(targetIP);
                 }
             } catch (e: any) {
-                showToast(t('errors.process_files_failed', "Failed to process files"), 'error');
-                console.error('[Transfer] File processing error:', e);
+                console.error('[Transfer] Background file processing error:', e);
             }
         };
 
@@ -233,14 +240,7 @@ const Transfer = ({ navigation, route }: any) => {
             successScale.setValue(0.5);
             successOpacity.setValue(0);
 
-            // ══════════════════════════════════════════════════════════════════
-            // 2024 BEST PRACTICE: ALWAYS start receiver for BIDIRECTIONAL support
-            // ══════════════════════════════════════════════════════════════════
-            // Even when in SEND mode, we must listen for incoming files.
-            // This enables:
-            // - Host sending to Client while Client sends back to Host
-            // - True SHAREit-style bidirectional transfer
-            // ══════════════════════════════════════════════════════════════════
+            // Start receiver for bidirectional support (non-blocking, runs in background)
             console.log('[Transfer] 🔊 Starting bidirectional receiver...');
             startReceiverListening();
 
@@ -257,11 +257,10 @@ const Transfer = ({ navigation, route }: any) => {
             isInitialized.current = true;
             console.log('[Transfer] Initialization complete');
 
-            // ✅ إعلان بملء الشاشة عند دخول شاشة Transfer
-            // يظهر للمرسل والمستقبل معاً بعد ثانية واحدة
+            // Defer Ad loading to after transfer starts (don't block UI)
             setTimeout(() => {
                 AdService.showAfterTransfer();
-            }, 1000);
+            }, 3000); // 3 seconds delay so transfer starts first
         };
         init();
     }, []);

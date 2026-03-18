@@ -187,12 +187,8 @@ const JoinScreen = ({ navigation, route }: any) => {
                                 console.warn('[JoinScreen] Could not start receiver:', e);
                             }
 
-                            // Navigate to Transfer screen
-                            navigation.navigate('Transfer', {
-                                mode: 'send',
-                                serverIP: hostIP,
-                                files: filesToTransfer
-                            });
+                            // Navigate to FilesTab so user can select files to send
+                            navigation.navigate('Main', { screen: 'FilesTab' });
                         } else {
                             showToast(t('connect_ui.connection_failed', 'WiFi connection failed'), 'error');
                         }
@@ -296,18 +292,8 @@ const JoinScreen = ({ navigation, route }: any) => {
                         showToast(`Connected to ${peer.deviceName}!`, 'success');
                         ConnectionHaptics.connected();
 
-                        // Navigate to main screen
-                        navigation.navigate('Main'); // P2P usually handling internally or need update
-                        // For consistency, we should navigate to Transfer if we have files
-                        if (filesToTransfer) {
-                            navigation.navigate('Transfer', {
-                                mode: 'send',
-                                serverIP: info.groupOwnerAddress,
-                                files: filesToTransfer
-                            });
-                        } else {
-                            navigation.navigate('Main');
-                        }
+                        // Navigate to FilesTab so user can select files
+                        navigation.navigate('Main', { screen: 'FilesTab' });
                     }
                 } catch (e) {
                     console.log('[JoinScreen] P2P connection check:', e);
@@ -458,12 +444,8 @@ const JoinScreen = ({ navigation, route }: any) => {
                     console.warn('[JoinScreen] Could not start receiver:', e);
                 }
 
-                // Navigate to Transfer Screen with NSD-discovered IP
-                navigation.navigate('Transfer', {
-                    mode: 'send',
-                    serverIP: hostIP,
-                    files: filesToTransfer
-                });
+                // Navigate to FilesTab so user can select files to send
+                navigation.navigate('Main', { screen: 'FilesTab' });
 
             } catch (e: any) {
                 console.log('[JoinScreen] ❌ Connection Failed:', e);
