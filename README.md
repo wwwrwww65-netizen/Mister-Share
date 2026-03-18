@@ -31,7 +31,163 @@ Mister Share is a modern, high-performance file transfer application for Android
 
 ---
 
-## 🆕 Latest Fixes (v2.2.0) - UI Screens, Transfer Counter & Disconnect (2026-03-18)
+## 🆕 Latest Fixes (v2.3.0) - Fast Send/Receive, APK Transfer & Disconnect (2026-03-19)
+
+### ⚡ Fix 1 — 20-Second Delay When Pressing Send (`History.tsx`)
+
+**Problem:** After pressing the Send button and navigating to HistoryTab, files would not appear and transfer would not start for ~20 seconds.
+
+**Root Cause:** `History.tsx` was calling `await processFilesForQueue(stagedFiles)` which processes ALL files sequentially (APK icon extraction, directory zipping, etc.) BEFORE adding anything to the queue. This blocked the entire transfer pipeline.
+
+**Fix — Smart file separation:**
+```tsx
+// ✅ AFTER: Normal files start INSTANTLY, APKs processed separately
+const normalFiles = stagedFiles.filter(f => !isApkFile(f));
+const apkFiles    = stagedFiles.filter(f => isApkFile(f));
+
+// Normal files: instant queue → start transfer NOW
+const instantItems = normalFiles.map(f => fileToTransferItem(f, idx, sessionId));
+addToQueue(instantItems);
+startQueueProcessing(targetIP);  // ← starts immediately!
+
+// APKs: wait for correct path resolution then start
+const apkItems = await processFilesForQueue(apkFiles, sessionId);
+addToQueue(apkItems);
+startQueueProcessing(targetIP);
+```
+
+**Result:** Images, videos, documents now appear and start transferring instantly (50ms). APKs wait only for path resolution (not the full old delay).
+
+---
+
+### 📦 Fix 2 — APKs Sending `.apks` Bundle Instead of Single `.apk` (`FileProviderModule.kt`)
+
+**Problem:** Modern Android apps use Split APKs (`base.apk` + language/screen splits). The app was packaging ALL splits into a `.apks` zip bundle, which receivers couldn't install easily.
+
+**Root Cause:** `exportInstalledAppToCache` was detecting `splitSourceDirs` and creating a zip bundle when splits existed.
+
+**Fix — SHAREit approach (base.apk only):**
+```kotlin
+// ❌ BEFORE: Created .apks bundle with all splits
+ZipOutputStream(...).use { zipOut ->
+    addApkToZip("base.apk", baseApkPath)
+    splitApkPaths.forEach { addApkToZip(it.name, it) }  // ← unnecessary
+}
+
+// ✅ AFTER: Use publicSourceDir directly (no copy needed on most devices)
+val publicFile = File(appInfo.publicSourceDir ?: appInfo.sourceDir)
+if (publicFile.canRead()) {
+    // Return path directly — zero copy, instant!
+    result.putString("path", publicFile.absolutePath)
+}
+// Fallback: copy base.apk only to cache with app display name
+```
+
+**Also:** Moved file I/O to background `Thread { }` to prevent blocking the JS thread.
+
+---
+
+### 🔌 Fix 3 — Disconnect Not Working for Host or Joiner
+
+**Problem:**
+- **Host (Creator):** Pressing ✕ in ConnectionStatusBar would cancel the hotspot but banner stayed in "Waiting for friends..." state
+- **Joiner (Organizer):** Banner disappeared but device remained physically connected to WiFi network
+
+**Root Cause (Host):** `disconnect()` in `connectionStore.ts` did NOT reset `isGroupOwner`, so the banner kept rendering the "host waiting" state.
+
+**Root Cause (Joiner):** `removeGroup()` only removes the P2P group reference — it does NOT disconnect the device from the WiFi hotspot network.
+
+**Fix 1 — `connectionStore.ts`:**
+```tsx
+// ✅ Now resets ALL state including isGroupOwner
+disconnect: () => set({
+    isConnected: false,
+    isConnecting: false,
+    isGroupOwner: false,   // ← Critical fix
+    connectedPeers: [],
+    ssid: null,
+    peerIP: null,
+    targetSsid: null,
+    error: null,
+})
+```
+
+**Fix 2 — `WiFiDirectAdvancedModule.kt` `fullyDisconnect()`:**
+```kotlin
+// ✅ Joiner: unbind network + disconnect WiFi + remove P2P group
+cm?.bindProcessToNetwork(null)     // Restore normal internet routing
+NetworkHolder.setBoundNetwork(null)
+@Suppress("DEPRECATION")
+wm?.disconnect()                   // Actually disconnect from WiFi (Android < 10)
+manager?.removeGroup(channel, ...)  // Clean up P2P
+```
+
+---
+
+### 🖼️ Fix 4 — No Image/Video Thumbnails in History Screen (`History.tsx`)
+
+**Problem:** The transfer history showed only generic file type icons for images and videos — not the actual image thumbnails.
+
+**Root Cause:** The history rendering logic only showed a thumbnail if `item.icon` was set. `item.icon` is only populated for APKs (app icons). Regular files (images, videos) never had `item.icon` set.
+
+**Fix — Smart thumbnail logic:**
+```tsx
+const isImage = /\.(jpg|jpeg|png|gif|webp|bmp|heic|heif)$/.test(filename);
+const isVideo = /\.(mp4|mkv|avi|mov|3gp|webm|flv|wmv)$/.test(filename);
+
+// Priority: real thumbnail > APK icon > generic icon
+{(isImage || isVideo) && item.path ? (
+    <Image source={{ uri: `file://${item.path}` }} resizeMode="cover" />
+) : item.icon ? (
+    <Image source={{ uri: item.icon }} />  // APK icon
+) : (
+    <Icon name={fileIcon.name} />  // Generic
+)}
+```
+
+---
+
+### 🧭 Fix 5 — Navigation: Send → HistoryTab, Connect → FilesTab
+
+**Problem:**
+- Pressing Send navigated to standalone `Transfer` screen (no tabs)
+- After connection, devices were taken to `Transfer` instead of `FilesTab`
+- `ReceiveScreen` was hijacking navigation to `Transfer` when files were staged for sending
+
+**Fixes:**
+```tsx
+// FileBrowser.tsx — Send button
+navigation.navigate('Main', { screen: 'HistoryTab' });  // Merged view
+
+// JoinScreen.tsx / ScanScreen.tsx — After connection
+navigation.navigate('Main', { screen: 'FilesTab' });
+
+// ReceiveScreen.tsx — Only navigate for actual incoming transfers
+const hasActiveReceive = queue.some(
+    item => item.direction === 'receive' && item.status === 'transferring'
+);
+if (hasActiveReceive) navigation.navigate('Main', { screen: 'HistoryTab' });
+```
+
+---
+
+### 🔧 Fix 6 — `exportInstalledAppToCache` Now Runs in Background Thread
+
+**Problem:** APK file copy was running on the JS/main thread, causing UI freezes during the copy operation.
+
+**Fix:**
+```kotlin
+fun exportInstalledAppToCache(...) {
+    Thread {  // ← Run on background thread
+        // All file I/O here
+        // promise.resolve() is thread-safe
+    }.start()
+}
+```
+
+---
+
+## 🆕 Previous Fixes (v2.2.0) - UI Screens, Transfer Counter & Disconnect (2026-03-18)
 
 ### 📊 Fix 1 — Transfer Counter Not Moving (Critical Native Bug) (`TransferService.kt`)
 

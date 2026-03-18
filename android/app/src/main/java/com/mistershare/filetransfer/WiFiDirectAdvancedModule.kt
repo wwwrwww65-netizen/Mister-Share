@@ -495,6 +495,63 @@ class WiFiDirectAdvancedModule(reactContext: ReactApplicationContext) :
         })
     }
 
+    /**
+     * Full disconnect for both Host and Joiner devices.
+     * HOST: Stops LocalOnlyHotspot reservation + removes P2P group
+     * JOINER: Unbinds process from hotspot network + disconnects WiFi + removes P2P group
+     * Always resolves (never rejects) so UI can always clean up.
+     */
+    @SuppressLint("MissingPermission")
+    @ReactMethod
+    fun fullyDisconnect(isHost: Boolean, promise: Promise) {
+        try {
+            val cm = reactApplicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+            val wm = reactApplicationContext.applicationContext.getSystemService(Context.WIFI_SERVICE) as? android.net.wifi.WifiManager
+
+            if (isHost) {
+                // HOST: Stop LocalOnlyHotspot
+                Log.d("WiFiDirect", "[fullyDisconnect] Host: stopping hotspot...")
+                stopLocalHotspotInternal()
+            } else {
+                // JOINER: Unbind process from hotspot network
+                Log.d("WiFiDirect", "[fullyDisconnect] Joiner: unbinding process network...")
+                try {
+                    cm?.bindProcessToNetwork(null)
+                    NetworkHolder.setBoundNetwork(null)
+                    Log.d("WiFiDirect", "[fullyDisconnect] ✅ Joiner network unbound")
+                } catch (e: Exception) {
+                    Log.w("WiFiDirect", "[fullyDisconnect] Joiner unbound warning: ${e.message}")
+                }
+
+                // JOINER: Also disconnect from WiFi network (works on Android < 10)
+                // On Android 10+ this is deprecated but still fires the disconnect
+                try {
+                    @Suppress("DEPRECATION")
+                    wm?.disconnect()
+                    Log.d("WiFiDirect", "[fullyDisconnect] ✅ WiFi disconnect called")
+                } catch (e: Exception) {
+                    Log.w("WiFiDirect", "[fullyDisconnect] WiFi disconnect warning: ${e.message}")
+                }
+            }
+
+            // Both: Remove P2P group (safe to call even if no group exists)
+            manager?.removeGroup(channel, object : WifiP2pManager.ActionListener {
+                override fun onSuccess() {
+                    Log.d("WiFiDirect", "[fullyDisconnect] ✅ P2P group removed")
+                    promise.resolve("Disconnected")
+                }
+                override fun onFailure(reason: Int) {
+                    // Not a fatal error — group may not exist. Still resolve.
+                    Log.w("WiFiDirect", "[fullyDisconnect] removeGroup failed (reason=$reason), ignored")
+                    promise.resolve("Disconnected (no group)")
+                }
+            }) ?: promise.resolve("Disconnected (no manager)")
+
+        } catch (e: Exception) {
+            Log.e("WiFiDirect", "[fullyDisconnect] Error: ${e.message}")
+            promise.resolve("Disconnected (with error)") // Always resolve so UI can clean up
+        }
+    }
 
 
     /**

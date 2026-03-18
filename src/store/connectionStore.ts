@@ -329,14 +329,20 @@ export const useConnectionStore = create<ConnectionState>((set, get) => ({
         // Haptic feedback for disconnect
         ConnectionHaptics.disconnected();
 
+        // Reset ALL connection state — including isGroupOwner and ssid
+        // so the banner fully disappears (not stuck in 'waiting' state)
         set({
             isConnected: false,
             isConnecting: false,
+            isGroupOwner: false,   // ← Critical: clears "waiting for friends" banner
             connectedPeers: [],
+            ssid: null,
+            peerIP: null,
+            targetSsid: null,
             error: null,
         });
 
-        console.log('[ConnectionStore] Disconnected');
+        console.log('[ConnectionStore] Disconnected — all state cleared');
     },
 
     reset: () => {

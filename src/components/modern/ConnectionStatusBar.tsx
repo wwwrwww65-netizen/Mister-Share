@@ -64,22 +64,15 @@ const ConnectionStatusBar: React.FC<ConnectionStatusBarProps> = ({ onPress }) =>
                     style: 'destructive',
                     onPress: async () => {
                         try {
-                            const WiFiDirectAdvanced = require('../../services/WiFiDirectAdvanced').default;
-
-                            if (isGroupOwner) {
-                                // HOST: Stop hotspot and remove P2P group
-                                console.log('[Disconnect] Host: Stopping hotspot and removing group...');
-                                await WiFiDirectAdvanced.stopLocalHotspot().catch(() => {});
-                                await WiFiDirectAdvanced.removeGroup().catch(() => {});
-                            } else {
-                                // JOINER: Remove P2P group (disconnects from hotspot)
-                                console.log('[Disconnect] Joiner: Removing P2P group...');
-                                await WiFiDirectAdvanced.removeGroup().catch(() => {});
-                            }
+                            const WiFiDirectAdvancedService = require('../../services/WiFiDirectAdvanced').default;
+                            // Single native call handles both Host and Joiner correctly:
+                            // Host: stops hotspot + removes P2P group
+                            // Joiner: unbinds process network + removes P2P group
+                            await WiFiDirectAdvancedService.fullyDisconnect(isGroupOwner);
                         } catch (e) {
-                            console.warn('[Disconnect] Native disconnect error:', e);
+                            console.warn('[Disconnect] fullyDisconnect error:', e);
                         } finally {
-                            // Always update store state regardless of native result
+                            // Always update store to hide the banner
                             disconnect();
                         }
                     }

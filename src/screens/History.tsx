@@ -105,39 +105,73 @@ const History = ({ navigation, route }: any) => {
         setStats({ totalSent: sent, totalReceived: recv, totalSize: size });
     }, [history]);
 
-    // Background file processor hook
+    // File processor hook — runs when user presses Send
     useEffect(() => {
         if (stagedFiles.length === 0) return;
 
-        // We use setTimeout here because continuous animations block InteractionManager
         const task = setTimeout(async () => {
             console.log('[History/Transfer] ⚡ Detected', stagedFiles.length, 'staged files to send');
             const newSessionId = useTransferStore.getState().startNewSession('send');
 
-            const serverIP = useConnectionStore.getState().serverIP;
-            if (serverIP) TransferEngine.setDestination(serverIP);
+            // Setup transfer destination
+            const { serverIP: storeServerIP, peerIP: storePeerIP, isGroupOwner } = useConnectionStore.getState();
+            const targetIP = isGroupOwner ? storePeerIP : storeServerIP;
+
+            if (storeServerIP) TransferEngine.setDestination(storeServerIP);
 
             if (!useTransferStore.getState().isReceiving()) {
                 startReceiverListening();
             }
 
-            const { processFilesForQueue } = require('../store/transferStore');
-            try {
-                const items = await processFilesForQueue(stagedFiles, newSessionId);
-                addToQueue(items);
-                useTransferStore.getState().clearOutgoingFiles();
+            const { processFilesForQueue, fileToTransferItem } = require('../store/transferStore');
 
-                const { serverIP: storeServerIP, peerIP: storePeerIP, isGroupOwner } = useConnectionStore.getState();
-                const targetIP = isGroupOwner ? storePeerIP : storeServerIP;
+            // ── Detect APKs — they need processFilesForQueue to get the correct readable path ──
+            // fileToTransferItem uses the raw path from FileBrowser which is /data/app/... (unreadable)
+            // processFilesForQueue calls exportInstalledAppToCache → publicSourceDir (readable)
+            const isApkFile = (f: any) =>
+                f.packageName ||
+                f.apkPath ||
+                (f.path && f.path.includes('/data/app/')) ||
+                (f.name && /\.(apk|apks|xapk)$/i.test(f.name)) ||
+                (f.mimeType === 'application/vnd.android.package-archive');
+
+            const apkFiles    = stagedFiles.filter((f: any) => isApkFile(f));
+            const normalFiles = stagedFiles.filter((f: any) => !isApkFile(f));
+
+            console.log('[History/Transfer] Normal:', normalFiles.length, '| APKs:', apkFiles.length);
+
+            // ─── STEP 1: Normal files → instant queue + start NOW ───────────────
+            if (normalFiles.length > 0) {
+                const instantItems = normalFiles.map((file: any, index: number) =>
+                    fileToTransferItem(file, index, newSessionId)
+                );
+                addToQueue(instantItems);
                 if (targetIP) {
+                    console.log('[History/Transfer] 🚀 Normal files starting to:', targetIP);
                     startQueueProcessing(targetIP);
-                } else {
-                    console.warn('[History/Transfer] No server IP found, waiting for connection');
                 }
-            } catch (e: any) {
-                console.error('[History/Transfer] File processing error:', e);
             }
-        }, 150);
+
+            // ─── STEP 2: APKs → wait for correct path via processFilesForQueue ──
+            // processFilesForQueue uses exportInstalledAppToCache → publicSourceDir
+            // publicSourceDir is readable directly (SHAREit approach, no slow copy)
+            if (apkFiles.length > 0) {
+                console.log('[History/Transfer] 📦 Getting correct APK paths...');
+                try {
+                    const apkItems = await processFilesForQueue(apkFiles, newSessionId);
+                    addToQueue(apkItems);
+                    if (targetIP) {
+                        console.log('[History/Transfer] 🚀 APK transfer starting to:', targetIP);
+                        startQueueProcessing(targetIP);
+                    }
+                } catch (e: any) {
+                    console.error('[History/Transfer] APK processing error:', e);
+                }
+            }
+
+            useTransferStore.getState().clearOutgoingFiles();
+
+        }, 50);
 
         return () => clearTimeout(task);
     }, [stagedFiles]);
@@ -372,13 +406,35 @@ const History = ({ navigation, route }: any) => {
         const fileIcon = getFileIcon(item.filename);
         const isGame = getGamePackage(item.filename) !== null && !isSent && isSuccess;
 
+        // ── Determine what to show in the icon box ──
+        const name = (item.filename || '').toLowerCase();
+        const isImage = /\.(jpg|jpeg|png|gif|webp|bmp|heic|heif)$/.test(name);
+        const isVideo = /\.(mp4|mkv|avi|mov|3gp|webm|flv|wmv)$/.test(name);
+
+        // For images: show actual thumbnail from file path
+        // For videos: show first frame thumbnail from file path
+        // For APKs: show app icon (already in item.icon)
+        // For others: show generic icon
+        const showThumbnail = (isImage || isVideo) && item.path;
+        const thumbnailUri = showThumbnail ? `file://${item.path}` : null;
+
         return (
             <TouchableOpacity onPress={() => handleOpenFile(item)} onLongPress={() => handleLongPress(item)} activeOpacity={0.7} delayLongPress={400}>
                 <GlassCard style={styles.historyItem} variant="medium">
                     <View style={[styles.iconBox, { backgroundColor: fileIcon.color + '20' }]}>
-                        {item.icon ? (
+                        {thumbnailUri ? (
+                            // Show real image/video thumbnail
+                            <Image
+                                source={{ uri: thumbnailUri }}
+                                style={{ width: '100%', height: '100%', borderRadius: 10 }}
+                                resizeMode="cover"
+                                onError={() => {/* fallback silently to icon */}}
+                            />
+                        ) : item.icon ? (
+                            // Show APK icon (base64 or uri)
                             <Image source={{ uri: item.icon }} style={{ width: '100%', height: '100%', borderRadius: 10 }} resizeMode="cover" />
                         ) : (
+                            // Generic file icon
                             <Icon name={fileIcon.name} size={24} color={fileIcon.color} />
                         )}
                     </View>

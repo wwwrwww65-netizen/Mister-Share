@@ -1,4 +1,4 @@
-﻿package com.mistershare.filetransfer
+package com.mistershare.filetransfer
 
 import android.content.Context
 import android.content.Intent
@@ -112,118 +112,85 @@ class FileProviderModule(reactContext: ReactApplicationContext) : ReactContextBa
 
     @ReactMethod
     fun exportInstalledAppToCache(packageName: String, appName: String, promise: Promise) {
-        try {
-            val context = reactApplicationContext
-            val pm = context.packageManager
-            val appInfo = pm.getApplicationInfo(packageName, 0)
+        // Run in background thread — file I/O must NOT block the JS/main thread
+        Thread {
+            try {
+                val context = reactApplicationContext
+                val pm = context.packageManager
+                val appInfo = pm.getApplicationInfo(packageName, 0)
 
-            val baseApkPath = appInfo.sourceDir
-            val splitApkPaths = (appInfo.splitSourceDirs?.toList() ?: emptyList())
-                .filter { it.isNotBlank() }
+                // Try publicSourceDir first (often same location but with read permissions)
+                val publicApkPath = appInfo.publicSourceDir ?: appInfo.sourceDir
+                val sourceDir     = appInfo.sourceDir
 
-            if (baseApkPath.isNullOrBlank()) {
-                promise.reject("NO_APK_PATH", "No APK path for package: $packageName")
-                return
-            }
+                android.util.Log.d("FileProvider", "📦 Package: $packageName")
+                android.util.Log.d("FileProvider", "📦 sourceDir:       $sourceDir")
+                android.util.Log.d("FileProvider", "📦 publicSourceDir: $publicApkPath")
 
-            val cacheDir = File(context.cacheDir, "apk_transfer")
-            if (!cacheDir.exists()) cacheDir.mkdirs()
-
-            val safeName = appName.replace(Regex("[^a-zA-Z0-9\\u0600-\\u06FF\\s._-]"), "_").trim().ifEmpty { packageName }
-
-            if (splitApkPaths.isEmpty()) {
-                val sourceFile = File(baseApkPath)
-                if (!sourceFile.exists()) {
-                    promise.reject("FILE_NOT_FOUND", "Source file does not exist: $baseApkPath")
-                    return
+                if (publicApkPath.isNullOrBlank() && sourceDir.isNullOrBlank()) {
+                    promise.reject("NO_APK_PATH", "No APK path for package: $packageName")
+                    return@Thread
                 }
 
+                val safeName = appName
+                    .replace(Regex("[^a-zA-Z0-9\\u0600-\\u06FF\\s._-]"), "_")
+                    .trim()
+                    .ifEmpty { packageName }
+
+                // ── Try publicSourceDir directly (no copy needed) ──
+                val publicFile = if (publicApkPath != null) File(publicApkPath) else null
+                if (publicFile != null && publicFile.exists() && publicFile.canRead()) {
+                    android.util.Log.d("FileProvider", "✅ publicSourceDir readable! Using directly: $publicApkPath")
+                    val result = WritableNativeMap().apply {
+                        putString("uri", publicApkPath)
+                        putString("path", publicApkPath)
+                        putDouble("size", publicFile.length().toDouble())
+                        putBoolean("isSplit", false)
+                        putString("filename", "$safeName.apk")
+                    }
+                    promise.resolve(result)
+                    return@Thread
+                }
+
+                // ── Fallback: copy sourceDir to cache ──
+                android.util.Log.w("FileProvider", "⚠️ publicSourceDir not readable. Copying from sourceDir to cache...")
+
+                val sourceFile = File(sourceDir ?: publicApkPath!!)
+                if (!sourceFile.exists()) {
+                    promise.reject("FILE_NOT_FOUND", "APK not found at: ${sourceFile.absolutePath}")
+                    return@Thread
+                }
+
+                val cacheDir = File(context.cacheDir, "apk_transfer")
+                if (!cacheDir.exists()) cacheDir.mkdirs()
+
                 val destFile = File(cacheDir, "$safeName.apk")
+                android.util.Log.d("FileProvider", "📋 Copying ${sourceFile.length()/1024/1024} MB to cache...")
+
                 sourceFile.inputStream().use { input ->
                     destFile.outputStream().use { output ->
-                        input.copyTo(output, bufferSize = 256 * 1024)
+                        input.copyTo(output, bufferSize = 512 * 1024) // 512KB buffer for speed
                     }
                 }
 
-                val srcSize = sourceFile.length()
-                val destSize = destFile.length()
-                if (srcSize > 0 && destSize != srcSize) {
-                    try {
-                        destFile.delete()
-                    } catch (_: Exception) {}
-                    promise.reject("COPY_INCOMPLETE", "Incomplete APK copy: $destSize/$srcSize bytes")
-                    return
-                }
-
-                val authority = "${context.packageName}.fileprovider"
-                val contentUri = FileProvider.getUriForFile(context, authority, destFile)
+                android.util.Log.d("FileProvider", "✅ Copy complete: ${destFile.absolutePath}")
 
                 val result = WritableNativeMap().apply {
-                    putString("uri", contentUri.toString())
+                    putString("uri", destFile.absolutePath)
                     putString("path", destFile.absolutePath)
                     putDouble("size", destFile.length().toDouble())
                     putBoolean("isSplit", false)
                     putString("filename", "$safeName.apk")
                 }
-
                 promise.resolve(result)
-                return
+
+            } catch (e: android.content.pm.PackageManager.NameNotFoundException) {
+                promise.reject("PACKAGE_NOT_FOUND", "Package not found: $packageName")
+            } catch (e: Exception) {
+                android.util.Log.e("FileProvider", "❌ Export error: ${e.message}")
+                promise.reject("EXPORT_ERROR", "Failed to export: ${e.message}")
             }
-
-            val bundleFile = File(cacheDir, "$safeName.apks")
-            if (bundleFile.exists()) {
-                try {
-                    bundleFile.delete()
-                } catch (_: Exception) {}
-            }
-
-            ZipOutputStream(FileOutputStream(bundleFile)).use { zipOut ->
-                fun addApkToZip(entryName: String, sourcePath: String) {
-                    val src = File(sourcePath)
-                    if (!src.exists()) return
-                    FileInputStream(src).use { fis ->
-                        val entry = ZipEntry(entryName)
-                        entry.size = src.length()
-                        zipOut.putNextEntry(entry)
-                        fis.copyTo(zipOut, bufferSize = 256 * 1024)
-                        zipOut.closeEntry()
-                    }
-                }
-
-                addApkToZip("base.apk", baseApkPath)
-                splitApkPaths.forEachIndexed { index, path ->
-                    val name = File(path).name.ifEmpty { "split_$index.apk" }
-                    val entryName = if (name.endsWith(".apk", ignoreCase = true)) name else "split_$index.apk"
-                    addApkToZip(entryName, path)
-                }
-            }
-
-            val bundleSize = bundleFile.length()
-            if (bundleSize <= 0) {
-                try {
-                    bundleFile.delete()
-                } catch (_: Exception) {}
-                promise.reject("BUNDLE_EMPTY", "Failed to create APKS bundle")
-                return
-            }
-
-            val authority = "${context.packageName}.fileprovider"
-            val contentUri = FileProvider.getUriForFile(context, authority, bundleFile)
-
-            val result = WritableNativeMap().apply {
-                putString("uri", contentUri.toString())
-                putString("path", bundleFile.absolutePath)
-                putDouble("size", bundleSize.toDouble())
-                putBoolean("isSplit", true)
-                putString("filename", "$safeName.apks")
-            }
-
-            promise.resolve(result)
-        } catch (e: android.content.pm.PackageManager.NameNotFoundException) {
-            promise.reject("PACKAGE_NOT_FOUND", "Package not found: $packageName")
-        } catch (e: Exception) {
-            promise.reject("EXPORT_ERROR", "Failed to export app: ${e.message}")
-        }
+        }.start()
     }
 
     @ReactMethod

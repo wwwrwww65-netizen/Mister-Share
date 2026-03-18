@@ -59,6 +59,22 @@ class WiFiDirectAdvancedService {
     }
 
     /**
+     * Full disconnect — handles both Host and Joiner correctly:
+     * - Host: stops hotspot + removes P2P group
+     * - Joiner: unbinds process from hotspot network + removes P2P group
+     * Always resolves (UI can always clean up safely)
+     */
+    async fullyDisconnect(isHost: boolean): Promise<void> {
+        try {
+            await WiFiDirectAdvanced.fullyDisconnect(isHost);
+            console.log('[WiFiDirect] fullyDisconnect done, isHost:', isHost);
+        } catch (error) {
+            // Should never reach here (native always resolves), but handle gracefully
+            console.warn('[WiFiDirect] fullyDisconnect warning:', error);
+        }
+    }
+
+    /**
      * Check if device is connected as Group Owner
      * This determines if device is receiver (server) or sender (client)
      */
